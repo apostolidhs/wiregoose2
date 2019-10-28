@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+        xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+        xmlns:wfw="http://wellformedweb.org/CommentAPI/" 
+        xmlns:dc="http://purl.org/dc/elements/1.1/" 
+        xmlns:atom="http://www.w3.org/2005/Atom" 
+        xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+        xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+        <channel>
+                <title>News.gr</title>
+                <atom:link href="https://www.news.gr/rss.ashx?catid=7" rel="self" type="application/rss+xml" />
+                <link>https://www.news.gr</link>
+                <description>Ειδήσεις και Άμεση Ενημέρωση. Ειδήσεις τώρα, από την Οικονομία, Ελλάδα και τον Κόσμο. Ενημέρωση για Επιχειρήσεις, Τεχνολογία &#38; Αυτοκίνητο.</description>
+                <lastBuildDate>Tue, 29 Oct 2019 21:38:23 +0000</lastBuildDate>
+                <language>el-gr</language>
+                <sy:updatePeriod>hourly</sy:updatePeriod>
+                <sy:updateFrequency>1</sy:updateFrequency>
+                <item>
+                        <title>Πρώην δήμαρχος πιτσίλισε με αίματα την αίθουσα του δημαρχείου</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Έκανε φλεβοκτηση μπροστά στα έκπληκτα μέλη του δημοτικού συμβουλίου]]></description>
+                        <link>https://www.news.gr/ellada/article/2010485/proin-dimarchos-pitsilise-me-emata-tin-ethousa-tou-dimarchiou.html</link>
+                        <pubDate>Tue, 29 Oct 2019 21:04:26 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Η πρωτότυπη παρέλαση στη Ν. Φιλαδέλφεια που «πάγωσε» τον κόσμο</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Μαθητές διέκοψαν τον παραδοσιακό βηματισμό και άρχισαν τα...δικά τους]]></description>
+                        <link>https://www.news.gr/ellada/article/2010556/i-prototipi-parelasi-sti-n-filadelfia-pou-pagose-ton-kosmo.html</link>
+                        <pubDate>Tue, 29 Oct 2019 20:33:46 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Τρίχρονο παιδί έπεσε και τραυματίστηκε σε τρενάκι λούνα παρκ</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Διακομίστηκε για προληπτικούς λόγους με τραύμα στο κεφάλι σε νοσοκομείο της Πάτρας]]></description>
+                        <link>https://www.news.gr/ellada/article/2010523/trichrono-pedi-epese-ke-travmatistike-se-trenaki-louna-park.html</link>
+                        <pubDate>Tue, 29 Oct 2019 19:57:15 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Συνελήφθη για διαρρήξεις σε αυτοκίνητα με παραμβολέα κλειδώματος</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Αναζητείται 28χρονος συνεργός του 35χρονου]]></description>
+                        <link>https://www.news.gr/ellada/article/2009462/sinelifthi-gia-diarrixis-se-aftokinita-me-paramvolea-klidomatos.html</link>
+                        <pubDate>Tue, 29 Oct 2019 19:39:02 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Εκτέλεση στο Χαϊδάρι: Για πληρωμένο «συμβόλαιο θανάτου» μιλούν οι Αρχές</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Η Αστυνομία ερευνά όλα τα ενδεχόμενα που όπλισαν τα χέρια των δολοφόνων]]></description>
+                        <link>https://www.news.gr/ellada/article/2010416/ektelesi-sto-chaidari-gia-pliromeno-simvoleo-thanatou-miloun-i-arches.html</link>
+                        <pubDate>Tue, 29 Oct 2019 19:30:55 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Νεκρή μέσα στο σπίτι της βρέθηκε 65χρονη στη Λάρισα</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Ο γιος της δεν μπορούσε να επικοινωνήσει μαζί της και ειδοποίησε το ΕΚΑΒ]]></description>
+                        <link>https://www.news.gr/ellada/article/2010310/nekri-mesa-sto-spiti-tis-vrethike-65chroni-sti-larisa.html</link>
+                        <pubDate>Tue, 29 Oct 2019 19:03:12 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Στοιχεία σοκ για τον αριθμό των διαβητικών στην Ελλάδα</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Οι πάσχοντες από τη νόσο έχουν τετραπλασιαστεί τα τελευταία 30 χρόνια]]></description>
+                        <link>https://www.news.gr/ellada/article/2010190/stichia-sok-gia-ton-arithmo-ton-diavitikon-stin-ellada.html</link>
+                        <pubDate>Tue, 29 Oct 2019 18:45:27 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Σκληρές αερομαχίες στο Αιγαίο με την Αθήνα να ετοιμάζει μήνυμα ισχύος</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Πληροφορίες για πτήση αμερικανικών βομβαρδιστικών B-52 πάνω από το Αιγαίο]]></description>
+                        <link>https://www.news.gr/ellada/article/2010371/sklires-aeromachies-sto-egeo-me-tin-athina-na-etimazi-minima-ischios.html</link>
+                        <pubDate>Tue, 29 Oct 2019 18:34:56 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Ένας στους έξι οδηγούς υπόσχεται ότι δεν θα πιει αλκοόλ, αλλά δεν το τηρεί</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Τι έδειξε έρευνα του Ινστιτούτου Οδικής Ασφάλειας (Ι.Ο.ΑΣ.) «Πάνος Μυλωνάς»...]]></description>
+                        <link>https://www.news.gr/ellada/article/2009303/enas-stous-exi-odigous-iposchete-oti-den-tha-pii-alkool-alla-den-to-tiri.html</link>
+                        <pubDate>Tue, 29 Oct 2019 18:11:14 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+                <item>
+                        <title>Νεκρή μέσα στο αυτοκίνητό της βρέθηκε 40χρονη στο Ηράκλειο</title>
+                        <category>Ελλάδα</category>
+                        <description><![CDATA[Περίοικοι ειδοποίησαν το ΕΚΑΒ όταν αντίκρισαν τη γυναίκα στο όχημα χωρίς σφυγμό]]></description>
+                        <link>https://www.news.gr/ellada/article/2010262/nekri-mesa-sto-aftokinito-tis-vrethike-40chroni-sto-iraklio.html</link>
+                        <pubDate>Tue, 29 Oct 2019 17:50:31 +0000</pubDate>
+                        <source url="http://www.news.gr">News.gr</source>
+                </item>
+        </channel>
+</rss>
+
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+Object Caching 72/75 objects using memcached
+
+Served from: www.news.gr @ 2019-10-30 01:40:16 by W3 Total Cache
+-->

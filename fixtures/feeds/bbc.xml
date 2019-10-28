@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="/shared/bsp/xsl/rss/nolsol.xsl"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title><![CDATA[BBC News - UK]]></title>
+        <description><![CDATA[BBC News - UK]]></description>
+        <link>https://www.bbc.co.uk/news/</link>
+        <image>
+            <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
+            <title>BBC News - UK</title>
+            <link>https://www.bbc.co.uk/news/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 29 Oct 2019 22:16:52 GMT</lastBuildDate>
+        <copyright><![CDATA[Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.]]></copyright>
+        <language><![CDATA[en-gb]]></language>
+        <ttl>15</ttl>
+        <item>
+            <title><![CDATA[UK set for 12 December general election after MPs' vote]]></title>
+            <description><![CDATA[MPs give the green light for a pre-Christmas poll after months of deadlock over Brexit.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-50229318</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-50229318</guid>
+            <pubDate>Tue, 29 Oct 2019 21:16:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Grenfell Tower fire: 'Systemic failures' in fire brigade's response]]></title>
+            <description><![CDATA[A fire brigade's response to the deadly blaze in a west London tower block is condemned in a report.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50216606</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50216606</guid>
+            <pubDate>Tue, 29 Oct 2019 18:40:48 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Queensland shark attack: Two British men injured at tourist spot]]></title>
+            <description><![CDATA[The tourists from Southampton and Plymouth suffer serious leg and foot wounds in the attack.]]></description>
+            <link>https://www.bbc.co.uk/news/world-australia-50216173</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/world-australia-50216173</guid>
+            <pubDate>Tue, 29 Oct 2019 16:37:49 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Essex lorry deaths: Brothers wanted on suspicion of manslaughter]]></title>
+            <description><![CDATA[Christopher and Ronan Hughes are wanted on suspicion of manslaughter and human trafficking.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-essex-50221753</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-essex-50221753</guid>
+            <pubDate>Tue, 29 Oct 2019 15:43:02 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Missing Amelia Bambridge: Cambodian police quiz six men]]></title>
+            <description><![CDATA[Amelia Bambridge's father, who has travelled to Cambodia, says he fears she has been abducted.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-sussex-50218279</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-sussex-50218279</guid>
+            <pubDate>Tue, 29 Oct 2019 19:27:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ana Kriégel murder: Family 'broken' without her]]></title>
+            <description><![CDATA[Two teenage boys are to be sentenced for the murder of 14-year-old Ana Kriégel in Dublin.]]></description>
+            <link>https://www.bbc.co.uk/news/world-europe-50210221</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/world-europe-50210221</guid>
+            <pubDate>Tue, 29 Oct 2019 13:05:42 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[British soldiers charged with disgraceful conduct over alleged sex assault]]></title>
+            <description><![CDATA[Four men have been charged on suspicion of sexual assaulting a female soldier.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50227933</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50227933</guid>
+            <pubDate>Tue, 29 Oct 2019 21:37:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The Great British Bake Off crowns its 2019 winner]]></title>
+            <description><![CDATA[After 10 gruelling weeks in the tent, Alice, Steph and David discover which of them has won.]]></description>
+            <link>https://www.bbc.co.uk/news/entertainment-arts-50220583</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/entertainment-arts-50220583</guid>
+            <pubDate>Tue, 29 Oct 2019 21:15:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Female MPs write letter 'in solidarity' with Meghan amid media scrutiny]]></title>
+            <description><![CDATA[The 72 politicians criticise the tone of recent stories about the duchess as "outdated" and "colonial".]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50227925</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50227925</guid>
+            <pubDate>Tue, 29 Oct 2019 18:10:01 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Car stopped by armed police hits officer in Tottenham]]></title>
+            <description><![CDATA[The vehicle was driven away from the scene in north London "at speed", the Met says.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-london-50219577</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-london-50219577</guid>
+            <pubDate>Tue, 29 Oct 2019 14:08:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[B-52 bomber plane part lands in Warwickshire garden]]></title>
+            <description><![CDATA[The B-52 bomber was on a routine training mission when the wing-tip gear door fell from the plane.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-gloucestershire-50224276</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-gloucestershire-50224276</guid>
+            <pubDate>Tue, 29 Oct 2019 16:03:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Currys PC World customers scammed via eBay]]></title>
+            <description><![CDATA[Criminals siphoned money from unwitting eBay customers who paid using PayPal.]]></description>
+            <link>https://www.bbc.co.uk/news/technology-50222778</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-50222778</guid>
+            <pubDate>Tue, 29 Oct 2019 19:19:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Brexit: Where do the parties stand?]]></title>
+            <description><![CDATA[The government's Brexit legislation is officially in "limbo", but where do the parties stand?]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-48027580</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-48027580</guid>
+            <pubDate>Tue, 29 Oct 2019 12:48:21 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Poll tracker: How popular are the Westminster political parties?]]></title>
+            <description><![CDATA[Our poll tracker measures how people say they are going to vote at the next general election.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-49798197</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-49798197</guid>
+            <pubDate>Mon, 28 Oct 2019 14:10:06 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sir John Curtice: Do voters really want another general election?]]></title>
+            <description><![CDATA[MPs are deciding whether the UK should have a third election in just four years.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-50206341</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-50206341</guid>
+            <pubDate>Mon, 28 Oct 2019 11:04:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Heidi Allen to stand down as South Cambridgeshire MP]]></title>
+            <description><![CDATA[Liberal Democrat says she is "heartbroken" but blames "intimidation and nastiness" for her decision.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-cambridgeshire-50223646</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-cambridgeshire-50223646</guid>
+            <pubDate>Tue, 29 Oct 2019 13:31:12 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[December election: What difference does winter make?]]></title>
+            <description><![CDATA[Election organisers may need to find temporary lighting for polling station entrances and gritters.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50182015</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50182015</guid>
+            <pubDate>Tue, 29 Oct 2019 21:56:09 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ed Sheeran named richest UK celebrity aged 30 or under]]></title>
+            <description><![CDATA[Ed Sheeran, Emma Watson and Cara Delevingne are among the 10 biggest-earning young UK celebrities.]]></description>
+            <link>https://www.bbc.co.uk/news/newsbeat-50213441</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/newsbeat-50213441</guid>
+            <pubDate>Tue, 29 Oct 2019 05:30:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Brexit: Five things the government has stopped]]></title>
+            <description><![CDATA[The granting of a further Brexit extension changes Whitehall plans for the UK's EU exit.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50227115</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50227115</guid>
+            <pubDate>Tue, 29 Oct 2019 16:31:04 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA['We're not moving' - when reserving a train seat goes wrong]]></title>
+            <description><![CDATA[The current system rewards 'being a jerk', says a pregnant woman who recently had her seat taken.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-50187528</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-50187528</guid>
+            <pubDate>Tue, 29 Oct 2019 02:04:40 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sperm donors should waive anonymity, fertility regulator says]]></title>
+            <description><![CDATA[A man who has fathered up to 110 children says it is impossible for sperm donors to be anonymous.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-50209261</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-beds-bucks-herts-50209261</guid>
+            <pubDate>Tue, 29 Oct 2019 10:04:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The challenge of being disabled and green]]></title>
+            <description><![CDATA[A disabled green enthusiast shares how she builds eco-friendliness into her life even though it is often a less accessible option for her.]]></description>
+            <link>https://www.bbc.co.uk/news/disability-50170729</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/disability-50170729</guid>
+            <pubDate>Tue, 29 Oct 2019 02:03:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Council tenant: 'Cockroaches bit my baby's face']]></title>
+            <description><![CDATA[Residents in a 1960s block surrounded by redevelopment say they are "being left to rot" by Barnet Council.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-50183259</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-50183259</guid>
+            <pubDate>Tue, 29 Oct 2019 00:22:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How I beat drugs, violence and life in a Glasgow gang]]></title>
+            <description><![CDATA[Action for Children are rolling out a project across the UK to divert young men from organised crime.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-scotland-50214451</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-scotland-50214451</guid>
+            <pubDate>Tue, 29 Oct 2019 09:33:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Why passwords don't work, and what will replace them]]></title>
+            <description><![CDATA[Passwords can be insecure, easy to lose and easier to forget, so can new tech protect us?]]></description>
+            <link>https://www.bbc.co.uk/news/business-49877317</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/business-49877317</guid>
+            <pubDate>Tue, 29 Oct 2019 00:02:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[PM on election: 'Only one way' to move UK forward]]></title>
+            <description><![CDATA[The prime minister has told the Commons that the UK must have a general election "to move this country forward".]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-50222860</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-50222860</guid>
+            <pubDate>Tue, 29 Oct 2019 16:16:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Jeremy Corbyn: 'We are ready for an election']]></title>
+            <description><![CDATA[Labour leader Jeremy Corbyn has said his party is ready for a general election with a "strong message on how we transform our society".]]></description>
+            <link>https://www.bbc.co.uk/news/uk-politics-50222855</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-politics-50222855</guid>
+            <pubDate>Tue, 29 Oct 2019 11:45:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Grenfell Tower inquiry: ‘The boxing gym was our home’]]></title>
+            <description><![CDATA[As part one of the inquiry into Grenfell Tower is published, boxers who trained there have their say.]]></description>
+            <link>https://www.bbc.co.uk/news/newsbeat-50213221</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/newsbeat-50213221</guid>
+            <pubDate>Tue, 29 Oct 2019 01:50:02 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cockroaches, mould and drugs on London estate]]></title>
+            <description><![CDATA[Residents in a 1960s block surrounded by redevelopment say they are "being left to rot" by Barnet Council.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-50210811</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-50210811</guid>
+            <pubDate>Tue, 29 Oct 2019 00:21:01 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cwmbran's new hospital: A look behind the scenes]]></title>
+            <description><![CDATA[The Grange University Hospital is the biggest single investment in the history of the Welsh NHS.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-wales-50209959</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-wales-50209959</guid>
+            <pubDate>Tue, 29 Oct 2019 01:14:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Black History Month: 'I had to defend myself against racists']]></title>
+            <description><![CDATA[Dudley Simms became a karate world champion at 64 after taking the sport up to defend himself.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-nottinghamshire-50209134</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-nottinghamshire-50209134</guid>
+            <pubDate>Tue, 29 Oct 2019 00:14:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Louise Harvey inquest: Breast op death woman 'given medication late']]></title>
+            <description><![CDATA[Louise Harvey was given blood thinners eight hours later than she should have been, an inquest hears.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-norfolk-50227007</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-norfolk-50227007</guid>
+            <pubDate>Tue, 29 Oct 2019 20:01:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Election: Nicola Sturgeon 'ready' to take on Tories in December]]></title>
+            <description><![CDATA[The election bill has still to go through Lords but FM is expected to hit the campaign trail soon.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-scotland-scotland-politics-50219725</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-scotland-scotland-politics-50219725</guid>
+            <pubDate>Tue, 29 Oct 2019 21:34:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Northern Ireland parties react to December election vote]]></title>
+            <description><![CDATA[MPs voted by a margin of 438 votes to 20 in favour of holding an election on 12 December.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-northern-ireland-50227810</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-northern-ireland-50227810</guid>
+            <pubDate>Tue, 29 Oct 2019 21:53:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[General election: Welsh Labour MPs split on 12 December poll vote]]></title>
+            <description><![CDATA[The UK looks set for a snap poll - but Welsh Labour MPs were split on whether it should happen.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-wales-politics-50221705</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-wales-politics-50221705</guid>
+            <pubDate>Tue, 29 Oct 2019 22:16:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Handcuffed man died in Southampton river escaping police]]></title>
+            <description><![CDATA[Reece Hillier was found in the water two months after his attempted arrest for drug possession.]]></description>
+            <link>https://www.bbc.co.uk/news/uk-england-hampshire-50223821</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/uk-england-hampshire-50223821</guid>
+            <pubDate>Tue, 29 Oct 2019 15:47:23 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

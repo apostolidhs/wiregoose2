@@ -18,7 +18,28 @@ const parsePublish = ({isoDate, updated}) => {
 
 const {JSDOM} = require('jsdom');
 
-const parseImage = ({image, content, enclosure}, {domain}) => {
+const cleanWhiteSpaces = text => {
+  const dom = new JSDOM(text);
+  return dom.window.document.body.textContent
+    .replace(/[«»]/g, '')
+    .replace(/(\s)+/g, ' ')
+    .trim();
+};
+
+const getAbsoluteImage = (image, domain) => {
+  if (url.parse(image).hostname) return image;
+  return url.resolve(domain, image);
+};
+
+const extractImage = (content, domain) => {
+  const dom = new JSDOM(content);
+  const imageDoms = dom.window.document.querySelectorAll('img');
+  const imageUrls = Array.from(imageDoms).map(i => i.getAttribute('src'));
+  const domainImageUrl = imageUrls.find(img => domain.includes(url.parse(img).hostname));
+  return domainImageUrl || imageUrls[0];
+};
+
+const getImage = ({image, content, enclosure, ...rest}, {domain}) => {
   if (image && image.$ && image.$.url) {
     return image.$.url;
   }
@@ -27,14 +48,21 @@ const parseImage = ({image, content, enclosure}, {domain}) => {
     return enclosure.url;
   }
 
-  if (content) {
-    const dom = new JSDOM(content);
-    const imageDoms = dom.window.document.querySelectorAll('img');
-    const imageUrls = Array.from(imageDoms).map(i => i.getAttribute('src'));
-    const domainImageUrl = imageUrls.find(img => domain.includes(url.parse(img).hostname));
-    return domainImageUrl || imageUrls[0];
-  }
+  let src;
 
+  src = content && extractImage(content, domain);
+  if (src) return src;
+
+  const contentEncoded = rest['content:encoded'];
+  src = contentEncoded && extractImage(contentEncoded, domain);
+  if (src) return src;
+
+  return null;
+};
+
+const parseImage = (feed, registration) => {
+  const image = getImage(feed, registration);
+  if (image) return getAbsoluteImage(image, registration.domain);
   return null;
 };
 
@@ -42,23 +70,29 @@ const parseDescription = ({contentSnippet, content}) => {
   const description = contentSnippet || content;
   if (typeof description !== 'string') return null;
 
-  const dom = new JSDOM(description);
-  const sample = dom.window.document.body.textContent.trim();
+  const sample = cleanWhiteSpaces(description);
 
   if (sample.length < 15) return null;
 
-  return sample.substring(0, 256);
+  return sample.substring(0, 256).trim();
 };
 
 const parseTitle = ({title}) => {
   if (!title) return null;
 
-  const dom = new JSDOM(title);
-  const sample = dom.window.document.body.textContent.trim();
+  const sample = cleanWhiteSpaces(title);
 
   if (sample.length < 6) return null;
 
-  return sample.substring(0, 128);
+  return sample.substring(0, 128).trim();
+};
+
+const parseAuthor = ({creator}, {domain}) => {
+  if (typeof creator === 'string') {
+    const text = cleanWhiteSpaces(creator);
+    if (!domain.includes(text)) return text;
+  }
+  return null;
 };
 
 const parseFeed = (feed, registration) => {
@@ -70,7 +104,7 @@ const parseFeed = (feed, registration) => {
     description: parseDescription(feed),
     published: parsePublish(feed),
     link,
-    author: null
+    author: parseAuthor(feed, registration)
   };
 };
 
