@@ -1,0 +1,33 @@
+{
+  "name": "wiregoose2",
+  "version": "1.0.0",
+  "description": "All news in one place",
+  "main": "index.js",
+  "repository": "https://github.com/apostolidhs/wiregoose2.git",
+  "author": "apostolidhs <john.apostolidh@gmail.com>",
+  "license": "GNU",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "date-fns": "^2.4.1",
+    "dotenv": "^8.1.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "jsdom": "^15.2.0",
+    "lusca": "^1.6.1",
+    "mongoose": "^5.7.4",
+    "mongoose-id-validator": "^0.5.3",
+    "mongoose-type-url": "^1.0.6",
+    "morgan": "^1.9.1",
+    "rss-parser": "^3.7.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
