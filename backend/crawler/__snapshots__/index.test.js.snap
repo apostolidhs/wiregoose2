@@ -1643,7 +1643,7 @@ Array [
 exports[`parses naftemporiki 1`] = `
 Array [
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Σήμερα είχαμε μια χουντικής έμπνευσης απόφαση της πλειοψηφίας της προανακριτικής και συγκεκριμένα της ακροδεξιάς ομάδας Σαμαρά μαζί με τον κ. Κεγκέρογλου του ΚΙΝΑΛ, τόνισε ο Παύλος Πολάκης για την απόφαση της Προανακριτικης Επιτροπής να εξαιρεθούν ο ίδιος",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528073/polakis-xountikis-empneusis-i-apofasi-eksairesis",
@@ -1651,7 +1651,7 @@ Array [
     "title": "Πολάκης: Xoυντικής έμπνευσης η απόφαση εξαίρεσης",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Το ΜέΡΑ25 θεωρεί ξεκάθαρα πολιτική τη δίωξη κατά του Παναγιώτη Λαφαζάνη και ως εκ τούτου απαράδεκτη, και ζητάμε να παύσει κάθε ποινική δίωξη εναντίον του για τη δράση του κατά των πλειστηριασμών πρώτης κατοικίας τονίζει σε ανακοίνωσή του το κόμμα του Γιάνη",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528064/mera25-politiki-i-dioksi-kata-tou-panagioti-lafazani",
@@ -1659,7 +1659,7 @@ Array [
     "title": "ΜέΡΑ25: Πολιτική η δίωξη κατά του Παναγιώτη Λαφαζάνη",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Σφόδρη επίθεση κατά της κυβέρνησης και του πρωθυπουργού Κυριάκου Μητσοτάκη εξαπέλυσε η γραμματέας της Κοινοβουλευτικής Ομάδας του ΣΥΡΙΖΑ, Όλγα Γεροβασίλη, χαρακτηρίζοντας την απόφαση της προανακριτικής επιτροπής για τον Δημήτρη Παπαγγελόπουλο, να εξαιρέσει",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528063/ol-gerobasili-koinobouleutiko-praksikopima-i-eksairesi-tzanakopoulou-polaki",
@@ -1667,7 +1667,7 @@ Array [
     "title": "Ολ. Γεροβασίλη: Κοινοβουλευτικό πραξικόπημα η εξαίρεση Τζανακόπουλου-Πολάκη",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Να καταδικασθεί η προκλητική επέμβαση της Τουρκίας στη Συρία, η απάνθρωπη συμπεριφορά της προς τους πρόσφυγες και ο αυθαίρετος τρόπος, με τον οποίο συμπεριφέρεται στο πεδίο οριοθέτησης της ΑΟΖ, υπογράμμισε ο Πρόεδρος της Δημοκρατίας Προκόπης Παυλόπουλος κα",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528052/pr-paulopoulos-katadiki-tis-tourkias-gia-suria-prosfugiko-kai-aoz",
@@ -1675,7 +1675,7 @@ Array [
     "title": "Πρ. Παυλόπουλος: Καταδίκη της Τουρκίας για Συρία, προσφυγικό και ΑΟΖ",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Ηλεκτρονικά θα μπορούν να υποβάλουν την αίτησή τους οι Έλληνες του εξωτερικού που ενδιαφέρονται να ψηφίσουν από τον τόπο κατοικίας τους στις επόμενες εκλογές, ανέφερε την Τρίτη ο υφυπουργός Εσωτερικών, Θοδωρής Λιβάνιος.",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528051/th-libanios-ilektronika-oi-aitiseis-gia-tin-psifo-ton-ellinon-tou-eksoterikou",
@@ -1683,7 +1683,7 @@ Array [
     "title": "Θ. Λιβάνιος: Ηλεκτρονικά οι αιτήσεις για την ψήφο των Ελλήνων του εξωτερικού",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Στην κατηγορηματική διάψευση των καταγγελιών της Άγκυρας περί κακομεταχείρισης των μεταναστών, προχώρησε ο υπουργός Προστασίας του Πολίτη, Μιχάλης Χρυσοχοΐδης, χαρακτηρίζοντας την πρόσφατη ανακοίνωση του τουρκικού υπουργείου Εξωτερικών σκουπίδια.",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528033/m-xrusoxoidis-skoupidia-oi-kataggelies-tis-agkuras-gia-tous-metanastes",
@@ -1691,7 +1691,7 @@ Array [
     "title": "Μ. Χρυσοχοΐδης: Σκουπίδια οι καταγγελίες της Άγκυρας για τους μετανάστες",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Σε καλό κλίμα διεξήχθη η συνάντηση του πρωθυπουργού Κυριάκου Μητσοτάκη με τον Αλβανό ομόλογό του, Εντι Ράμα, κατά την οποία συζητήθηκαν όλα τα διμερή θέματα.",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528031/ola-ta-dimeri-zitimata-sti-sunantisi-mitsotaki-rama",
@@ -1699,7 +1699,7 @@ Array [
     "title": "Όλα τα διμερή ζητήματα στη συνάντηση Μητσοτάκη - Ράμα",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Υπέρ της εξαίρεσης του Δημήτρη Τζανακόπουλου και του Παύλου Πολάκη από την Προανακριτική Επιτροπή για τον Δ. Παπαγγελόπουλο τάχθηκαν οι βουλευτές της Νέας Δημοκρατίας και του ΚΙΝΑΛ. Κατά ψήφισε ο ΣΥΡΙΖΑ, και το ΚΚΕ, ενώ παρών η Ελληνική Λύση.",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528029/bouli-eksairesi-tzanakopoulou-kai-polaki-apo-tin-proanakritiki",
@@ -1707,7 +1707,7 @@ Array [
     "title": "Βουλή: Εξαίρεση Τζανακόπουλου και Πολάκη από την Προανακριτική",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Τρεις νέες γραμματείες, για τα Άτομα με Αναπηρία, Βιώσιμης Επιχειρηματικότητας και Ελλήνων της Διασποράς, συστήνονται στο πλαίσιο της οργανωτικής αναδιάρθρωσης της Νέας Δημοκρατίας, που ξεκίνησε μετά τις εκλογές, με απόφαση του προέδρου του κόμματος και Πρ",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1528002/nd-treis-nees-grammateies-oi-epikefalis-oi-armodiotites",
@@ -1715,7 +1715,7 @@ Array [
     "title": "ΝΔ: Τρεις νέες γραμματείες - Οι επικεφαλής, οι αρμοδιότητες",
   },
   Object {
-    "author": null,
+    "author": "naftemporiki.gr",
     "description": "Διμερείς επαφές με τον πρωθυπουργό της Κροατίας Αντρέι Πλένκοβιτς και την πρωθυπουργό της Σερβίας Άννα Μπρνάμπιτς είχε ο Κυριάκος Μητσοτάκης, στο περιθώριο του 4ου ΕU - Arab World Summit.",
     "image": null,
     "link": "https://www.naftemporiki.gr/story/1527993/k-mitsotakis-dimereis-epafes-me-tous-prothupourgous-kroatias-kai-serbias",
