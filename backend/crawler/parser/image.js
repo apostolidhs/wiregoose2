@@ -1,5 +1,7 @@
 const url = require('url');
+const normalizeUrl = require('normalize-url');
 const {JSDOM} = require('jsdom');
+const isValidUrl = require('../../helpers/isValidUrl');
 
 const getAbsoluteImage = (image, domain) => {
   if (url.parse(image).hostname) return image;
@@ -14,7 +16,7 @@ const extractImage = (content, domain) => {
   return domainImageUrl || imageUrls[0];
 };
 
-const parseImage = ({image, content, enclosure, ...rest}, {domain}) => {
+const parseImage = ({image, content, enclosure, ...rest}, {provider: {link}}) => {
   if (image && image.$ && image.$.url) {
     return image.$.url;
   }
@@ -23,20 +25,23 @@ const parseImage = ({image, content, enclosure, ...rest}, {domain}) => {
     return enclosure.url;
   }
 
-  let src = content && extractImage(content, domain);
+  let src = content && extractImage(content, link);
   if (src) return src;
 
   const contentEncoded = rest['content:encoded'];
-  src = contentEncoded && extractImage(contentEncoded, domain);
+  src = contentEncoded && extractImage(contentEncoded, link);
   if (src) return src;
 
   return null;
 };
 
 module.exports = (feed, registration) => {
-  const image = parseImage(feed, registration);
+  const path = parseImage(feed, registration);
 
-  if (image) return getAbsoluteImage(image, registration.domain);
+  if (!path) return null;
 
-  return null;
+  const url = getAbsoluteImage(path, registration.provider.link);
+  if (!isValidUrl(url)) return null;
+
+  return normalizeUrl(url);
 };

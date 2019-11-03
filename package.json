@@ -19,6 +19,8 @@
     "mongoose-id-validator": "^0.5.3",
     "mongoose-type-url": "^1.0.6",
     "morgan": "^1.9.1",
+    "normalize-url": "^4.5.0",
+    "object-hash": "^2.0.0",
     "rss-parser": "^3.7.3"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "prettier": "^1.18.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "load-fixtures": "node ./scripts/loadFixtures"
   }
 }

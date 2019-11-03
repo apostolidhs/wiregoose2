@@ -1,5 +1,7 @@
 const {Schema, model, SchemaTypes} = require('mongoose');
 require('mongoose-type-url');
+const dateFns = require('date-fns');
+const objectHash = require('object-hash');
 const {languages, categories} = require('../../config');
 
 const validateTitle = {
@@ -11,6 +13,21 @@ const validateTitle = {
 
 const schema = new Schema(
   {
+    hash: {
+      type: String,
+      required: true,
+      maxlength: [64],
+      default: function() {
+        const months = dateFns.differenceInMonths(this.published, new Date(0));
+        return objectHash({
+          title: this.title,
+          description: this.description,
+          image: this.image,
+          registration: this.registration.toString(),
+          date: Math.round(months / 4)
+        });
+      }
+    },
     title: {type: String, required: true, minlength: [6], maxlength: [128], validate: validateTitle},
     image: {type: SchemaTypes.Url},
     description: {type: String, minlength: [15], maxlength: [256]},
@@ -20,17 +37,15 @@ const schema = new Schema(
     hits: {type: Number, default: 0},
     category: {type: String, enum: categories, required: true},
     lang: {type: String, enum: languages, required: true},
-    // this should be {type: ObjectId, ref: 'Author'}
-    // but we really need the speed, part 1 :)
     author: {type: String, maxlength: [128]},
     // this should be {type: ObjectId, ref: 'RssProvider', required: true}
-    // but we really need the speed, part 2 :)
+    // but we really need the speed, part 1 :)
     provider: {type: String, required: true},
     // this should be {type: ObjectId, ref: 'Registration', required: true, populate: true}
-    // but we really need the speed, part 3 :)
-    registration: {type: ObjectId, ref: 'Registration', required: true},
+    // but we really need the speed, part 2 :)
+    registration: {type: Schema.Types.ObjectId, ref: 'Registration', required: true},
 
-    article: {type: ObjectId, ref: 'Article'}
+    article: {type: Schema.Types.ObjectId, ref: 'Article'}
   },
   {timestamps: true}
 );

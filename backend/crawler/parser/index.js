@@ -5,13 +5,28 @@ const parsePublished = require('./published');
 const parseLink = require('./link');
 const parseAuthor = require('./author');
 
-module.exports = (feed, registration) => {
-  return {
-    title: parseTitle(feed),
-    image: parseImage(feed, registration),
-    description: parseDescription(feed),
-    published: parsePublished(feed),
-    link: parseLink(feed),
-    author: parseAuthor(feed, registration)
-  };
+module.exports = (rss, registration) => {
+  const link = parseLink(rss);
+
+  if (!link) return [null, 'LINK'];
+
+  const title = parseTitle(rss);
+  const description = parseDescription(rss);
+
+  if (!title && !description) return [null, 'CONTENT'];
+
+  const image = parseImage(rss, registration);
+  const published = parsePublished(rss);
+  const author = parseAuthor(rss);
+
+  return [
+    {
+      ...(link && {link}),
+      ...(title && {title}),
+      ...(description && {description}),
+      ...(image && {image}),
+      ...(published && {published}),
+      ...(author && {author})
+    }
+  ];
 };
