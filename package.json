@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "jsdom": "^15.2.0",
     "lusca": "^1.6.1",
-    "mongoose": "^5.7.4",
+    "mongoose": "^5.7.5",
     "mongoose-id-validator": "^0.5.3",
     "mongoose-type-url": "^1.0.6",
     "morgan": "^1.9.1",
