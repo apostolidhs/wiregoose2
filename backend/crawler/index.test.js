@@ -1,6 +1,6 @@
 const {Types} = require('mongoose');
 const path = require('path');
-const {crawlString} = require('./index');
+const fromString = require('./fromString');
 
 const getRegistration = (name, link) => ({
   _id: Types.ObjectId(),
@@ -88,7 +88,7 @@ const registrations = {
 
 Object.entries(registrations).forEach(([name, registration]) => {
   it(`parses ${name}`, async () => {
-    const report = await crawlString(registration);
+    const report = await fromString(registration);
     expect(
       report.feeds.map(feed => {
         const {title, image, description, published, link, author} = feed.toJSON();
