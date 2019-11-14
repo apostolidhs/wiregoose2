@@ -3,6 +3,7 @@ require('mongoose-type-url');
 const dateFns = require('date-fns');
 const objectHash = require('object-hash');
 const {languages, categories} = require('../../config');
+const Registration = require('./registration');
 
 const validateTitle = {
   message: 'description or image is required',
@@ -16,6 +17,7 @@ const schema = new Schema(
     hash: {
       type: String,
       required: true,
+      unique: true,
       maxlength: [64],
       default: function() {
         const months = dateFns.differenceInMonths(this.published, new Date(0));
@@ -43,11 +45,15 @@ const schema = new Schema(
     provider: {type: String, required: true},
     // this should be {type: ObjectId, ref: 'Registration', required: true, populate: true}
     // but we really need the speed, part 2 :)
-    registration: {type: Schema.Types.ObjectId, ref: 'Registration', required: true},
+    registration: {type: Schema.Types.ObjectId, ref: Registration.modelName, required: true}
 
-    article: {type: Schema.Types.ObjectId, ref: 'Article'}
+    // article: {type: Schema.Types.ObjectId, ref: 'Article'}
   },
   {timestamps: true}
 );
+
+schema.statics.saveFeeds = function(feeds) {
+  return this.insertMany(feeds.map(f => f.toObject()), {ordered: false});
+};
 
 module.exports = model('Feed', schema);

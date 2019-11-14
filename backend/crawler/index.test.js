@@ -89,7 +89,6 @@ const registrations = {
 Object.entries(registrations).forEach(([name, registration]) => {
   it(`parses ${name}`, async () => {
     const report = await crawlString(registration);
-    //total
     expect(
       report.feeds.map(feed => {
         const {title, image, description, published, link, author} = feed.toJSON();
@@ -99,6 +98,6 @@ Object.entries(registrations).forEach(([name, registration]) => {
   });
 });
 
-// it.only('just test', async () => {
+// it('just test', async () => {
 //   const feeds = await crawlString(registrations.newsbomb);
 // });

@@ -1,26 +1,19 @@
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
-const mongoose = require('mongoose');
+const {connect} = require('./mongoose');
 const createApp = require('./app');
 
-// mongoose.connect(process.env.MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
+const crawler = require('./crawler');
+const Registration = require('./models/registration');
+connect().then(async () => {
+  // const reg = await Registration.findById('5dc073c84df41d751ad24a4e');
+  await crawler();
+});
 
-// mongoose.connection.on('error', error => {
-//   console.error(error);
-//   console.log('✗ MongoDB connection error. Please make sure MongoDB is running.');
-//   process.exit();
-// });
-// mongoose.connection.once('open', () => {
-//   console.log('✓ connected to mongodb');
-// });
+const app = createApp();
 
-// const app = createApp();
+app.listen(process.env.PORT, () => {
+  console.log(`✓ App is running at http://localhost:${process.env.PORT} in ${process.env.NODE_ENV} mode`);
+});
 
-// app.listen(process.env.PORT, () => {
-//   console.log(`✓ App is running at http://localhost:${process.env.PORT} in ${process.env.NODE_ENV} mode`);
-// });
-
-// module.exports = app;
+module.exports = app;

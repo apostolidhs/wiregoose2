@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const lusca = require('lusca');
 const errorHandler = require('errorhandler');
 
-const crawler = require('./crawler');
-
 const createApp = () => {
   const app = express();
 
