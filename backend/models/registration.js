@@ -2,7 +2,7 @@ const {Schema, model, SchemaTypes} = require('mongoose');
 const mongooseIdValidator = require('mongoose-id-validator');
 require('mongoose-type-url');
 const dateFns = require('date-fns');
-const {languages, categories} = require('../../config');
+const {languages, categories} = require('../../src/config');
 const ErrorSchema = require('./registrationError');
 const Provider = require('./provider');
 
@@ -58,18 +58,20 @@ schema.methods.addError = function(error) {
 };
 
 schema.statics.getFirst = async function(id) {
-  return (await this.findOne({isCrawling: true})) || (await this.findOne());
+  return (await this.findOne({isCrawling: true}).populate('provider')) || (await this.findOne().populate('provider'));
 };
 
 schema.statics.getNext = function(id) {
-  return this.findOne({_id: {$gt: id}}).sort({_id: 1});
+  return this.findOne({_id: {$gt: id}})
+    .populate('provider')
+    .sort({_id: 1});
 };
 
-const autopopulate = function(next) {
-  this.populate('provider');
-  next();
-};
-schema.pre('findOne', autopopulate).pre('find', autopopulate);
+// const autopopulate = function(next) {
+//   this.populate('provider');
+//   next();
+// };
+// schema.pre('findOne', autopopulate).pre('find', autopopulate);
 schema.plugin(mongooseIdValidator);
 
 module.exports = model('Registration', schema);

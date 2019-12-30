@@ -2,7 +2,7 @@ const {Schema, model, SchemaTypes} = require('mongoose');
 require('mongoose-type-url');
 const dateFns = require('date-fns');
 const objectHash = require('object-hash');
-const {languages, categories} = require('../../config');
+const {languages, categories} = require('../../src/config');
 const Registration = require('./registration');
 
 const validateTitle = {
@@ -53,7 +53,10 @@ const schema = new Schema(
 );
 
 schema.statics.saveFeeds = function(feeds) {
-  return this.insertMany(feeds.map(f => f.toObject()), {ordered: false});
+  return this.insertMany(
+    feeds.map(f => f.toObject()),
+    {ordered: false}
+  );
 };
 
 module.exports = model('Feed', schema);

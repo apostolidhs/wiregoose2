@@ -1,27 +1,35 @@
 import React from 'react';
 import {Grommet} from 'grommet';
+import ConfigProvider from 'providers/config';
+import ApiProvider from 'providers/api';
+import FeedsProvider from 'providers/feeds';
+import RegistrationsProvider from 'providers/registrations';
+import Pages from './pages';
+import GlobalStyle from 'components/globalStyle';
 
 const theme = {
   global: {
     font: {
-      family: 'Roboto',
-      size: '18px',
-      height: '20px'
+      family: "'Noto Sans', sans-serif"
+      // size: '18px',
+      // height: '20px'
     }
   }
 };
 
 function App() {
   return (
-    <Grommet theme={theme}>
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+    <Grommet theme={theme} style={{height: '100%'}}>
+      <GlobalStyle />
+      <ConfigProvider>
+        <ApiProvider>
+          <RegistrationsProvider>
+            <FeedsProvider>
+              <Pages />
+            </FeedsProvider>
+          </RegistrationsProvider>
+        </ApiProvider>
+      </ConfigProvider>
     </Grommet>
   );
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "in.gr",
+    "link": "https://www.in.gr",
+    "icon": "https://www.in.gr/wp-content/themes/ingr/common/imgs/default/icon_in.png"
+  },
+  {
+    "name": "newsbomb.gr",
+    "link": "https://www.newsbomb.gr",
+    "icon": "https://nb.bbend.net/templates/newsbomb/images/device/favicon.ico"
+  },
+  {
+    "name": "newsbeast.gr",
+    "link": "https://www.newsbeast.gr",
+    "icon": "https://www.newsbeast.gr/files/1/2018/04/32x32.png"
+  },
+  {
+    "name": "protothema.gr",
+    "link": "https://www.protothema.gr",
+    "icon": "https://www.protothema.gr/favicon.ico"
+  }
+]

@@ -1,0 +1,113 @@
+[
+  {
+    "category": "country",
+    "link": "http://rss.in.gr/feed/news/greece",
+    "lang": "gr",
+    "provider": "in.gr"
+  },
+  {
+    "category": "world",
+    "link": "http://rss.in.gr/feed/news/world",
+    "lang": "gr",
+    "provider": "in.gr"
+  },
+  {
+    "category": "science",
+    "link": "http://rss.in.gr/feed/technology/main",
+    "lang": "gr",
+    "provider": "in.gr"
+  },
+  {
+    "category": "economy",
+    "link": "http://rss.in.gr/feed/news/economy",
+    "lang": "gr",
+    "provider": "in.gr"
+  },
+  {
+    "category": "sports",
+    "link": "http://rss.in.gr/feed/sports",
+    "lang": "gr",
+    "provider": "in.gr"
+  },
+
+  {
+    "category": "country",
+    "link": "http://www.newsbomb.gr/ellada?format=feed&type=rss",
+    "lang": "gr",
+    "provider": "newsbomb.gr"
+  },
+  {
+    "category": "world",
+    "link": "http://www.newsbomb.gr/kosmos?format=feed&type=rss",
+    "lang": "gr",
+    "provider": "newsbomb.gr"
+  },
+  {
+    "category": "economy",
+    "link": "http://www.newsbomb.gr/oikonomia?format=feed&type=rss",
+    "lang": "gr",
+    "provider": "newsbomb.gr"
+  },
+  {
+    "category": "sports",
+    "link": "http://www.newsbomb.gr/sports?format=feed&type=rss",
+    "lang": "gr",
+    "provider": "newsbomb.gr"
+  },
+
+  {
+    "category": "country",
+    "link": "http://www.newsbeast.gr/greece/feed",
+    "lang": "gr",
+    "provider": "newsbeast.gr"
+  },
+  {
+    "category": "world",
+    "link": "http://www.newsbeast.gr/world/feed",
+    "lang": "gr",
+    "provider": "newsbeast.gr"
+  },
+  {
+    "category": "science",
+    "link": "http://www.newsbeast.gr/technology/feed",
+    "lang": "gr",
+    "provider": "newsbeast.gr"
+  },
+  {
+    "category": "economy",
+    "link": "http://www.newsbeast.gr/financial/feed",
+    "lang": "gr",
+    "provider": "newsbeast.gr"
+  },
+  {
+    "category": "sports",
+    "link": "http://www.newsbeast.gr/sports/feed",
+    "lang": "gr",
+    "provider": "newsbeast.gr"
+  },
+
+  {
+    "category": "country",
+    "link": "http://www.protothema.gr/rss/news/greece",
+    "lang": "gr",
+    "provider": "protothema.gr"
+  },
+  {
+    "category": "science",
+    "link": "http://www.protothema.gr/rss/news/technology",
+    "lang": "gr",
+    "provider": "protothema.gr"
+  },
+  {
+    "category": "economy",
+    "link": "http://www.protothema.gr/rss/news/economy",
+    "lang": "gr",
+    "provider": "protothema.gr"
+  },
+  {
+    "category": "sports",
+    "link": "http://www.protothema.gr/rss/news/sports",
+    "lang": "gr",
+    "provider": "protothema.gr"
+  }
+]
