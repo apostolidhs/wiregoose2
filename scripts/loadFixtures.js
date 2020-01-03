@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-const {connect, drop} = require('../backend/mongoose');
+const {connect, drop} = require('../helpers/mongoose');
 const registrationsFixtures = require('../fixtures/registrations.json');
 const providersFixtures = require('../fixtures/providers.json');
 const Provider = require('../backend/models/provider');

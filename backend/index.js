@@ -1,14 +1,11 @@
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
-const {connect} = require('./mongoose');
+const {connect} = require('../helpers/mongoose');
 const createApp = require('./app');
 const timelineRoutes = require('./routes/timeline');
 const registrationRoutes = require('./routes/registration');
 
-const crawler = require('./crawler');
-connect().then(() => {
-  // crawler();
-});
+connect();
 
 const app = createApp();
 

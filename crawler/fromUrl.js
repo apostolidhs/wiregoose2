@@ -1,5 +1,5 @@
-const flat = require('../../helpers/flatPromise');
-const Feed = require('../models/feed');
+const flat = require('../helpers/flatPromise');
+const Feed = require('../backend/models/feed');
 const parseRss = require('./parseRss');
 const makeParser = require('./makeParser');
 

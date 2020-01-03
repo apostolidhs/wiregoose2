@@ -1,4 +1,4 @@
-const Feed = require('../models/feed');
+const Feed = require('../backend/models/feed');
 const parseFeed = require('./parser');
 
 module.exports = (rss, registration) => {

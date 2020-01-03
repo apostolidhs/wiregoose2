@@ -54,7 +54,8 @@
     "backend-start": "node ./backend",
     "frontend-start": "react-scripts start",
     "frontend-build": "react-scripts build",
-    "image-proxy": "node ./proxy"
+    "image-proxy": "node ./proxy",
+    "crawl-feeds": "node ./crawler"
   },
   "browserslist": {
     "production": [
