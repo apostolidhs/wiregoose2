@@ -1,12 +1,11 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {Box, Main, Collapsible} from 'grommet';
-import {Router} from '@reach/router';
+import {Box, Main} from 'grommet';
+import {Router, navigate, Location} from '@reach/router';
 import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
 import NavBar from 'components/navbar';
 import {Transition} from 'react-transition-group';
 import Sidebar from './sidebar';
-import Explore from './explore';
 import Categories from './categories';
 import Article from './article';
 import Settings from './settings';
@@ -36,7 +35,13 @@ const initialContentPadding = {
 
 const isSidebarOpen = () => window.location.hash === '#sidebar';
 
+const NotFound = () => {
+  navigate('/');
+  return null;
+};
+
 const Pages = () => {
+  let prevLocation = window.location.href;
   const headerRef = useRef();
   const navBarRef = useRef();
   const [sidebarOpen, setSidebarOpen] = useState(isSidebarOpen);
@@ -48,31 +53,36 @@ const Pages = () => {
 
   useStickyHeader(headerRef);
 
-  useEffect(() => {
-    const onHashChange = () => setSidebarOpen(isSidebarOpen());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
   return (
-    <Layout>
-      <Header ref={headerRef} />
-      <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
-        {state => <Sidebar transition={state} />}
-      </Transition>
-      <Main as={Routes} pad={contentPadding}>
-        <Explore path="/" />
-        <Categories path="category:id" />
+    <Location>
+      {({location}) => {
+        if (prevLocation !== location.href) {
+          setSidebarOpen(isSidebarOpen());
+        }
 
-        <Article path="article/:id" />
+        return (
+          <Layout>
+            <Header ref={headerRef} />
+            <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
+              {state => <Sidebar transition={state} />}
+            </Transition>
+            <Main as={Routes} pad={contentPadding}>
+              <Categories path="/" category="explore" />
+              <Categories path="category/:category" />
 
-        <Settings path="settings" />
-        <Providers path="settings/providers" />
-        <About path="settings/about" />
-        <Credits path="settings/credits" />
-      </Main>
-      <NavBar ref={navBarRef} />
-    </Layout>
+              <Article path="article/:id" />
+
+              <Settings path="settings" />
+              <Providers path="settings/providers" />
+              <About path="settings/about" />
+              <Credits path="settings/credits" />
+              <NotFound default />
+            </Main>
+            <NavBar ref={navBarRef} />
+          </Layout>
+        );
+      }}
+    </Location>
   );
 };
 

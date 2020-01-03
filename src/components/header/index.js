@@ -1,6 +1,7 @@
 import React, {forwardRef} from 'react';
 import styled from 'styled-components';
 import {Box, Heading, Button, Header as GHeader} from 'grommet';
+import Link from 'components/link';
 
 const Container = styled(Box)`
   position: fixed;
@@ -14,9 +15,9 @@ const Header = forwardRef((props, ref) => {
   return (
     <Container ref={ref} {...props}>
       <GHeader pad={{vertical: 'large', horizontal: 'medium'}} border="bottom" background="white">
-        <Button plain href="/">
+        <Link noActive to="/">
           <Heading margin="none">Wiregoose</Heading>
-        </Button>
+        </Link>
         <Button label="Είσοδος" href="/" />
       </GHeader>
     </Container>

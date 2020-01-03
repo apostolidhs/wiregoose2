@@ -1,6 +1,6 @@
-const wait = require('../helpers/wait');
+const wait = require('../../helpers/wait');
 const Registration = require('../models/registration');
-const logger = require('../helpers/logger');
+const logger = require('../../helpers/logger');
 const fromUrl = require('./fromUrl');
 
 const crawl = async registration => {

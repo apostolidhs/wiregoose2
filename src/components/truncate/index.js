@@ -1,6 +1,6 @@
-const Truncate = ({children}) => {
-  if (children.length < 128) return children;
-  return `${children.substring(0, 128)}...`;
+const Truncate = ({children, size = 128}) => {
+  if (children.length < size) return children;
+  return `${children.substring(0, size)}...`;
 };
 
 export default Truncate;

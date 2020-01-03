@@ -1,10 +1,11 @@
 import React, {useCallback} from 'react';
-import {Box, Image as GImage} from 'grommet';
-import placeholderImg from 'assets/placeholder.jpg';
+import {Box} from 'grommet';
+import {makeProxyUri} from 'helpers/image';
+import Image from 'components/image';
 
-const Image = ({src}) => {
-  const ImageContainer = useCallback(props => <GImage src={placeholderImg || src} {...props} />, []);
-  return <Box as={ImageContainer} fit="cover" height={{min: '100px', max: '180px'}} />;
+const FeedImage = ({src}) => {
+  const ImageContainer = useCallback(props => <Image src={makeProxyUri(src, {height: 170})} {...props} />, []);
+  return <Box as={ImageContainer} fit="cover" height={{min: '170px', max: '170px'}} />;
 };
 
-export default Image;
+export default FeedImage;

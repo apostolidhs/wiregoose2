@@ -18,6 +18,9 @@ module.exports = app => {
         .toInt(),
       check('lang')
         .isIn(config.languages)
+        .optional(),
+      check('categories')
+        .isIn(config.categories)
         .optional()
     ],
     (req, res, next) => {
@@ -26,15 +29,16 @@ module.exports = app => {
         return res.status(422).json({errors: errors.mapped()});
       }
 
-      const {target, lang, limit} = {limit: 20, lang: 'gr', ...req.query};
-      res.locals.params = {target, lang, limit};
+      const {target, lang, limit, categories} = {limit: 20, lang: 'gr', ...req.query};
+      res.locals.params = {target, lang, limit, categories};
       return next();
     },
     async (req, res) => {
-      const {target, lang, limit} = res.locals.params;
+      const {target, lang, limit, categories} = res.locals.params;
       const feeds = await Feeds.find({
         lang,
-        ...(target && {_id: {$lt: target}})
+        ...(target && {_id: {$lt: target}}),
+        ...(categories && {category: categories})
       })
         .select({
           title: 1,

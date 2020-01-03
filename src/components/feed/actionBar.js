@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
-import {Box, Button, ThemeContext} from 'grommet';
+import React from 'react';
+import {Box, Button} from 'grommet';
 import {Bookmark, Twitter, FacebookOption, Link} from 'grommet-icons';
+import useTheme from 'hooks/useTheme';
 
 const ActionBar = () => {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
   return (
     <Box direction="row" justify="between">
       <Button margin={{left: `-${theme.icon.size.small}`}} icon={<Bookmark size="medium" />} />

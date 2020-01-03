@@ -6,6 +6,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     height: 100%;
   }
+
+  a {
+    text-decoration: none;
+  }
+  a:-webkit-any-link {
+    color: initial;
+  }
 `;
 
 export default GlobalStyle;

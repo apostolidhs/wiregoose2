@@ -1,7 +1,7 @@
 const url = require('url');
 const normalizeUrl = require('normalize-url');
 const {JSDOM} = require('jsdom');
-const isValidUrl = require('../../helpers/isValidUrl');
+const isValidUrl = require('../../../helpers/isValidUrl');
 
 const getAbsoluteImage = (image, domain) => {
   if (url.parse(image).hostname) return image;

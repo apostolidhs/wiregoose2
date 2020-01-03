@@ -16,11 +16,9 @@ const onSidebarClick = () => {
 };
 
 const NavBar = forwardRef((props, ref) => {
-  console.log('rerender NavBar');
   return (
     <Container ref={ref} {...props}>
       <Box as="nav" background="white" pad="medium" direction="row" justify="around" border="top">
-        {/* <Button onClick={openSidebar} icon={<TextAlignLeft size="medium" />} /> */}
         <Button onClick={onSidebarClick} icon={<TextAlignLeft size="medium" />} />
         <Link to="/" icon={<Compass size="medium" />} />
         <Button icon={<Menu size="medium" />} />

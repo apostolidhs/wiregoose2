@@ -10,12 +10,18 @@ const Feed = ({feed: {image, title, description, provider, published}, ...rest})
   // useEffect(() => {
   //   return () => console.log('unmount');
   // }, []);
+  const descriptionSize = image ? 128 - title.length : 256;
+
   return (
     <Box as="article" {...rest}>
-      <Image src={image} />
-      <Title margin={{vertical: 'small'}}>{title}</Title>
+      {image && <Image src={image} />}
+      {title && <Title margin={{vertical: 'small'}}>{title}</Title>}
       <SubInfo provider={provider} published={published} />
-      <Description margin={{vertical: 'small'}}>{description}</Description>
+      {description && (
+        <Description margin={{vertical: 'small'}} size={descriptionSize}>
+          {description}
+        </Description>
+      )}
       <ActionBar />
     </Box>
   );
