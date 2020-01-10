@@ -1,10 +1,11 @@
-const fs = require('fs');
+const flat = require('../helpers/flatPromise');
 const makeParser = require('./makeParser');
 const parseRss = require('./parseRss');
 
 const parser = makeParser();
 
-module.exports = registration => {
-  const file = fs.readFileSync(registration.filepath);
-  return parser.parseString(file).then(rss => parseRss(rss, registration));
+module.exports = async (registration, file) => {
+  const [rss] = await flat(parser.parseString(file));
+  const {feeds} = parseRss(rss, registration);
+  return feeds;
 };
