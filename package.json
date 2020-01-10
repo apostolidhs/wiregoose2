@@ -34,6 +34,7 @@
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "react-window-infinite-loader": "^1.0.5",
+    "readability": "https://github.com/mozilla/readability",
     "rss-parser": "^3.7.3",
     "sharp": "^0.23.4",
     "styled-components": "^4.4.1",

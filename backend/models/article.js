@@ -7,9 +7,9 @@ const schema = new Schema({
   title: {type: String},
   byline: {type: String},
   error: {code: {type: Number}, msg: {type: String}},
-  link: {type: SchemaTypes.Url, required: true, index: true},
-  feed: {type: SchemaTypes.ObjectId, ref: 'Feed', required: true},
-  createdAt: {type: Date, expires: config.ARTICLE_MINING_EXPIRATION}
+  link: {type: SchemaTypes.Url, required: true},
+  feed: {type: SchemaTypes.ObjectId, ref: 'Feed', required: true, index: true},
+  createdAt: {type: Date, expires: +process.env.ARTICLE_EXPIRATION}
 });
 
 const autopopulate = function(next) {
