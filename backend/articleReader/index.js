@@ -1,11 +1,13 @@
 const {JSDOM} = require('jsdom');
 const Readability = require('readability');
+const parseImage = require('./image');
 
 const extractContent = dom => {
   headings = new Set(['H1', 'H2', 'H3', 'H4', 'H5', 'H6']);
   return Array.from(dom.querySelectorAll('p,img,h1,h2,h3,h4,h5,h6')).reduce((h, el) => {
     if (el.tagName === 'IMG') {
-      return [...h, {type: 'img', src: el.src}];
+      const src = parseImage(el);
+      return src ? [...h, {type: 'img', src}] : h;
     }
 
     const content = el.textContent
@@ -31,5 +33,9 @@ const fromFile = async filepath => {
   const fragment = JSDOM.fragment(article.content);
   return extractContent(fragment);
 };
+
+fromFile('/Users/yannis/Documents/wiregoose2/fixtures/articles/in2.html').then(c =>
+  console.log(JSON.stringify(c, 0, 2))
+);
 
 module.exports = {fromFile};
