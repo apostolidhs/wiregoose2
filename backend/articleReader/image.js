@@ -22,16 +22,23 @@ const hasValidDimensions = el => {
   return true;
 };
 
-module.exports = el => {
-  let src = el.getAttribute('src');
-  if (hasValidUrl(src) && hasValidDimensions(el)) {
-    return src;
-  }
+const extractImage = (src, {href: baseHref}) => {
+  if (!src) return null;
+  const {protocol, href, path} = url.parse(src);
+  if (!href) return null;
+  if (protocols.has(protocol)) return src;
+  if (protocol === 'file:') return `${baseHref}${path}`;
+  return null;
+};
 
-  src = el.getAttribute('data-lazy-src');
-  if (hasValidUrl(src) && hasValidDimensions(el)) {
-    return src;
-  }
+module.exports = (el, {href}) => {
+  if (!hasValidDimensions(el)) return null;
+
+  let src = extractImage(el.getAttribute('src'), {href});
+  if (src) return src;
+
+  src = extractImage(el.getAttribute('data-lazy-src'), {href});
+  if (src) return src;
 
   return null;
 };
