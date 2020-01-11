@@ -16,7 +16,7 @@ const articles = {
 Object.entries(articles).forEach(([name, pathname]) => {
   it(`reads ${name}`, async () => {
     const content = await fromFile(path.resolve(__filename, pathname));
-    console.log(content);
+    // console.log(content);
     expect(content).toMatchSnapshot();
   });
 });
