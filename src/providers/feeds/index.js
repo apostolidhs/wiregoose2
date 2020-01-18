@@ -1,8 +1,8 @@
 import React, {useState, useMemo} from 'react';
-import getDispatch from './getDispatch';
+import getDispatch, {initialState} from './getDispatch';
 import Context, {FeedDispatch} from './context';
 
-const getInitialState = () => ({feeds: {}});
+const getInitialState = () => initialState;
 
 const FeedProvider = ({children}) => {
   const [state, setState] = useState(getInitialState);

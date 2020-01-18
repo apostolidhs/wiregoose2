@@ -3,10 +3,10 @@ import {Box, Button} from 'grommet';
 import {Bookmark, Twitter, FacebookOption, Link} from 'grommet-icons';
 import useTheme from 'hooks/useTheme';
 
-const ActionBar = () => {
+const ActionBar = ({justify = 'between'}) => {
   const theme = useTheme();
   return (
-    <Box direction="row" justify="between">
+    <Box direction="row" justify={justify}>
       <Button margin={{left: `-${theme.icon.size.small}`}} icon={<Bookmark size="medium" />} />
       <Box direction="row">
         <Button icon={<Link size="medium" />} />

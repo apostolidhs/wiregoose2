@@ -1,4 +1,5 @@
 const url = require('url');
+const getBaseUrl = require('../../helpers/baseUrl');
 
 const protocols = new Set(['http:', 'https:']);
 
@@ -27,7 +28,7 @@ const extractImage = (src, {href: baseHref}) => {
   const {protocol, href, path} = url.parse(src);
   if (!href) return null;
   if (protocols.has(protocol)) return src;
-  if (protocol === 'file:') return `${baseHref}${path}`;
+  if (protocol === 'file:') return `${getBaseUrl(baseHref)}${path}`;
   return null;
 };
 

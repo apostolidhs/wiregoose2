@@ -1,8 +1,6 @@
 const {check, validationResult} = require('express-validator');
-const Feeds = require('../models/feed');
+const Feed = require('../models/feed');
 const config = require('../../src/config');
-
-const categoryByIndex = config.categories.reduce((h, category, index) => ({...h, [category]: index}), {});
 
 module.exports = app => {
   app.get(
@@ -35,32 +33,16 @@ module.exports = app => {
     },
     async (req, res) => {
       const {target, lang, limit, categories} = res.locals.params;
-      const feeds = await Feeds.find({
+      const feeds = await Feed.find({
         lang,
         ...(target && {_id: {$lt: target}}),
         ...(categories && {category: categories})
       })
-        .select({
-          title: 1,
-          image: 1,
-          description: 1,
-          published: 1,
-          link: 1,
-          category: 1,
-          author: 1,
-          provider: 1
-        })
+        .select(Feed.selectFeed())
         .sort({_id: -1})
         .limit(limit);
 
-      res.json({
-        feeds: feeds.map(feed => ({
-          ...feed.toJSON(),
-          _id: undefined,
-          id: feed.id,
-          category: categoryByIndex[feed.category]
-        }))
-      });
+      res.json({feeds: feeds.map(f => f.toJsonSafe())});
     }
   );
 };

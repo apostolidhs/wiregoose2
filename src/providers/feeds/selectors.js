@@ -14,4 +14,9 @@ export const useFeedCategory = name => {
   );
 };
 
+export const useFeedSelector = id => {
+  const {feeds} = useContext(FeedContext);
+  return feeds[id];
+};
+
 export const useFeedDispatch = () => useContext(FeedDispatch);

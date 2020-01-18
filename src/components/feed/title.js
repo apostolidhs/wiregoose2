@@ -1,9 +1,10 @@
 import React from 'react';
 import {Heading} from 'grommet';
+import {Link} from '@reach/router';
 
-const Title = ({children, ...rest}) => (
+const Title = ({feedId, children, ...rest}) => (
   <Heading level="2" {...rest}>
-    {children}
+    <Link to={`feed/${feedId}/article`}>{children}</Link>
   </Heading>
 );
 

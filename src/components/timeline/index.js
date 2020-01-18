@@ -39,11 +39,6 @@ const Timeline = ({feeds, loadMoreItems}) => {
   const itemCount = feeds.length + 1;
   const isItemLoaded = index => feeds && index < feeds.length;
 
-  // useEffect(() => {
-  //   console.log('mount timeline');
-  //   return () => console.log('unmount timeline');
-  // }, []);
-
   return (
     <AutoSizer>
       {({height, width}) => (

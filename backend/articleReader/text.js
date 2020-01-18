@@ -7,6 +7,8 @@ const clearText = text =>
 module.exports = el => {
   const text = clearText(el.textContent);
 
+  if (text.length < 15 || text.toUpperCase() === text) return null;
+
   const validChars = Array.from(text.normalize()).reduce((h, c) => (c.match(/[A-Za-zΑ-Ωα-ω]/) ? h + 1 : h), 0);
   if (validChars < text.length / 2) return null;
 

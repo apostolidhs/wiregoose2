@@ -70,7 +70,7 @@ const Pages = () => {
               <Categories path="/" category="explore" />
               <Categories path="category/:category" />
 
-              <Article path="article/:id" />
+              <Article path="feed/:feedId/article" />
 
               <Settings path="settings" />
               <Providers path="settings/providers" />

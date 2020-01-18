@@ -14,9 +14,7 @@ module.exports = async registration => {
   const url = decodeURIComponent(registration.link);
   const [rss, error] = await flat(parser.parseURL(url));
 
-  if (error) {
-    return registration.addError(error);
-  }
+  if (error) return registration.addError(error);
 
   const {feeds, total} = parseRss(rss, registration);
   const [docs, feedsError] = await flat(Feed.saveFeeds(feeds));

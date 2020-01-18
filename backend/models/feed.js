@@ -4,6 +4,9 @@ const dateFns = require('date-fns');
 const objectHash = require('object-hash');
 const {languages, categories} = require('../../src/config');
 const Registration = require('./registration');
+const articleErrorTypes = require('./articleErrorTypes');
+
+const categoryByIndex = categories.reduce((h, category, index) => ({...h, [category]: index}), {});
 
 const validateTitle = {
   message: 'description or image is required',
@@ -30,6 +33,7 @@ const schema = new Schema(
         });
       }
     },
+
     title: {type: String, required: true, minlength: [6], maxlength: [128], validate: validateTitle},
     image: {type: SchemaTypes.Url},
     description: {type: String, minlength: [15], maxlength: [256]},
@@ -45,9 +49,13 @@ const schema = new Schema(
     provider: {type: String, required: true},
     // this should be {type: ObjectId, ref: 'Registration', required: true, populate: true}
     // but we really need the speed, part 2 :)
-    registration: {type: Schema.Types.ObjectId, ref: Registration.modelName, required: true}
 
-    // article: {type: Schema.Types.ObjectId, ref: 'Article'}
+    registration: {type: SchemaTypes.ObjectId, ref: Registration.modelName, required: true},
+
+    // Article
+    articleContent: {type: SchemaTypes.Mixed},
+    articleError: {type: String, enum: Object.values(articleErrorTypes)},
+    articleCreatedAt: {type: Date}
   },
   {timestamps: true}
 );
@@ -57,6 +65,27 @@ schema.statics.saveFeeds = function(feeds) {
     feeds.map(f => f.toObject()),
     {ordered: false}
   );
+};
+
+schema.statics.selectFeed = function() {
+  return {
+    title: 1,
+    image: 1,
+    description: 1,
+    published: 1,
+    link: 1,
+    category: 1,
+    author: 1,
+    provider: 1
+  };
+};
+
+schema.statics.selectArticle = function() {
+  return {articleCreatedAt: 1, articleError: 1, articleContent: 1};
+};
+
+schema.methods.toJsonSafe = function() {
+  return {...this.toJSON(), _id: undefined, id: this.id, category: categoryByIndex[this.category]};
 };
 
 module.exports = model('Feed', schema);
