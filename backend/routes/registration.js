@@ -1,7 +1,8 @@
-const {check, validationResult} = require('express-validator');
+const {check} = require('express-validator');
 const Registration = require('../models/registration');
 const Provider = require('../models/provider');
 const config = require('../../src/config');
+const validationMiddleware = require('../../helpers/validationMiddleware');
 
 module.exports = app => {
   app.get(
@@ -9,16 +10,12 @@ module.exports = app => {
     check('lang')
       .isIn(config.languages)
       .optional(),
-    (req, res, next) => {
-      const errors = validationResult(req).formatWith(e => e.msg);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({errors: errors.mapped()});
+    validationMiddleware({
+      params: req => {
+        const {lang} = {lang: 'gr', ...req.query};
+        return {lang};
       }
-
-      const {lang} = {lang: 'gr', ...req.query};
-      res.locals.params = {lang};
-      return next();
-    },
+    }),
     async (req, res) => {
       const {lang} = res.locals.params;
       const [registrations, providers] = await Promise.all([

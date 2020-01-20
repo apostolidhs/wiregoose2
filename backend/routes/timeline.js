@@ -1,6 +1,7 @@
-const {check, validationResult} = require('express-validator');
+const {check} = require('express-validator');
 const Feed = require('../models/feed');
 const config = require('../../src/config');
+const validationMiddleware = require('../../helpers/validationMiddleware');
 
 module.exports = app => {
   app.get(
@@ -21,16 +22,12 @@ module.exports = app => {
         .isIn(config.categories)
         .optional()
     ],
-    (req, res, next) => {
-      const errors = validationResult(req).formatWith(e => e.msg);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({errors: errors.mapped()});
+    validationMiddleware({
+      params: req => {
+        const {target, lang, limit, categories} = {limit: 20, lang: 'gr', ...req.query};
+        return {target, lang, limit, categories};
       }
-
-      const {target, lang, limit, categories} = {limit: 20, lang: 'gr', ...req.query};
-      res.locals.params = {target, lang, limit, categories};
-      return next();
-    },
+    }),
     async (req, res) => {
       const {target, lang, limit, categories} = res.locals.params;
       const feeds = await Feed.find({

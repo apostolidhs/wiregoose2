@@ -19,4 +19,10 @@ export const useFeedSelector = id => {
   return feeds[id];
 };
 
+export const useRelatedFeedsSelector = id => {
+  const {feeds} = useContext(FeedContext);
+  const feed = useFeedSelector(id);
+  return useMemo(() => ((feed && feed.relatedIds) || []).map(feedId => feeds[feedId]), [feed]);
+};
+
 export const useFeedDispatch = () => useContext(FeedDispatch);

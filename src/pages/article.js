@@ -1,47 +1,53 @@
 import React, {useEffect} from 'react';
 import {navigate} from '@reach/router';
 import {Main, Heading} from 'grommet';
-import {useFeedSelector, useFeedDispatch} from 'providers/feeds/selectors';
+import {useFeedSelector, useRelatedFeedsSelector, useFeedDispatch} from 'providers/feeds/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import SubInfo from 'components/feed/subInfo';
 import Image from 'components/feed/image';
+import FeedLink from 'components/feed/link';
+import Related from 'components/article/related';
 import ArticleComponent from 'components/article';
 import Header from 'components/article/header';
 
 const emptyObject = {};
 
 const Article = ({feedId}) => {
-  const {title, articleCreatedAt, provider, published, category, image, articleContent} =
+  const {loaded, id, title, articleLoaded, relatedFeedsLoaded, provider, published, category, image, articleContent} =
     useFeedSelector(feedId) || emptyObject;
+  const [nextRelatedFeed, ...relatedFeeds] = useRelatedFeedsSelector(feedId);
   const api = useApiSelector();
-  const {articleFetchStarted, articleFetchFinished, articleFetchFailed} = useFeedDispatch();
-
+  const {feedFetchStarted, feedFetchFinished, feedFetchFailed} = useFeedDispatch();
+  console.log(useFeedSelector(feedId));
   useEffect(() => {
     if (!feedId) return navigate('/');
-    if (articleCreatedAt) return;
+    if (articleLoaded && relatedFeedsLoaded) return;
 
-    articleFetchStarted(feedId);
-    const promise = api.fetchFeedWithArticle(feedId);
+    const fetchOptions = {article: !articleLoaded, related: !relatedFeedsLoaded};
+    feedFetchStarted(feedId, fetchOptions);
+    const promise = api.fetchFeed(feedId, fetchOptions);
     promise
-      .then(response => articleFetchFinished(feedId, response.data))
+      .then(response => feedFetchFinished(feedId, response.data, fetchOptions))
       .catch(error => {
         console.error(error);
-        articleFetchFailed(feedId);
+        feedFetchFailed(feedId, fetchOptions);
       });
     return () => promise.abort();
   }, [feedId]);
 
-  if (!articleCreatedAt) return 'loading...';
+  if (!id || !loaded) return null;
 
   return (
     <Main pad="medium">
       <Header />
+      <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />
       <Heading level={1} margin={{top: 'large', bottom: 'none'}}>
         {title}
       </Heading>
       <SubInfo provider={provider} published={published} category={category} margin={{top: 'large'}} />
       {image && <Image feedId={feedId} src={image} margin={{top: 'large'}} />}
-      <ArticleComponent content={articleContent} margin={{top: 'large'}} />
+      <ArticleComponent content={articleContent} margin={{vertical: 'large'}} />
+      <Related feeds={relatedFeeds} margin={{top: 'large'}} />
     </Main>
   );
 };

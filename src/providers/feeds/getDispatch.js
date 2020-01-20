@@ -1,6 +1,20 @@
 export const initialBucket = {loading: false, loaded: false, ids: []};
 export const initialState = {feeds: {}, categories: {}, articles: initialBucket};
-const getInitialFeedState = (id = null) => ({loading: false, loaded: false, id});
+const getInitialFeedState = (id = null) => ({
+  loading: false,
+  loaded: false,
+  id,
+
+  articleLoaded: false,
+  articleLoading: false,
+  articleContent: [],
+  articleError: null,
+  articleCreatedAt: null,
+
+  relatedLoaded: false,
+  relatedLoading: false,
+  relatedIds: []
+});
 
 const addFeed = (stateFeeds, feed, attrs) => {
   const storedFeed = stateFeeds[feed.id];
@@ -15,11 +29,10 @@ const addFeed = (stateFeeds, feed, attrs) => {
 const removeFeed = (stateFeeds, id, attrs) => {
   const feed = stateFeeds[id];
   if (!feed) return stateFeeds;
-  if (feed.reference > 1) {
-    return {...stateFeeds, [id]: {...feed, reference: feed.reference - 1, ...attrs}};
-  }
+  if (feed.reference > 1) return {...stateFeeds, [id]: {...feed, reference: feed.reference - 1, ...attrs}};
+
   delete stateFeeds[id];
-  return {...stateFeeds};
+  return feed.relatedIds.reduce((h, relatedFeedId) => removeFeed(h, relatedFeedId), {...stateFeeds});
 };
 
 const addFeeds = (stateFeeds, feeds) => feeds.reduce((h, feed) => addFeed(h, feed), stateFeeds);
@@ -45,35 +58,104 @@ export default dispatch => ({
   categoryFetchFinished: (name, feeds) => dispatch(s => categoryFetchFinished(s, name, feeds)),
   categoryFetchFailed: name => dispatch(s => setCategory(s, name, {loading: false})),
 
-  articleFetchStarted: id =>
+  feedFetchStarted: (id, {article, related}) =>
     dispatch(s => {
-      // debugger;
+      const attrs = {articleLoading: !!article, relatedLoading: !!related, loading: true};
       if (s.articles.ids.includes(id)) {
-        return {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], articleLoading: true}}};
+        return {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], ...attrs}}};
       }
 
-      const feeds = addFeed(s.feeds, getInitialFeedState(id), {articleLoading: true});
-      const articles = addFeedsToBucket(s.articles, [feeds[id]]);
+      const feeds = addFeed(s.feeds, getInitialFeedState(id), attrs);
+      const articles = article ? addFeedsToBucket(s.articles, [feeds[id]]) : s.articles;
       return {...s, articles, feeds};
     }),
 
-  articleFetchFinished: (id, feed) =>
+  feedFetchFinished: (id, {relatedFeeds, feed}, {article, related}) =>
     dispatch(s => {
-      // debugger;
+      const stateFeed = s.feeds[id];
+      if (!feed) {
+        console.warn(`feedFetchFinished: feed ${id} doesn't exist`);
+        return s;
+      }
+
+      const feeds = relatedFeeds ? addFeeds(s.feeds, relatedFeeds) : s.feeds;
       return {
         ...s,
-        articles: {...s.articles, loading: false, loaded: true},
-        feeds: {...s.feeds, [id]: {...s.feeds[id], ...feed, articleLoading: false}}
+        ...(article && {articles: {...s.articles, loading: false, loaded: true}}),
+        feeds: {
+          ...feeds,
+          [id]: {
+            ...stateFeed,
+            ...feed,
+            loading: false,
+            loaded: true,
+            ...(related && {
+              relatedLoading: false,
+              relatedLoaded: true,
+              relatedIds: relatedFeeds.map(f => f.id)
+            }),
+            ...(article && {articleLoading: false, articleLoaded: true})
+          }
+        }
       };
     }),
 
-  articleFetchFailed: id =>
-    dispatch(s => {
-      // debugger;
-      return {
-        ...s,
-        feeds: removeFeed(s.feeds, id, {articleLoading: false}),
-        articles: {loading: false, loaded: true, ids: s.articles.ids.filter(i => i !== id)}
-      };
-    })
+  feedFetchFailed: (id, {article, related}) =>
+    dispatch(s => ({
+      ...s,
+      feeds: removeFeed(s.feeds, id, {
+        ...(article && {articleLoading: false}),
+        ...(related && {relatedLoading: false}),
+        loading: false
+      }),
+      articles: article ? {loading: false, loaded: true, ids: s.articles.ids.filter(i => i !== id)} : s.articles
+    }))
+
+  // articleFetchStarted: id =>
+  //   dispatch(s => {
+  //     if (s.articles.ids.includes(id)) {
+  //       return {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], articleLoading: true}}};
+  //     }
+
+  //     const feeds = addFeed(s.feeds, getInitialFeedState(id), {articleLoading: true});
+  //     const articles = addFeedsToBucket(s.articles, [feeds[id]]);
+  //     return {...s, articles, feeds};
+  //   }),
+
+  // articleFetchFinished: (id, feed) =>
+  //   dispatch(s => ({
+  //     ...s,
+  //     articles: {...s.articles, loading: false, loaded: true},
+  //     feeds: {...s.feeds, [id]: {...s.feeds[id], ...feed, articleLoading: false}}
+  //   })),
+
+  // articleFetchFailed: id =>
+  //   dispatch(s => ({
+  //     ...s,
+  //     feeds: removeFeed(s.feeds, id, {articleLoading: false}),
+  //     articles: {loading: false, loaded: true, ids: s.articles.ids.filter(i => i !== id)}
+  //   })),
+
+  // relatedFeedsFetchStart: id =>
+  //   dispatch(s => {
+  //     if (!(id in s.feeds)) {
+  //       console.warn(`relatedFeedsFetchStart: feed ${id} doesn't exist`);
+  //       return s;
+  //     }
+  //     return {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], relatedLoading: true}}};
+  //   }),
+
+  // relatedFeedsFetchFinished: (id, relatedFeeds) =>
+  //   dispatch(s => {
+  //     if (!(id in s.feeds)) {
+  //       console.warn(`relatedFeedsFetchFinished: feed ${id} doesn't exist`);
+  //       return s;
+  //     }
+  //     const feeds = addFeeds(s.feeds, relatedFeeds);
+  //     const ids = relatedFeeds.map(f => f.id);
+  //     return {...s, feeds: {...feeds, [id]: {...s.feeds[id], relatedLoading: false, relatedFeeds: ids}}};
+  //   }),
+
+  // relatedFeedsFetchFailed: id =>
+  //   dispatch(s => (id in s.feeds ? {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], relatedLoading: true}}} : s))
 });

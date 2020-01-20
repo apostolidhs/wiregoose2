@@ -2,16 +2,21 @@ import request from 'helpers/request';
 
 export default config => {
   const transformFeed = feed => ({...feed, category: config.categories[feed.category]});
+  const transformFeeds = feeds => feeds.map(transformFeed);
 
   return {
     timelineExplore: ({target, limit, categories}) =>
       request.get(
         'http://localhost:4100/timeline/explore',
         {target, limit, ...(categories && {categories: categories.join(',')})},
-        {transform: ({feeds}) => ({feeds: feeds.map(transformFeed)})}
+        {transform: ({feeds}) => ({feeds: transformFeeds(feeds)})}
       ),
     registrationsPerCategory: () => request.get('http://localhost:4100/registrationsPerCategory'),
-    fetchFeedWithArticle: id =>
-      request.get(`http://localhost:4100/feed/${id}/article`, null, {transform: transformFeed})
+    fetchFeed: (id, {article, related}) =>
+      request.get(
+        `http://localhost:4100/feeds/${id}`,
+        {article, related},
+        {transform: ({feed, relatedFeeds}) => ({feed: transformFeed(feed), relatedFeeds: transformFeeds(relatedFeeds)})}
+      )
   };
 };

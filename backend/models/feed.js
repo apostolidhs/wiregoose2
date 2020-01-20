@@ -69,6 +69,7 @@ schema.statics.saveFeeds = function(feeds) {
 
 schema.statics.selectFeed = function() {
   return {
+    lang: 1,
     title: 1,
     image: 1,
     description: 1,

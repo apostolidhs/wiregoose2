@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
 
-const {check, validationResult} = require('express-validator');
+const {check} = require('express-validator');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
@@ -57,16 +57,13 @@ app.get(
       .optional()
       .toInt()
   ],
-  (req, res, next) => {
-    const errors = validationResult(req).formatWith(e => e.msg);
-    if (!errors.isEmpty()) {
-      return res.status(422).send('wrong w (width), h (height) parameter');
-    }
-
-    const {w, h} = req.query;
-    res.locals.params = {w: !w && !h ? 256 : w, h};
-    return next();
-  },
+  validationMiddleware({
+    params: req => {
+      const {w, h} = req.query;
+      return {w: !w && !h ? 256 : w, h};
+    },
+    onError: resp => resp.send('wrong w (width), h (height) parameter')
+  }),
   async (req, res) => {
     const {w, h} = res.locals.params;
     const url = decodeURIComponent(req.url.substring(1));

@@ -1,43 +1,65 @@
-const {check, validationResult} = require('express-validator');
+const {check} = require('express-validator');
 const Feed = require('../models/feed');
-
+const validationMiddleware = require('../../helpers/validationMiddleware');
 const articleReader = require('../articleReader');
+
+const getArticle = async feed => {
+  if (feed.articleCreatedAt) return feed;
+
+  const [content, error] = await articleReader.fromURL(feed.link);
+
+  feed.articleCreatedAt = new Date();
+  feed.articleError = error;
+  feed.articleContent = content;
+
+  await feed.save();
+
+  return feed;
+};
+
+const getRelated = async feed => {
+  const {lang, category, _id} = feed;
+  const feeds = await Feed.find({lang, _id: {$lt: _id}, category})
+    .select(Feed.selectFeed())
+    .sort({_id: -1})
+    .limit(4);
+
+  return feeds.map(f => f.toJsonSafe());
+};
 
 module.exports = app => {
   app.get(
-    '/feed/:feedId/article',
+    '/feeds/:feedId',
     [
       check('feedId')
         .isMongoId()
-        .escape()
+        .escape(),
+      check('article')
+        .toBoolean()
+        .optional(),
+      check('related')
+        .toBoolean()
+        .optional()
     ],
-    (req, res, next) => {
-      const errors = validationResult(req).formatWith(e => e.msg);
-      if (!errors.isEmpty()) {
-        return res.status(422).json({errors: errors.mapped()});
+    validationMiddleware({
+      params: req => {
+        const {feedId, article, related} = {...req.query, ...req.params};
+        return {feedId, article, related};
+      }
+    }),
+    async (req, res) => {
+      const {feedId, article, related} = res.locals.params;
+
+      const feed = await Feed.findById(feedId).select({...Feed.selectFeed(), ...(article && Feed.selectArticle())});
+      if (!feed) return res.status(404);
+
+      if (article) {
+        await getArticle(feed);
       }
 
-      const {feedId} = {...req.query, ...req.params};
-      res.locals.params = {feedId};
-      return next();
-    },
-    async (req, res) => {
-      const {feedId} = res.locals.params;
+      const relatedFeeds = related && (await getRelated(feed));
 
-      const feed = await Feed.findById(feedId).select({...Feed.selectFeed(), ...Feed.selectArticle()});
-
-      if (!feed) return res.status(404);
-      if (feed.articleCreatedAt) return res.json(feed.toJsonSafe());
-
-      const [content, error] = await articleReader.fromURL(feed.link);
-
-      feed.articleCreatedAt = new Date();
-      feed.articleError = error;
-      feed.articleContent = content;
-
-      await feed.save();
-
-      return res.json(feed.toJsonSafe());
+      res.json({feed: feed.toJsonSafe(), relatedFeeds});
     }
   );
 };
