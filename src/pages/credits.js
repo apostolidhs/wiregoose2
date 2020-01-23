@@ -1,7 +1,16 @@
 import React from 'react';
+import {Edit} from 'grommet-icons';
+import Back from 'components/back';
+import Main from 'components/main';
+import TextedIcon from 'components/textedIcon';
 
-const Credits = () => {
-  return <div>Credits</div>;
+const Explore = () => {
+  return (
+    <Main>
+      <Back absolute />
+      <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon>
+    </Main>
+  );
 };
 
-export default Credits;
+export default Explore;

@@ -18,10 +18,7 @@ module.exports = app => {
     }),
     async (req, res) => {
       const {lang} = res.locals.params;
-      const [registrations, providers] = await Promise.all([
-        Registration.find({lang}),
-        Provider.find().select({name: 1, icon: 1})
-      ]);
+      const [registrations, providers] = await Promise.all([Registration.find({lang}), Provider.find()]);
 
       const providersSet = new Set();
 
@@ -45,8 +42,8 @@ module.exports = app => {
       res.json({
         registrations: providerIndexesByCategoryIndex,
         providers: providersBatch.map(providerId => {
-          const {name, icon} = providersById[providerId];
-          return {name, icon};
+          const {name, icon, link} = providersById[providerId];
+          return {name, icon, link};
         })
       });
     }

@@ -18,7 +18,7 @@ const Article = ({feedId}) => {
   const [nextRelatedFeed, ...relatedFeeds] = useRelatedFeedsSelector(feedId);
   const api = useApiSelector();
   const {feedFetchStarted, feedFetchFinished, feedFetchFailed} = useFeedDispatch();
-  console.log(useFeedSelector(feedId));
+
   useEffect(() => {
     if (!feedId) return navigate('/');
     if (articleLoaded && relatedFeedsLoaded) return;

@@ -40,10 +40,10 @@ const Timeline = ({feeds, loadMoreItems}) => {
   const isItemLoaded = index => feeds && index < feeds.length;
 
   return (
-    <AutoSizer>
-      {({height, width}) => (
-        <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems} threshold={10}>
-          {({onItemsRendered, ref}) => (
+    <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems} threshold={10}>
+      {({onItemsRendered, ref}) => (
+        <AutoSizer>
+          {({height, width}) => (
             <FixedSizeList
               itemCount={itemCount}
               itemSize={450}
@@ -55,9 +55,9 @@ const Timeline = ({feeds, loadMoreItems}) => {
               {ListItem}
             </FixedSizeList>
           )}
-        </InfiniteLoader>
+        </AutoSizer>
       )}
-    </AutoSizer>
+    </InfiniteLoader>
   );
 };
 

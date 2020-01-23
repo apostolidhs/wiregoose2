@@ -1,10 +1,12 @@
 import React, {useEffect, useState, useMemo} from 'react';
 import {navigate} from '@reach/router';
-import {Box} from 'grommet';
+import {Main, Box} from 'grommet';
+import {Edit} from 'grommet-icons';
 import Timeline from 'components/timeline';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
+import TextedIcon from 'components/textedIcon';
 
 const limit = 15;
 
@@ -45,11 +47,13 @@ const Categories = ({category}) => {
   };
 
   return (
-    //width={{max: '450px'}}
     <Box height="100%" width="100%">
+      {/* <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon> */}
       <Timeline feeds={feeds} loadMoreItems={loadMoreItems} />
     </Box>
   );
 };
 
 export default Categories;
+
+//width={{max: '450px'}}

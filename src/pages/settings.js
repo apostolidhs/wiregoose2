@@ -1,34 +1,34 @@
 import React from 'react';
-import {Main, Heading, Text, Box} from 'grommet';
-import {Hadoop} from 'grommet-icons';
+import {Heading, Text, Box} from 'grommet';
+import {Announce, Info, Edit} from 'grommet-icons';
 import {Link} from '@reach/router';
-// import Link from 'components/link';
-const getLink = path => props => <Link to={`/settings/${path}`} {...props} />;
+import Back from 'components/back';
+import Main from 'components/main';
 
 const SettingsLink = ({path, Icon, children, ...rest}) => (
-  <Box direction="row" gap="small" align="center" margin={{top: 'large'}} as={getLink(path)} {...rest}>
-    <Icon size="large" />
-    <Text size="xlarge">{children}</Text>
-  </Box>
+  <Link to={`/settings/${path}`}>
+    <Box direction="row" gap="small" align="center" margin={{top: 'large'}} {...rest}>
+      <Icon size="38px" color="dark-1" />
+      <Text size="large">{children}</Text>
+    </Box>
+  </Link>
 );
 
 const Settings = () => {
   return (
-    <Main pad="large">
-      <Heading level="1" margin="none">
+    <Main>
+      <Back alignSelf="start" />
+      <Heading level="1" margin={{top: 'medium', bottom: 'large'}}>
         Όλα τα νέα σε ένα μέρος
       </Heading>
-      <SettingsLink path="providers" Icon={Hadoop}>
-        Πάροχοι
-      </SettingsLink>
-      <SettingsLink path="about" Icon={Hadoop}>
+      <SettingsLink path="about" Icon={Info}>
         Σχετικά
       </SettingsLink>
-      <SettingsLink path="creators" Icon={Hadoop}>
-        Δημιουργοί
+      <SettingsLink path="providers" Icon={Announce}>
+        Πηγές
       </SettingsLink>
-      <SettingsLink path="language" Icon={Hadoop}>
-        English
+      <SettingsLink path="credits" Icon={Edit}>
+        Δημιουργοί
       </SettingsLink>
     </Main>
   );
