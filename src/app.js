@@ -1,26 +1,14 @@
 import React from 'react';
-import {Grommet} from 'grommet';
+import ThemeProvider from 'providers/theme';
 import ConfigProvider from 'providers/config';
 import ApiProvider from 'providers/api';
 import FeedsProvider from 'providers/feeds';
 import RegistrationsProvider from 'providers/registrations';
 import Pages from './pages';
-import GlobalStyle from 'components/globalStyle';
-
-const theme = {
-  global: {
-    font: {
-      family: "'Noto Sans', sans-serif"
-      // size: '18px',
-      // height: '20px'
-    }
-  }
-};
 
 function App() {
   return (
-    <Grommet theme={theme} style={{height: '100%'}}>
-      <GlobalStyle />
+    <ThemeProvider>
       <ConfigProvider>
         <ApiProvider>
           <RegistrationsProvider>
@@ -30,7 +18,7 @@ function App() {
           </RegistrationsProvider>
         </ApiProvider>
       </ConfigProvider>
-    </Grommet>
+    </ThemeProvider>
   );
 }
 

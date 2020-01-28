@@ -5,10 +5,15 @@ export default config => {
   const transformFeeds = feeds => feeds.map(transformFeed);
 
   return {
-    timelineExplore: ({target, limit, categories}) =>
+    timelineExplore: ({target, limit, categories, providers}) =>
       request.get(
         'http://localhost:4100/timeline/explore',
-        {target, limit, ...(categories && {categories: categories.join(',')})},
+        {
+          target,
+          limit,
+          ...(categories && {categories: categories.join(',')}),
+          ...(providers && {providers: providers.join(',')})
+        },
         {transform: ({feeds}) => ({feeds: transformFeeds(feeds)})}
       ),
     registrationsPerCategory: () => request.get('http://localhost:4100/registrationsPerCategory'),

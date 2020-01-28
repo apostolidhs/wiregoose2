@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
   a:-webkit-any-link {
     color: initial;
   }
+  button:focus {
+    outline:0 !important;
+  }
 `;
 
 export default GlobalStyle;

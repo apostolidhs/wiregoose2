@@ -20,20 +20,24 @@ module.exports = app => {
         .optional(),
       check('categories')
         .isIn(config.categories)
+        .optional(),
+      check('providers')
+        .escape()
         .optional()
     ],
     validationMiddleware({
       params: req => {
-        const {target, lang, limit, categories} = {limit: 20, lang: 'gr', ...req.query};
-        return {target, lang, limit, categories};
+        const {target, lang, limit, categories, providers} = {limit: 20, lang: 'gr', ...req.query};
+        return {target, lang, limit, categories, providers};
       }
     }),
     async (req, res) => {
-      const {target, lang, limit, categories} = res.locals.params;
+      const {target, lang, limit, categories, providers} = res.locals.params;
       const feeds = await Feed.find({
         lang,
         ...(target && {_id: {$lt: target}}),
-        ...(categories && {category: categories})
+        ...(categories && {category: categories}),
+        ...(providers && {provider: providers})
       })
         .select(Feed.selectFeed())
         .sort({_id: -1})

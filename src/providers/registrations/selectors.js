@@ -7,3 +7,15 @@ export const useSelectProvider = name => {
   const registrations = useRegistrationsSelector();
   return useMemo(() => registrations.providers.find(p => p.name === name), [registrations]);
 };
+
+export const useSelectCategoriesByProvider = name => {
+  const registrations = useRegistrationsSelector();
+  return useMemo(
+    () =>
+      Object.entries(registrations.byCategory).reduce(
+        (h, [category, providers]) => (providers.some(provider => provider.name === name) ? [...h, category] : h),
+        []
+      ),
+    [registrations]
+  );
+};

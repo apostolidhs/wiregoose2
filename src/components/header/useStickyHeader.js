@@ -24,7 +24,7 @@ export default headerRef => {
       }
 
       prevScrollpos = currentScrollPos;
-    }, 250);
+    }, 200);
 
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);

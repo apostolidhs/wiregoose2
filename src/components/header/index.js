@@ -8,7 +8,8 @@ const Container = styled(Box)`
   top: 0;
   left: 0;
   right: 0;
-  transition: transform 200ms;
+  transition: transform 300ms;
+  z-index: 1;
 `;
 
 const Header = forwardRef((props, ref) => {

@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
-import {Box, Main} from 'grommet';
+import {Box} from 'grommet';
 import {Router, navigate, Location} from '@reach/router';
 import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
@@ -7,6 +7,7 @@ import NavBar from 'components/navbar';
 import {Transition} from 'react-transition-group';
 import Sidebar from './sidebar';
 import Categories from './categories';
+import Sources from './sources';
 import Article from './article';
 import Settings from './settings';
 import Providers from './providers';
@@ -66,9 +67,10 @@ const Pages = () => {
             <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
               {state => <Sidebar transition={state} />}
             </Transition>
-            <Main as={Routes} pad={contentPadding}>
+            <Box overflow="initial" as={Routes} pad={contentPadding}>
               <Categories path="/" category="explore" />
-              <Categories path="category/:category" />
+              <Categories path="categories/:category" />
+              <Sources path="sources/:source/:category" />
 
               <Article path="feed/:feedId/article" />
 
@@ -77,7 +79,7 @@ const Pages = () => {
               <About path="settings/about" />
               <Credits path="settings/credits" />
               <NotFound default />
-            </Main>
+            </Box>
             <NavBar ref={navBarRef} />
           </Layout>
         );
