@@ -35,9 +35,9 @@ const getListItem = feeds => ({index, isScrolling, key, style}) => {
   );
 };
 
-const Timeline = ({feeds, loadMoreItems}) => {
+const Timeline = ({feeds, loadMoreItems, hasMore}) => {
   const ListItem = useMemo(() => getListItem(feeds), [feeds]);
-  const itemCount = feeds.length + 1;
+  const itemCount = hasMore ? feeds.length + 1 : feeds.length;
   const isRowLoaded = ({index}) => feeds && index < feeds.length;
 
   return (

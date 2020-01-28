@@ -8,8 +8,8 @@ const StyledButton = styled(Button)`
     absolute &&
     `
     position: absolute;
-    left: 4px;
-    top: 7px;
+    left: 11px;
+    top: 14px;
   `}
 `;
 
@@ -19,7 +19,7 @@ const Back = ({onClick = goBack, noLabel, ...rest}) => (
   <StyledButton
     icon={<FormPrevious size="32px" />}
     gap="none"
-    label={!noLabel && 'Πίσω'}
+    // label={!noLabel && 'Πίσω'}
     onClick={onClick}
     plain
     {...rest}

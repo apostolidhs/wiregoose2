@@ -3,7 +3,7 @@ import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import Context from './context';
 
-const getInitialState = () => ({providers: [], byCategory: {}});
+const getInitialState = () => ({providers: [], byCategory: {}, loaded: false});
 
 const Registrations = ({children}) => {
   const [state, setState] = useState(getInitialState);
@@ -21,7 +21,7 @@ const Registrations = ({children}) => {
             [config.categories[categoryIndex]]: providerIndexes.map(providerIndex => providers[providerIndex])
           };
         }, {});
-        setState({byCategory, providers});
+        setState({byCategory, providers, loaded: true});
       })
       .catch(error => {
         console.error(error);

@@ -23,19 +23,22 @@ const Categories = ({category}) => {
   const {feeds, loaded, loading} = useFeedCategory(category);
   const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed} = useFeedDispatch();
   const [target, setTarget] = useState();
-  const isExplore = category === 'explore';
+  const [hasMore, setHasMore] = useState(true);
 
   useMemo(() => {
-    if (!categories.includes(category) && category !== 'explore') navigate('/');
+    if (!categories.includes(category) && category) navigate('/');
     setTarget();
   }, [category]);
 
   useEffect(() => {
     categoryFetchStarted(category);
-    const promise = api.timelineExplore({target, limit, ...(category !== 'explore' && {categories: [category]})});
+    const promise = api.timelineExplore({target, limit, ...(category && {categories: [category]})});
 
     promise
-      .then(response => categoryFetchFinished(category, response.data.feeds))
+      .then(response => {
+        categoryFetchFinished(category, response.data.feeds);
+        setHasMore(feeds.length === limit);
+      })
       .catch(error => {
         console.error(error);
         categoryFetchFailed(category);
@@ -50,14 +53,12 @@ const Categories = ({category}) => {
   };
 
   return (
-    <Main pad="none" height="100%" width="100%">
-      {!isExplore && <Back absolute noLabel />}
-      {!isExplore && <TextedIcon Icon={Edit}>{category}</TextedIcon>}
-      <Timeline feeds={feeds} loadMoreItems={loadMoreItems} />
+    <Main height="100%" width="100%">
+      {category && <Back absolute noLabel />}
+      {category && <TextedIcon Icon={Edit}>{category}</TextedIcon>}
+      <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} />
     </Main>
   );
 };
 
 export default Categories;
-
-//width={{max: '450px'}}

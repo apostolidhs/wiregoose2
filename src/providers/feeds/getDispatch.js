@@ -54,10 +54,31 @@ const categoryFetchFinished = (s, name, stateFeeds) => {
   return {...setCategory(s, name, bucket), feeds};
 };
 
+const setSource = (s, source, category, bucket) => ({
+  ...s,
+  sources: {
+    ...s.sources,
+    [source]: {
+      ...s.sources[source],
+      [category]: {...((s.sources[source] && s.sources[source][category]) || initialBucket), ...bucket}
+    }
+  }
+});
+
+const sourceFetchFinished = (s, source, category, stateFeeds) => {
+  const feeds = addFeeds(s.feeds, stateFeeds);
+  const bucket = addFeedsToBucket({...s.sources[source][category], loading: false, loaded: true}, stateFeeds);
+  return {...setSource(s, source, category, bucket), feeds};
+};
+
 export default dispatch => ({
   categoryFetchStarted: name => dispatch(s => setCategory(s, name, {loading: true})),
   categoryFetchFinished: (name, feeds) => dispatch(s => categoryFetchFinished(s, name, feeds)),
   categoryFetchFailed: name => dispatch(s => setCategory(s, name, {loading: false})),
+
+  sourceFetchStarted: (source, category) => dispatch(s => setSource(s, source, category, {loading: true})),
+  sourceFetchFinished: (source, category, feeds) => dispatch(s => sourceFetchFinished(s, source, category, feeds)),
+  sourceFetchFailed: (source, category) => dispatch(s => setSource(s, source, category, {loading: false})),
 
   feedFetchStarted: (id, {article, related}) =>
     dispatch(s => {

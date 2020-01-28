@@ -5,7 +5,7 @@ import useTheme from 'hooks/useTheme';
 
 const ActionBar = ({justify = 'between'}) => {
   const theme = useTheme();
-  console.log(theme);
+  // console.log(theme);
   return (
     <Box direction="row" justify={justify}>
       <Button margin={{left: `-${theme.icon.size.small}`}} icon={<Bookmark size="medium" />} />

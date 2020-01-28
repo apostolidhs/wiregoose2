@@ -1,10 +1,9 @@
-import React, {useEffect, useState, useMemo} from 'react';
-import {navigate} from '@reach/router';
+import React from 'react';
 import {Box, Heading} from 'grommet';
 import ProviderIcon from 'components/providers/icon';
 
 const Header = ({icon, name}) => (
-  <Box pad="large" gap="small" justify="center" direction="row">
+  <Box pad="large" gap="small" justify="center" direction="row" height={{min: 'initial'}}>
     <ProviderIcon src={icon} />
     <Heading alignSelf="center" level="2" margin="none">
       {name}

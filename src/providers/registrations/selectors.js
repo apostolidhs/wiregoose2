@@ -19,3 +19,5 @@ export const useSelectCategoriesByProvider = name => {
     [registrations]
   );
 };
+
+export const useSelectRegistrationsLoaded = () => useRegistrationsSelector().loaded;

@@ -67,8 +67,8 @@ const Pages = () => {
             <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
               {state => <Sidebar transition={state} />}
             </Transition>
-            <Box overflow="initial" as={Routes} pad={contentPadding}>
-              <Categories path="/" category="explore" />
+            <Box overflow="initial" as={Routes} pad={contentPadding} height={{min: 'initial'}}>
+              <Categories path="/" />
               <Categories path="categories/:category" />
               <Sources path="sources/:source/:category" />
 

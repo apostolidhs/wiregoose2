@@ -1,16 +1,18 @@
 import React, {useEffect, useState, useMemo, useCallback} from 'react';
 import {navigate} from '@reach/router';
-import styled from 'styled-components';
-import {Box, Tabs, Tab} from 'grommet';
-import {Edit} from 'grommet-icons';
+import {Tab} from 'grommet';
 import Timeline from 'components/timeline';
-import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
-import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
-import {useSelectCategoriesByProvider, useSelectProvider} from 'providers/registrations/selectors';
+import {useFeedSource, useFeedDispatch} from 'providers/feeds/selectors';
+import {
+  useSelectCategoriesByProvider,
+  useSelectProvider,
+  useSelectRegistrationsLoaded
+} from 'providers/registrations/selectors';
 import Back from 'components/back';
 import Main from 'components/main';
 import Header from './header';
+import Tabs from './tabs';
 
 const limit = 15;
 
@@ -19,86 +21,66 @@ const getOlder = feeds => {
   return feed && feed.id;
 };
 
-const StyledTabs = styled(Tabs)`
-  > :first-child::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-  }
-
-  > :first-child {
-    box-shadow: ${props => props.theme.global.elevation[props.theme.dark ? 'dark' : 'light']['xsmall']};
-    flex-wrap: nowrap;
-    flex-shrink: 0;
-    white-space: nowrap;
-    overflow-y: hidden;
-    width: auto;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
-  }
-`;
-
-const Category = ({category}) => {
-  return <Box pad="medium">{category}</Box>;
-};
-
 const Sources = ({source, category}) => {
+  const isRegistrationsLoaded = useSelectRegistrationsLoaded();
   const categories = useSelectCategoriesByProvider(source);
   const provider = useSelectProvider(source);
 
-  const tabRef = el => el && el.scrollIntoView({behavior: 'smooth', inline: 'center'});
+  const tabRef = el => el && el.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'end'});
   const activeIndex = categories.indexOf(category);
   const onActive = useCallback(index => navigate(`/sources/${source}/${categories[index]}`), [categories]);
 
+  const api = useApiSelector();
+  const {feeds, loaded, loading} = useFeedSource(source, category);
+  const {sourceFetchStarted, sourceFetchFinished, sourceFetchFailed} = useFeedDispatch();
+  const [target, setTarget] = useState();
+  const [hasMore, setHasMore] = useState(true);
+
+  useMemo(() => {
+    if (!categories.length && isRegistrationsLoaded) navigate('/');
+    setTarget();
+  }, [categories]);
+
+  useEffect(() => {
+    sourceFetchStarted(source, category);
+    const promise = api.timelineExplore({
+      target,
+      limit,
+      ...(category && {categories: [category]}),
+      ...(source && {providers: [source]})
+    });
+
+    promise
+      .then(({data: {feeds}}) => {
+        sourceFetchFinished(source, category, feeds);
+        setHasMore(feeds.length === limit);
+      })
+      .catch(error => {
+        console.error(error);
+        sourceFetchFailed(source, category);
+      });
+
+    return () => promise.abort();
+  }, [target, source, category]);
+
+  const loadMoreItems = () => {
+    if (loading || !loaded) return;
+    setTarget(getOlder(feeds));
+  };
+
   return (
-    <Main pad="none" height="100%" width="100%">
+    <Main height="100%" width="100%">
       <Back absolute noLabel />
       <Header {...provider} />
-      <StyledTabs activeIndex={activeIndex} onActive={onActive} flex="grow" justify="start">
+      <Tabs activeIndex={activeIndex} onActive={onActive} flex="grow" justify="start">
         {categories.map((cat, index) => (
           <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={cat}>
-            <Category category={cat} />
+            <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} />
           </Tab>
         ))}
-      </StyledTabs>
+      </Tabs>
     </Main>
   );
-  // const {categories} = useConfigSelector();
-  // const api = useApiSelector();
-  // const {feeds, loaded, loading} = useFeedCategory(category);
-  // const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed} = useFeedDispatch();
-  // const [target, setTarget] = useState();
-  // const isExplore = category === 'explore';
-
-  // useMemo(() => {
-  //   if (!categories.includes(category) && category !== 'explore') navigate('/');
-  //   setTarget();
-  // }, [category]);
-
-  // useEffect(() => {
-  //   categoryFetchStarted(category);
-  //   const promise = api.timelineExplore({target, limit, ...(category !== 'explore' && {categories: [category]})});
-
-  //   promise
-  //     .then(response => categoryFetchFinished(category, response.data.feeds))
-  //     .catch(error => {
-  //       console.error(error);
-  //       categoryFetchFailed(category);
-  //     });
-
-  //   return () => promise.abort();
-  // }, [target, category]);
-
-  // const loadMoreItems = () => {
-  //   if (loading || !loaded) return;
-  //   setTarget(getOlder(feeds));
-  // };
-
-  // return (
-  //   <Main pad="none" height="100%" width="100%">
-  //     {!isExplore && <Back absolute noLabel />}
-  //     {!isExplore && <TextedIcon Icon={Edit}>{category}</TextedIcon>}
-  //     <Timeline feeds={feeds} loadMoreItems={loadMoreItems} />
-  //   </Main>
-  // );
 };
 
 export default Sources;
