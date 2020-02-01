@@ -10,12 +10,12 @@ const StyledLink = styled(Link)`
 `;
 
 const FeedImage = ({feedId, src, height = 170, width, ...rest}) => {
-  const proxySrc = useMemo(() => makeProxyUri(src, {height, width}), []);
+  const proxySrc = useMemo(() => makeProxyUri(src, {height, width}), [src]);
   const heightPx = `${height}px`;
   const widthPx = width && `${width}px`;
   return (
     <Box height={{min: heightPx, max: heightPx}} width={widthPx} {...rest}>
-      <StyledLink to={`feed/${feedId}/article`}>
+      <StyledLink to={`/feed/${feedId}/article`}>
         <Image src={proxySrc} fit="cover" height="100%" width="100%" />
       </StyledLink>
     </Box>

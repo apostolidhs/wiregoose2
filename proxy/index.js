@@ -10,6 +10,7 @@ const download = require('image-downloader');
 const sharp = require('sharp');
 const LRUCache = require('lru-cache');
 const flatPromise = require('../helpers/flatPromise');
+const validationMiddleware = require('../helpers/validationMiddleware');
 
 const app = express();
 
@@ -72,7 +73,7 @@ app.get(
 
     if (lruCache.get(filepath)) {
       res.sendFile(filepath);
-      console.log('send', filepath, 'cache hit');
+      console.log('send', url, filepath, 'cache hit');
       return;
     }
 
@@ -86,9 +87,10 @@ app.get(
     );
 
     if (downloadError) {
+      console.log('failed download', url, downloadError + '');
       return res.status(404).send(downloadError + '');
     }
-    console.log({...(w && {width: w}), ...(h && {height: h})});
+
     const [imageBuffer, imageError] = await flatPromise(
       sharp(filepath)
         .resize({...(w && {width: w}), ...(h && {height: h})})
@@ -96,15 +98,19 @@ app.get(
         .toBuffer()
     );
 
-    if (imageError) {
+    if (imageError && !imageError.toString().match(/unsupported image format/)) {
+      console.log('failed processing', url, imageError + '');
       return res.status(404).send(imageError + '');
     }
 
-    fs.writeFileSync(filepath, imageBuffer);
+    if (imageBuffer) {
+      fs.writeFileSync(filepath, imageBuffer);
+    }
+
     lruCache.set(filepath, filepath);
 
     res.sendFile(filepath);
-    console.log('send', filepath, 'cache miss');
+    console.log('send', url, filepath, 'cache miss');
   }
 );
 

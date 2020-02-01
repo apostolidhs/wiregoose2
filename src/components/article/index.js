@@ -12,7 +12,11 @@ const Paragraph = ({text}) => {
 };
 
 const Header = ({text}) => {
-  return <H margin="none">{text}</H>;
+  return (
+    <H margin="none" level="2">
+      {text}
+    </H>
+  );
 };
 
 const Image = ({src}) => {

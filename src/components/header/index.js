@@ -19,7 +19,7 @@ const Header = forwardRef((props, ref) => {
         <Link noActive to="/">
           <Heading margin="none">Wiregoose</Heading>
         </Link>
-        <Button label="Είσοδος" href="/" />
+        {/* <Button label="Είσοδος" href="/" /> */}
       </GHeader>
     </Container>
   );

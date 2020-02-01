@@ -1,21 +1,7 @@
+import getInitialFeedState from './getInitialFeedState';
+
 export const initialBucket = {loading: false, loaded: false, ids: []};
 export const initialState = {feeds: {}, sources: {}, categories: {}, articles: initialBucket};
-
-const getInitialFeedState = (id = null) => ({
-  loading: false,
-  loaded: false,
-  id,
-
-  articleLoaded: false,
-  articleLoading: false,
-  articleContent: [],
-  articleError: null,
-  articleCreatedAt: null,
-
-  relatedLoaded: false,
-  relatedLoading: false,
-  relatedIds: []
-});
 
 const addFeed = (stateFeeds, feed, attrs) => {
   const storedFeed = stateFeeds[feed.id];
@@ -23,7 +9,7 @@ const addFeed = (stateFeeds, feed, attrs) => {
     ...stateFeeds,
     [feed.id]: storedFeed
       ? {...storedFeed, reference: storedFeed.reference + 1, ...attrs}
-      : {...feed, fetched: new Date(), reference: 1, ...attrs}
+      : {...getInitialFeedState(feed.id), ...feed, fetched: new Date(), reference: 1, ...attrs}
   };
 };
 
@@ -36,7 +22,7 @@ const removeFeed = (stateFeeds, id, attrs) => {
   return feed.relatedIds.reduce((h, relatedFeedId) => removeFeed(h, relatedFeedId), {...stateFeeds});
 };
 
-const addFeeds = (stateFeeds, feeds) => feeds.reduce((h, feed) => addFeed(h, feed), stateFeeds);
+const addFeeds = (stateFeeds, feeds) => feeds.reduce((h, feed) => addFeed(h, feed, {loaded: true}), stateFeeds);
 
 const addFeedsToBucket = (bucket, feeds) => ({...bucket, ids: [...bucket.ids, ...feeds.map(f => f.id)]});
 
@@ -82,12 +68,12 @@ export default dispatch => ({
 
   feedFetchStarted: (id, {article, related}) =>
     dispatch(s => {
-      const attrs = {articleLoading: !!article, relatedLoading: !!related, loading: true};
+      const attrs = {articleLoading: !!article, relatedLoading: !!related};
       if (s.articles.ids.includes(id)) {
         return {...s, feeds: {...s.feeds, [id]: {...s.feeds[id], ...attrs}}};
       }
 
-      const feeds = addFeed(s.feeds, getInitialFeedState(id), attrs);
+      const feeds = addFeed(s.feeds, getInitialFeedState(id), {...attrs, loading: !(id in s.feeds)});
       const articles = article ? addFeedsToBucket(s.articles, [feeds[id]]) : s.articles;
       return {...s, articles, feeds};
     }),

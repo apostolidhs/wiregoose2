@@ -4,47 +4,42 @@ import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
 import List from 'react-virtualized/dist/commonjs/List';
 import Feed from 'components/feed';
-// import useTheme from 'hooks/useTheme';
+import Skeleton from 'components/feed/skeleton';
 import 'react-virtualized/styles.css';
 
-const getListItem = feeds => ({index, isScrolling, key, style}) => {
-  // const theme = useTheme();
-  const feed = feeds[index];
+const feedProps = {
+  height: '450px',
+  pad: {horizontal: 'medium', top: 'large', bottom: 'large'},
+  border: {
+    color: 'light-3',
+    side: 'bottom'
+  },
+  width: {max: '450px'},
+  margin: {horizontal: 'auto'}
+};
 
-  if (!feed) {
-    return (
-      <div key={key} style={style}>
-        loading...
-      </div>
-    );
-  }
+const getListItem = feeds => ({index, key, style}) => {
+  const feed = feeds[index];
   return (
     <div key={key} style={style}>
-      <Feed
-        feed={feed}
-        height="450px"
-        pad={{horizontal: 'medium', top: 'medium', bottom: 'small'}}
-        border={{
-          color: 'light-3',
-          side: 'bottom'
-        }}
-        width={{max: '450px'}}
-        margin={{horizontal: 'auto'}}
-      />
+      {feed ? <Feed feed={feed} {...feedProps} /> : <Skeleton {...feedProps} />}
     </div>
   );
 };
 
-const Timeline = ({feeds, loadMoreItems, hasMore}) => {
+const Timeline = ({feeds, loadMoreItems, hasMore, loading}) => {
   const ListItem = useMemo(() => getListItem(feeds), [feeds]);
-  const itemCount = hasMore ? feeds.length + 1 : feeds.length;
+  const itemCount = loading ? feeds.length + 1 : feeds.length;
   const isRowLoaded = ({index}) => feeds && index < feeds.length;
 
   return (
     <WindowScroller>
       {({height, isScrolling, registerChild: windowRegisterChild, onChildScroll, scrollTop}) => (
         <div style={{flex: '1 1 auto'}}>
-          <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={loadMoreItems} rowCount={itemCount}>
+          <InfiniteLoader
+            isRowLoaded={isRowLoaded}
+            loadMoreRows={hasMore ? loadMoreItems : () => {}}
+            rowCount={itemCount}>
             {({onRowsRendered, registerChild}) => (
               <AutoSizer disableHeight>
                 {({width}) => (
@@ -75,24 +70,3 @@ const Timeline = ({feeds, loadMoreItems, hasMore}) => {
 };
 
 export default Timeline;
-
-// return (
-//   <InfiniteLoader isItemLoaded={isItemLoaded} itemCount={itemCount} loadMoreItems={loadMoreItems} threshold={10}>
-//     {({onItemsRendered, ref}) => (
-//       <AutoSizer>
-//         {({height, width}) => (
-//           <FixedSizeList
-//             itemCount={itemCount}
-//             itemSize={450}
-//             onItemsRendered={onItemsRendered}
-//             height={height}
-//             // width={Math.min(width, 450)}
-//             width={width}
-//             ref={ref}>
-//             {ListItem}
-//           </FixedSizeList>
-//         )}
-//       </AutoSizer>
-//     )}
-//   </InfiniteLoader>
-// );

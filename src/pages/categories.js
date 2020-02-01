@@ -1,14 +1,15 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useState, useMemo, lazy, Suspense} from 'react';
 import {navigate} from '@reach/router';
-import {Box} from 'grommet';
 import {Edit} from 'grommet-icons';
-import Timeline from 'components/timeline';
+import {CategoryName} from 'components/categories';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
 import TextedIcon from 'components/textedIcon';
 import Back from 'components/back';
 import Main from 'components/main';
+
+const Timeline = lazy(() => import(/* webpackChunkName: 'components.timeline' */ 'components/timeline'));
 
 const limit = 15;
 
@@ -23,7 +24,7 @@ const Categories = ({category}) => {
   const {feeds, loaded, loading} = useFeedCategory(category);
   const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed} = useFeedDispatch();
   const [target, setTarget] = useState();
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   useMemo(() => {
     if (!categories.includes(category) && category) navigate('/');
@@ -31,23 +32,23 @@ const Categories = ({category}) => {
   }, [category]);
 
   useEffect(() => {
+    setHasMore(feeds.length > 0 && Number.isInteger(feeds.length % limit));
+  }, [feeds]);
+
+  useEffect(() => {
+    if (!target && feeds.length) return;
+
     categoryFetchStarted(category);
     const promise = api.timelineExplore({target, limit, ...(category && {categories: [category]})});
 
     promise
-      .then(response => {
-        categoryFetchFinished(category, response.data.feeds);
-        setHasMore(feeds.length === limit);
-      })
-      .catch(error => {
-        console.error(error);
-        categoryFetchFailed(category);
-      });
+      .then(({data: {feeds}}) => categoryFetchFinished(category, feeds))
+      .catch(error => categoryFetchFailed(category));
 
     return () => promise.abort();
   }, [target, category]);
 
-  const loadMoreItems = () => {
+  const loadMoreItems = (a, b) => {
     if (loading || !loaded) return;
     setTarget(getOlder(feeds));
   };
@@ -55,8 +56,14 @@ const Categories = ({category}) => {
   return (
     <Main height="100%" width="100%">
       {category && <Back absolute noLabel />}
-      {category && <TextedIcon Icon={Edit}>{category}</TextedIcon>}
-      <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} />
+      {category && (
+        <TextedIcon Icon={Edit}>
+          <CategoryName name={category} />
+        </TextedIcon>
+      )}
+      <Suspense fallback={'loading...'}>
+        <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
+      </Suspense>
     </Main>
   );
 };

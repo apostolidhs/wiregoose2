@@ -1,4 +1,6 @@
 import React from 'react';
+import {FormattedMessage} from 'react-intl';
+import useIntl from 'providers/localization/useIntl';
 import {
   Local,
   Globe,
@@ -29,9 +31,14 @@ const icons = {
   culture: Multimedia
 };
 
-const CategoryIcon = ({name, ...rest}) => {
+export const CategoryIcon = ({name, ...rest}) => {
   const Icon = icons[name];
   return <Icon {...rest} />;
 };
 
-export default CategoryIcon;
+export const CategoryName = ({name}) => <FormattedMessage id={`category.${name}`} />;
+
+export const useCategoryName = () => {
+  const t = useIntl();
+  return name => t(`category.${name}`);
+};

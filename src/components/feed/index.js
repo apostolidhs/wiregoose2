@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Box} from 'grommet';
 import Image from './image';
 import Title from './title';
@@ -7,9 +7,6 @@ import Description from './description';
 import ActionBar from './actionBar';
 
 const Feed = ({feed: {id, image, title, description, provider, published, category}, ...rest}) => {
-  // useEffect(() => {
-  //   return () => console.log('unmount');
-  // }, []);
   const descriptionSize = image ? 128 - title.length : 256;
 
   return (
@@ -26,7 +23,7 @@ const Feed = ({feed: {id, image, title, description, provider, published, catego
           {description}
         </Description>
       )}
-      <ActionBar />
+      <ActionBar feedId={id} />
     </Box>
   );
 };

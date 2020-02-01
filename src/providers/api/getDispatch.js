@@ -1,7 +1,8 @@
 import request from 'helpers/request';
+import getInitialFeedState from 'providers/feeds/getInitialFeedState';
 
 export default config => {
-  const transformFeed = feed => ({...feed, category: config.categories[feed.category]});
+  const transformFeed = feed => ({...getInitialFeedState(), ...feed, category: config.categories[feed.category]});
   const transformFeeds = feeds => feeds.map(transformFeed);
 
   return {

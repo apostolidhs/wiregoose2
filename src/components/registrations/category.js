@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Box, Text} from 'grommet';
 import {Link} from '@reach/router';
-import CategoryIcon from 'components/categories/icon';
+import {CategoryIcon, CategoryName} from 'components/categories';
 import ProviderIcon from 'components/providers/icon';
 
 const getCategoryLink = category => {
@@ -20,7 +20,9 @@ const CategoryTitle = ({category}) => {
       <Box justify="center">
         <CategoryIcon name={category} />
       </Box>
-      <Text size="xlarge">{category}</Text>
+      <Text size="xlarge">
+        <CategoryName name={category} />
+      </Text>
     </Box>
   );
 };

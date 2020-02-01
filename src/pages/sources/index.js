@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useMemo, useCallback} from 'react';
 import {navigate} from '@reach/router';
 import {Tab} from 'grommet';
+import {useCategoryName} from 'components/categories';
 import Timeline from 'components/timeline';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedSource, useFeedDispatch} from 'providers/feeds/selectors';
@@ -21,20 +22,23 @@ const getOlder = feeds => {
   return feed && feed.id;
 };
 
-const Sources = ({source, category}) => {
+const Sources = ({source, category = 'all'}) => {
+  const categoryName = useCategoryName();
   const isRegistrationsLoaded = useSelectRegistrationsLoaded();
-  const categories = useSelectCategoriesByProvider(source);
+  const providerCategories = useSelectCategoriesByProvider(source);
+  const categories = useMemo(() => ['all', ...providerCategories], [providerCategories]);
   const provider = useSelectProvider(source);
 
   const tabRef = el => el && el.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'end'});
   const activeIndex = categories.indexOf(category);
-  const onActive = useCallback(index => navigate(`/sources/${source}/${categories[index]}`), [categories]);
+  const isAll = activeIndex === 0;
+  const onActive = useCallback(index => navigate(`/sources/${source}/${categories[index]}`), [categories, source]);
 
   const api = useApiSelector();
   const {feeds, loaded, loading} = useFeedSource(source, category);
   const {sourceFetchStarted, sourceFetchFinished, sourceFetchFailed} = useFeedDispatch();
   const [target, setTarget] = useState();
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
 
   useMemo(() => {
     if (!categories.length && isRegistrationsLoaded) navigate('/');
@@ -42,23 +46,21 @@ const Sources = ({source, category}) => {
   }, [categories]);
 
   useEffect(() => {
+    setHasMore(feeds.length > 0 && Number.isInteger(feeds.length % limit));
+  }, [feeds]);
+
+  useEffect(() => {
     sourceFetchStarted(source, category);
     const promise = api.timelineExplore({
       target,
       limit,
-      ...(category && {categories: [category]}),
+      ...(!isAll && {categories: [category]}),
       ...(source && {providers: [source]})
     });
 
     promise
-      .then(({data: {feeds}}) => {
-        sourceFetchFinished(source, category, feeds);
-        setHasMore(feeds.length === limit);
-      })
-      .catch(error => {
-        console.error(error);
-        sourceFetchFailed(source, category);
-      });
+      .then(({data: {feeds}}) => sourceFetchFinished(source, category, feeds))
+      .catch(error => sourceFetchFailed(source, category));
 
     return () => promise.abort();
   }, [target, source, category]);
@@ -74,8 +76,8 @@ const Sources = ({source, category}) => {
       <Header {...provider} />
       <Tabs activeIndex={activeIndex} onActive={onActive} flex="grow" justify="start">
         {categories.map((cat, index) => (
-          <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={cat}>
-            <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} />
+          <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={categoryName(cat)}>
+            <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
           </Tab>
         ))}
       </Tabs>
@@ -84,5 +86,3 @@ const Sources = ({source, category}) => {
 };
 
 export default Sources;
-
-//width={{max: '450px'}}

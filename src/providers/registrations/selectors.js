@@ -5,7 +5,7 @@ export const useRegistrationsSelector = () => useContext(Context);
 
 export const useSelectProvider = name => {
   const registrations = useRegistrationsSelector();
-  return useMemo(() => registrations.providers.find(p => p.name === name), [registrations]);
+  return useMemo(() => registrations.providers.find(p => p.name === name), [registrations, name]);
 };
 
 export const useSelectCategoriesByProvider = name => {
@@ -16,7 +16,7 @@ export const useSelectCategoriesByProvider = name => {
         (h, [category, providers]) => (providers.some(provider => provider.name === name) ? [...h, category] : h),
         []
       ),
-    [registrations]
+    [registrations, name]
   );
 };
 

@@ -4,7 +4,7 @@ import {Link} from '@reach/router';
 
 const TextTitle = ({feedId, children, ...rest}) => (
   <Text margin="none" {...rest}>
-    <Link to={`feed/${feedId}/article`}>{children}</Link>
+    <Link to={`/feed/${feedId}/article`}>{children}</Link>
   </Text>
 );
 
