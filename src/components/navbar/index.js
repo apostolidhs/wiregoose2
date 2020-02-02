@@ -18,7 +18,7 @@ const onSidebarClick = () => {
 const NavBar = forwardRef((props, ref) => {
   return (
     <Container ref={ref} {...props}>
-      <Box as="nav" background="white" pad="medium" direction="row" justify="around" border="top">
+      <Box as="nav" background="white" pad="small" direction="row" justify="around" border="top">
         <Button onClick={onSidebarClick} icon={<TextAlignLeft size="32px" />} />
         <Link to="/" icon={<Compass size="32px" />} />
         <Link to="/settings" icon={<Menu size="32px" />} />

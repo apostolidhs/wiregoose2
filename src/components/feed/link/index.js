@@ -9,8 +9,8 @@ import TextTitle from '../textTitle';
 export const LinkContainer = props => (
   <Box
     as="article"
+    justify="between"
     pad="medium"
-    gap="small"
     direction="row"
     elevation="xsmall"
     height={{min: 'initial'}}
@@ -19,13 +19,22 @@ export const LinkContainer = props => (
 
 const Link = ({feed: {id, image, title}, ...rest}) => (
   <LinkContainer {...rest}>
-    {image && <Image height={50} width={50} feedId={id} src={image} />}
-    {title && (
-      <TextTitle alignSelf="center" feedId={id}>
-        <Truncate size={45}>{title}</Truncate>
-      </TextTitle>
-    )}
-    <LinkComponent icon={<FormNext size="32px" />} to={`/feed/${id}/article`} gap="none" plain reverse />
+    <Box direction="row" gap="small">
+      {image && <Image height={50} width={50} feedId={id} src={image} />}
+      {title && (
+        <TextTitle alignSelf="center" feedId={id}>
+          <Truncate size={45}>{title}</Truncate>
+        </TextTitle>
+      )}
+    </Box>
+    <LinkComponent
+      icon={<FormNext size="32px" />}
+      to={`/feed/${id}/article`}
+      gap="none"
+      alignSelf="end"
+      plain
+      reverse
+    />
   </LinkContainer>
 );
 

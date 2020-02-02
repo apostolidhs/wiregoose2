@@ -10,19 +10,19 @@ const Explore = () => {
     <Main height="100%" width="100%">
       <Back absolute />
       <TextedIcon Icon={Info}>Σχετικά</TextedIcon>
-      <Box pad={{horizontal: 'medium', vertical: 'large'}}>
-        <Heading level="1" margin={{top: 'none', bottom: 'none'}}>
+      <Box pad={{horizontal: 'small', vertical: 'medium'}}>
+        <Heading level="2" margin={{top: 'none', bottom: 'none'}}>
           Τι είναι το Wiregoose
         </Heading>
         <Paragraph size="xlarge" margin={{top: 'medium', bottom: 'none'}}>
           Το Wiregoose είναι ένας αναμεταδότης νέων, φέρνοντας στην οθόνη σας καταχωρήσεις από όλον τον κόσμο,
           προσαρμοσμένο στην χώρα σας σε σχεδόν πραγματικό χρόνο.
         </Paragraph>
-        <Heading level="1" margin={{top: 'large', bottom: 'none'}}>
+        <Heading level="2" margin={{top: 'large', bottom: 'none'}}>
           Πως λειτουργεί
         </Heading>
 
-        <Heading level="2" margin={{top: 'large', bottom: 'none'}}>
+        <Heading level="3" margin={{top: 'large', bottom: 'none'}}>
           Rss feeds
         </Heading>
         <Paragraph size="xlarge" margin={{top: 'medium', bottom: 'none'}}>
@@ -34,7 +34,7 @@ const Explore = () => {
           Το Wiregoose είναι συνδεδεμένο με τα μέσα ενημέρωσης χρησιμοποιώντας τα RSS feeds τους. Σεβόμαστε την πηγή που
           λαμβάνουμε τα νέα, επισημαίνοντας σε κάθε καταχώρηση το όνομα της πηγής.
         </Paragraph>
-        <Heading level="2" margin={{top: 'large', bottom: 'none'}}>
+        <Heading level="3" margin={{top: 'large', bottom: 'none'}}>
           Εξαγωγέας άρθρου
         </Heading>
         <Paragraph size="xlarge" margin={{top: 'medium', bottom: 'none'}}>

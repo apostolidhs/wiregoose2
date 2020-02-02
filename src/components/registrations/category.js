@@ -6,7 +6,7 @@ import ProviderIcon from 'components/providers/icon';
 
 const getCategoryLink = category => {
   const CategoryLink = ({children, className}) => (
-    <Link to={`/categories/${category}`} title={category} className={className}>
+    <Link to={`/category/${category}`} title={category} className={className}>
       {children}
     </Link>
   );
@@ -29,7 +29,7 @@ const CategoryTitle = ({category}) => {
 
 const Provider = ({category, name, icon}) => {
   return (
-    <Link to={`/sources/${name}/${category}`} title={name}>
+    <Link to={`/source/${name}/${category}`} title={name}>
       <ProviderIcon src={icon} />
     </Link>
   );
@@ -45,7 +45,7 @@ const Providers = ({category, providers}) => (
 
 const Category = ({category, providers}) => {
   return (
-    <Box gap="medium">
+    <Box gap="small">
       <CategoryTitle category={category} />
       <Providers category={category} providers={providers} />
     </Box>

@@ -20,16 +20,16 @@ const Providers = () => {
     <Main>
       <Back absolute />
       <TextedIcon Icon={Announce}>Πηγές</TextedIcon>
-      <Box pad={{horizontal: 'medium', vertical: 'large'}}>
+      <Box pad={{horizontal: 'small', vertical: 'medium'}}>
         <Paragraph size="xlarge" margin={{top: 'none', bottom: 'none'}}>
           Σεβόμαστε τις πηγές που αντλούμε τα νέα. Για αυτόν τον λόγο τονίζουμε με πολύ εμφανή τρόπο την πηγή που
           προέρχεται το νέο. Επίσης δίνουμε την δυνατότητα στον χρήστη της εφαρμογής μας να διαβάσει το νέο απευθείας
           από την πηγή του.
         </Paragraph>
-        <Heading level="2" margin={{top: 'large', bottom: 'none'}}>
+        <Heading level="3" margin={{top: 'large', bottom: 'none'}}>
           Λίστα Πηγών
         </Heading>
-        <Box height={{min: 'initial'}} gap="large" margin={{top: 'large'}}>
+        <Box height={{min: 'initial'}} gap="medium" margin={{top: 'large'}}>
           {providers.map(provider => (
             <Provider key={provider.name} {...provider} />
           ))}

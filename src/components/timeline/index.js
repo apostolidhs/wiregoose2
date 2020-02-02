@@ -9,7 +9,7 @@ import 'react-virtualized/styles.css';
 
 const feedProps = {
   height: '450px',
-  pad: {horizontal: 'medium', top: 'large', bottom: 'large'},
+  pad: {horizontal: 'small', vertical: 'medium'},
   border: {
     color: 'light-3',
     side: 'bottom'
@@ -29,7 +29,7 @@ const getListItem = feeds => ({index, key, style}) => {
 
 const Timeline = ({feeds, loadMoreItems, hasMore, loading}) => {
   const ListItem = useMemo(() => getListItem(feeds), [feeds]);
-  const itemCount = loading ? feeds.length + 1 : feeds.length;
+  const itemCount = hasMore ? feeds.length + 1 : feeds.length;
   const isRowLoaded = ({index}) => feeds && index < feeds.length;
 
   return (

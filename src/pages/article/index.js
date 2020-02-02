@@ -63,7 +63,7 @@ const Article = ({feedId}) => {
       {nextRelatedFeed && <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />}
       {loading && <HeadingSkeleton margin={{top: 'large', bottom: 'none'}} />}
       {loaded && (
-        <Heading level={1} margin={{top: 'large', bottom: 'none'}}>
+        <Heading level={2} margin={{top: 'large', bottom: 'none'}}>
           {title}
         </Heading>
       )}

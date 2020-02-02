@@ -29,10 +29,13 @@ const Sources = ({source, category = 'all'}) => {
   const categories = useMemo(() => ['all', ...providerCategories], [providerCategories]);
   const provider = useSelectProvider(source);
 
-  const tabRef = el => el && el.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'end'});
+  const tabRef = el => {
+    if (!el) return;
+    setTimeout(() => el && el.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'end'}), 500);
+  };
   const activeIndex = categories.indexOf(category);
   const isAll = activeIndex === 0;
-  const onActive = useCallback(index => navigate(`/sources/${source}/${categories[index]}`), [categories, source]);
+  const onActive = useCallback(index => navigate(`/source/${source}/${categories[index]}`), [categories, source]);
 
   const api = useApiSelector();
   const {feeds, loaded, loading} = useFeedSource(source, category);

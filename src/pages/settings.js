@@ -19,8 +19,8 @@ const Settings = () => {
   return (
     <Main>
       <Back absolute />
-      <TextedIcon> Όλα τα νέα σε ένα μέρος</TextedIcon>
-      <Box pad={{horizontal: 'medium', vertical: 'large'}} gap="large">
+      <TextedIcon margin={{top: 'large'}}>Όλα τα νέα σε ένα μέρος</TextedIcon>
+      <Box pad={{horizontal: 'small', vertical: 'medium'}} gap="medium">
         <SettingsLink path="about" Icon={Info}>
           Σχετικά
         </SettingsLink>

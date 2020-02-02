@@ -3,30 +3,28 @@ import {Box, Paragraph as P, Heading as H} from 'grommet';
 import {makeProxyUri} from 'helpers/image';
 import ImageComponent from 'components/image';
 
-const Paragraph = ({text}) => {
-  return (
-    <P size="large" margin="none">
-      {text}
-    </P>
-  );
-};
+const Paragraph = ({text}) => (
+  <P size="large" margin="none">
+    {text}
+  </P>
+);
 
-const Header = ({text}) => {
-  return (
-    <H margin="none" level="2">
-      {text}
-    </H>
-  );
-};
+const Header = ({text}) => (
+  <H margin="none" level="3">
+    {text}
+  </H>
+);
 
 const Image = ({src}) => {
   const proxySrc = useMemo(() => makeProxyUri(src), []);
   return <ImageComponent src={proxySrc} fit="cover" />;
 };
 
-const Video = ({src}) => {
-  return `video: ${src}`;
-};
+const Video = ({src}) => (
+  <Box height={{min: 'initial'}}>
+    <iframe src="//www.youtube.com/embed/yCOY82UdFrw" frameborder="0" allowfullscreen class="video" />
+  </Box>
+);
 
 const types = {
   p: Paragraph,

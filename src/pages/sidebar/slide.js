@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
 import {Box} from 'grommet';
 import styled, {keyframes} from 'styled-components';
-import {useRegistrationsSelector} from 'providers/registrations/selectors';
-import RegistrationCategory from 'components/registrations/category';
+import Categories from './categories';
 
 const containerTransitions = {
   entering: keyframes` from { transform: scaleX(0); opacity: 0; }`,
@@ -39,20 +38,13 @@ const Overlay = styled(Box)`
 
 const onOverlayClick = () => (window.location.hash = '');
 
-const Sidebar = ({transition}) => {
-  const {byCategory} = useRegistrationsSelector();
-  return (
-    <Fragment>
-      <Overlay transition={transition} background="dark-6" onClick={onOverlayClick} />
-      <Container transition={transition} elevation="small" pad="large" overflow={{vertical: 'auto'}}>
-        <Box direction="column" gap="medium" height={{min: 'auto'}}>
-          {Object.keys(byCategory).map(category => (
-            <RegistrationCategory key={category} category={category} providers={byCategory[category]} />
-          ))}
-        </Box>
-      </Container>
-    </Fragment>
-  );
-};
+const Sidebar = ({transition}) => (
+  <Fragment>
+    <Overlay transition={transition} background="dark-6" onClick={onOverlayClick} />
+    <Container transition={transition} elevation="small" pad="medium" overflow={{vertical: 'auto'}}>
+      <Categories />
+    </Container>
+  </Fragment>
+);
 
 export default Sidebar;

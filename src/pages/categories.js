@@ -48,7 +48,7 @@ const Categories = ({category}) => {
     return () => promise.abort();
   }, [target, category]);
 
-  const loadMoreItems = (a, b) => {
+  const loadMoreItems = () => {
     if (loading || !loaded) return;
     setTarget(getOlder(feeds));
   };

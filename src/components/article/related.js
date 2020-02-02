@@ -3,7 +3,7 @@ import {Box} from 'grommet';
 import RelatedFeed from 'components/feed/related';
 
 const Related = ({feeds, ...rest}) => (
-  <Box gap="large" height={{min: 'initial'}} {...rest}>
+  <Box gap="medium" height={{min: 'initial'}} {...rest}>
     {feeds.map(feed => (
       <RelatedFeed key={feed.id} feed={feed} />
     ))}

@@ -15,9 +15,11 @@ const Container = styled(Box)`
 const Header = forwardRef((props, ref) => {
   return (
     <Container ref={ref} {...props}>
-      <GHeader pad={{vertical: 'large', horizontal: 'medium'}} border="bottom" background="white">
+      <GHeader pad={{vertical: 'medium', horizontal: 'small'}} border="bottom" background="white">
         <Link noActive to="/">
-          <Heading margin="none">Wiregoose</Heading>
+          <Heading margin="none" level="2">
+            Wiregoose
+          </Heading>
         </Link>
         {/* <Button label="Είσοδος" href="/" /> */}
       </GHeader>
