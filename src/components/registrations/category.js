@@ -1,37 +1,15 @@
 import React, {useMemo} from 'react';
 import {Box, Text} from 'grommet';
-import {Link} from '@reach/router';
-import {CategoryIcon, CategoryName} from 'components/categories';
+import {Link as RouterLink} from '@reach/router';
+import {CategoryIcon, CategoryName, useCategoryName} from 'components/categories';
 import ProviderIcon from 'components/providers/icon';
-
-const getCategoryLink = category => {
-  const CategoryLink = ({children, className}) => (
-    <Link to={`/category/${category}`} title={category} className={className}>
-      {children}
-    </Link>
-  );
-  return CategoryLink;
-};
-
-const CategoryTitle = ({category}) => {
-  const CategoryLink = useMemo(() => getCategoryLink(category), [category]);
-  return (
-    <Box as={CategoryLink} gap="small" direction="row">
-      <Box justify="center">
-        <CategoryIcon name={category} />
-      </Box>
-      <Text size="xlarge">
-        <CategoryName name={category} />
-      </Text>
-    </Box>
-  );
-};
+import Link from 'components/sidebar/link';
 
 const Provider = ({category, name, icon}) => {
   return (
-    <Link to={`/source/${name}/${category}`} title={name}>
+    <RouterLink to={`/source/${name}/${category}`} title={name}>
       <ProviderIcon src={icon} />
-    </Link>
+    </RouterLink>
   );
 };
 
@@ -44,9 +22,13 @@ const Providers = ({category, providers}) => (
 );
 
 const Category = ({category, providers}) => {
+  const categoryName = useCategoryName();
+  const Icon = () => <CategoryIcon name={category} />;
   return (
     <Box gap="small">
-      <CategoryTitle category={category} />
+      <Link to={`/category/${category}`} title={categoryName(category)} Icon={Icon}>
+        <CategoryName name={category} />
+      </Link>
       <Providers category={category} providers={providers} />
     </Box>
   );

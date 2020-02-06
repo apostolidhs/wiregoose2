@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, forwardRef} from 'react';
 import {Box} from 'grommet';
 import {Router, navigate, Location} from '@reach/router';
 import Header from 'components/header';
@@ -22,11 +22,13 @@ const Layout = ({children}) => (
   </Box>
 );
 
-const Routes = ({children, style, className}) => (
-  <Router style={style} className={className}>
-    {children}
-  </Router>
-);
+const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => {
+  return (
+    <Box ref={ref} height={{min: 'initial'}} direction="column" flex="grow" width={{max: 'large'}} {...rest}>
+      {children}
+    </Box>
+  );
+});
 
 const getPadding = ref => `${ref.current ? ref.current.clientHeight : 0}px`;
 
@@ -84,7 +86,8 @@ const Pages = () => {
                   <Sidebar />
                 </Box>
               )}
-              <Box direction="column" flex="grow" as={Routes} width={{max: 'large'}}>
+
+              <Router component={RouterComponent}>
                 <Categories path="/" />
                 <Categories path="category/:category" />
                 <Sources path="source/:source/:category" />
@@ -96,7 +99,7 @@ const Pages = () => {
                 <About path="settings/about" />
                 <Credits path="settings/credits" />
                 <NotFound default />
-              </Box>
+              </Router>
             </Box>
             {isSmall && <NavBar ref={navBarRef} />}
           </Layout>

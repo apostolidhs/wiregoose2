@@ -1,9 +1,10 @@
-import {Main as GMail} from 'grommet';
+import {Main as GMail, Box} from 'grommet';
 import styled from 'styled-components';
 
 const Main = styled(GMail).attrs(({pad = 'none', overflow = 'initial'}) => ({
   pad,
-  overflow
+  overflow,
+  height: {min: 'initial'}
 }))`
   position: relative;
 `;

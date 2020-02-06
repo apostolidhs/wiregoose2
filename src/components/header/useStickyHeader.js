@@ -17,7 +17,7 @@ export default headerRef => {
         }
       }
 
-      if (prevScrollpos - currentScrollPos < -5) {
+      if (prevScrollpos - currentScrollPos < -5 && currentScrollPos > 200) {
         if (headerRef.current.style.transform !== 'translateY(-100%)') {
           headerRef.current.style.transform = 'translateY(-100%)';
         }
