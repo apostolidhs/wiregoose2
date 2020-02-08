@@ -2,7 +2,7 @@ const {Schema, model, SchemaTypes} = require('mongoose');
 const mongooseIdValidator = require('mongoose-id-validator');
 require('mongoose-type-url');
 const dateFns = require('date-fns');
-const {languages, categories} = require('../../src/config');
+const {languages, categories} = require('../../../src/config');
 const ErrorSchema = require('./registrationError');
 const Provider = require('./provider');
 
@@ -51,20 +51,21 @@ schema.methods.addStats = function({stored, total, accepted}) {
 schema.methods.addError = function(error) {
   this.failures.push(
     new ErrorSchema({
-      message: error + '',
+      message: error.toString(),
       created: new Date()
     })
   );
 };
 
-schema.statics.getFirst = async function(id) {
-  return (await this.findOne({isCrawling: true}).populate('provider')) || (await this.findOne().populate('provider'));
-};
+schema.statics.getNext = async function() {
+  const currentCrawling = await this.findOne({isCrawling: true}).populate('provider');
+  if (currentCrawling) return currentCrawling;
 
-schema.statics.getNext = function(id) {
-  return this.findOne({_id: {$gt: id}})
-    .populate('provider')
-    .sort({_id: 1});
+  const lastCrawling = await this.find()
+    .sort({lastCrawl: 1})
+    .limit(1)
+    .populate('provider');
+  return lastCrawling[0];
 };
 
 // const autopopulate = function(next) {

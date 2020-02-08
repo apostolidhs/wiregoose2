@@ -9,7 +9,21 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/backend/index.js"
+      "program": "${workspaceFolder}/services/backend/index.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Crawler",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/services/crawler/index.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Proxy",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/services/proxy/index.js"
     }
   ]
 }

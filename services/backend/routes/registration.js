@@ -1,7 +1,7 @@
 const {check} = require('express-validator');
 const Registration = require('../models/registration');
 const Provider = require('../models/provider');
-const config = require('../../src/config');
+const config = require('../../../src/config');
 const validationMiddleware = require('../../helpers/validationMiddleware');
 
 module.exports = app => {

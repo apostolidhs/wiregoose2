@@ -14,16 +14,20 @@ module.exports = async registration => {
   const url = decodeURIComponent(registration.link);
   const [rss, error] = await flat(parser.parseURL(url));
 
-  if (error) return registration.addError(error);
+  if (error) {
+    registration.addError(error);
+    return [null, error];
+  }
 
   const {feeds, total} = parseRss(rss, registration);
   const [docs, feedsError] = await flat(Feed.saveFeeds(feeds));
 
   const stats = {
     stored: getStored(docs, feeds, feedsError),
-    total: total,
+    total,
     accepted: feeds.length
   };
   registration.addStats(stats);
-  return stats;
+
+  return [stats];
 };

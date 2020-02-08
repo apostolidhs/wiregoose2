@@ -53,11 +53,11 @@
   "scripts": {
     "load-fixtures": "node ./scripts/loadFixtures",
     "backend-test": "jest",
-    "backend-start": "node ./backend",
+    "backend-start": "node ./services/backend",
     "frontend-start": "react-scripts start",
     "frontend-build": "react-scripts build",
-    "image-proxy": "node ./proxy",
-    "crawl-feeds": "node ./crawler"
+    "image-proxy": "node ./services/proxy",
+    "crawl-feeds": "node ./services/crawler"
   },
   "browserslist": {
     "production": [

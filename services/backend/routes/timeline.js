@@ -1,6 +1,6 @@
 const {check} = require('express-validator');
 const Feed = require('../models/feed');
-const config = require('../../src/config');
+const config = require('../../../src/config');
 const validationMiddleware = require('../../helpers/validationMiddleware');
 
 module.exports = app => {

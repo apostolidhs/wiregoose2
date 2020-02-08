@@ -2,7 +2,7 @@ const {Schema, model, SchemaTypes} = require('mongoose');
 require('mongoose-type-url');
 const dateFns = require('date-fns');
 const objectHash = require('object-hash');
-const {languages, categories} = require('../../src/config');
+const {languages, categories} = require('../../../src/config');
 const Registration = require('./registration');
 const articleErrorTypes = require('./articleErrorTypes');
 
