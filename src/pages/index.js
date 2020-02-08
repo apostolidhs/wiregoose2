@@ -22,13 +22,11 @@ const Layout = ({children}) => (
   </Box>
 );
 
-const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => {
-  return (
-    <Box ref={ref} height={{min: 'initial'}} direction="column" flex="grow" width={{max: 'large'}} {...rest}>
-      {children}
-    </Box>
-  );
-});
+const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => (
+  <Box ref={ref} height={{min: 'initial'}} width="calc(100% - 300px)" direction="column" flex="grow" {...rest}>
+    {children}
+  </Box>
+));
 
 const getPadding = ref => `${ref.current ? ref.current.clientHeight : 0}px`;
 
@@ -47,7 +45,7 @@ const NotFound = () => {
 
 const Pages = () => {
   let prevLocation = window.location.href;
-  const {isSmall} = useScreenSize();
+  const {isSmall, isLarge} = useScreenSize();
 
   const headerRef = useRef();
   const navBarRef = useRef();
@@ -79,10 +77,15 @@ const Pages = () => {
               overflow="initial"
               direction="row"
               pad={contentPadding}
-              height={{min: 'initial'}}
-              width={'xlarge'}>
+              width={isLarge ? 'xlarge' : '100%'}
+              height={{min: 'initial'}}>
               {!isSmall && (
-                <Box direction="column" height={{min: 'initial'}} width="264px" pad="medium" margin={{right: 'medium'}}>
+                <Box
+                  direction="column"
+                  height={{min: 'initial'}}
+                  width={{min: '264px', max: '264px'}}
+                  pad="medium"
+                  margin={{right: 'medium'}}>
                   <Sidebar />
                 </Box>
               )}

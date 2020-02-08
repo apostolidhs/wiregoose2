@@ -34,6 +34,9 @@ export default {
           full: '100%'
         }
       }
+    },
+    edgeSize: {
+      responsiveBreakpoint: null
     }
   },
   tab: {

@@ -8,7 +8,8 @@ export const useScreenSize = () => {
     () => ({
       size,
       isSmall: size === 'small',
-      isLarge: size !== 'small'
+      isMedium: size === 'medium',
+      isLarge: size === 'large'
     }),
     [size]
   );

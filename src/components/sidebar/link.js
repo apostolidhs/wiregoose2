@@ -1,12 +1,23 @@
 import React, {useMemo} from 'react';
 import {Box, Text} from 'grommet';
+import styled from 'styled-components';
 import {Link as RouterLink} from '@reach/router';
+
+const StyledBox = styled(RouterLink)`
+  &[aria-current='page'] {
+    color: #1a73e8;
+    svg {
+      fill: #1a73e8;
+      stroke: #1a73e8;
+    }
+  }
+`;
 
 const getLink = (to, title) => {
   const CategoryLink = ({children, className}) => (
-    <RouterLink to={to} title={title} className={className}>
+    <StyledBox to={to} title={title} className={className}>
       {children}
-    </RouterLink>
+    </StyledBox>
   );
   return CategoryLink;
 };

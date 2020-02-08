@@ -1,11 +1,13 @@
 import React from 'react';
-import {Heading} from 'grommet';
+import {Box, Heading} from 'grommet';
 import {Link} from '@reach/router';
 
 const Title = ({feedId, children, ...rest}) => (
-  <Heading level="3" {...rest}>
-    <Link to={`/feed/${feedId}/article`}>{children}</Link>
-  </Heading>
+  <Box height={{min: 'initial'}} {...rest}>
+    <Heading margin="none" level="3">
+      <Link to={`/feed/${feedId}/article`}>{children}</Link>
+    </Heading>
+  </Box>
 );
 
 export default Title;

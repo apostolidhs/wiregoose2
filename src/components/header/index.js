@@ -2,6 +2,7 @@ import React, {forwardRef} from 'react';
 import styled from 'styled-components';
 import {Box, Heading, Button, Header as GHeader} from 'grommet';
 import Link from 'components/link';
+import {useScreenSize} from 'providers/theme/selectors';
 
 const Container = styled(Box)`
   position: fixed;
@@ -13,12 +14,13 @@ const Container = styled(Box)`
 `;
 
 const Header = forwardRef((props, ref) => {
+  const {isLarge} = useScreenSize();
   return (
-    <Container height={{min: 'initial'}} ref={ref} {...props}>
+    <Container height={{min: 'initial'}} border="bottom" align="center" ref={ref} {...props}>
       <GHeader
         height={{min: 'initial'}}
         pad={{vertical: 'medium', horizontal: 'small'}}
-        border="bottom"
+        width={isLarge ? 'xlarge' : '100%'}
         background="white">
         <Link noActive to="/">
           <Heading margin="none" level="2">

@@ -7,19 +7,25 @@ import Description from './description';
 import ActionBar from './actionBar';
 
 const Feed = ({feed: {id, image, title, description, provider, published, category}, ...rest}) => {
-  const descriptionSize = image ? 128 - title.length : 256;
+  const visibleImage = !!image;
+  const visibleDescription = description && (title.length < 50 || !image);
+  const visibleTitle = !!title;
+  const descriptionSize = visibleDescription && (image ? 100 - title.length : 256);
+  const margin = {vertical: 'xsmall'};
+  const subInfoProps = {provider, published, category, margin};
 
   return (
     <Box as="article" {...rest}>
-      {image && <Image feedId={id} src={image} />}
-      <SubInfo provider={provider} published={published} category={category} margin={{vertical: 'small'}} />
-      {title && (
-        <Title feedId={id} margin={{vertical: 'small'}}>
+      {visibleImage && <Image feedId={id} src={image} />}
+      {visibleImage && <SubInfo {...subInfoProps} />}
+      {visibleTitle && (
+        <Title feedId={id} flex={image && !visibleDescription && 'grow'} margin={margin}>
           {title}
         </Title>
       )}
-      {description && (
-        <Description feedId={id} margin={{vertical: 'small'}} size={descriptionSize}>
+      {!visibleImage && <SubInfo {...subInfoProps} flex={!image && !visibleDescription && 'grow'} />}
+      {visibleDescription && (
+        <Description feedId={id} margin={margin} size={descriptionSize}>
           {description}
         </Description>
       )}

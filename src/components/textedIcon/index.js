@@ -10,7 +10,7 @@ const TextedIcon = ({Icon, children, ...rest}) => {
       gap="small"
       justify="center"
       direction="row"
-      elevation={isSmall && 'xsmall'}
+      elevation={isSmall ? 'xsmall' : 'none'}
       height={{min: 'initial'}}
       {...rest}>
       {Icon && <Icon size="42px" color="dark-1" />}

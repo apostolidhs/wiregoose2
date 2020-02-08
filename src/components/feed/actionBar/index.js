@@ -12,9 +12,9 @@ const ActionBar = ({feedId, justify = 'end'}) => {
   const link = encodeURIComponent(rawLink);
 
   return (
-    <Box direction="row" justify={justify}>
-      {/* <Button margin={{left: `-${theme.icon.size.small}`}} icon={<Bookmark size="medium" />} /> */}
-      <Box direction="row">
+    <Box direction="row" height={{min: 'initial'}} justify={justify}>
+      {/* <Button margin={{left: `-${theme.icon.size.small}`}} height={{min: 'initial'}} icon={<Bookmark size="medium" />} /> */}
+      <Box direction="row" height={{min: 'initial'}}>
         <Link link={rawLink} />
         <Anchor
           href={`https://twitter.com/share?url=${link}`}
