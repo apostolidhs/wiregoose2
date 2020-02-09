@@ -5,11 +5,10 @@ import {useFeedSelector, useRelatedFeedsSelector, useFeedDispatch} from 'provide
 import getInitialFeedState from 'providers/feeds/getInitialFeedState';
 import {useApiSelector} from 'providers/api/selectors';
 import SubInfo from 'components/feed/subInfo';
-import Image from 'components/feed/image';
 import FeedLink from 'components/feed/link';
 import FeedLinkSkeleton from 'components/feed/link/skeleton';
 import Related from 'components/article/related';
-import ArticleComponent from 'components/article';
+import ArticleComponent, {Image} from 'components/article';
 import Header from 'components/article/header';
 import Skeleton from 'components/article/skeleton';
 import {HeadingSkeleton} from './skeleton';
@@ -57,7 +56,7 @@ const Article = ({feedId}) => {
   }, [feedId]);
 
   return (
-    <Main pad="medium">
+    <Main pad="medium" height="initial!important" overflow="initial">
       <Header feedId={feedId} />
       {relatedLoading && <FeedLinkSkeleton margin={{top: 'xsmall'}} />}
       {nextRelatedFeed && <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />}
@@ -68,7 +67,7 @@ const Article = ({feedId}) => {
         </Heading>
       )}
       {loaded && <SubInfo provider={provider} published={published} category={category} margin={{top: 'large'}} />}
-      {(image || loading) && <Image feedId={feedId} src={image} margin={{top: 'large'}} />}
+      {(image || loading) && <Image src={image} margin={{top: 'large'}} />}
       {articleLoaded && <ArticleComponent content={articleContent} margin={{vertical: 'large'}} />}
       {articleLoading && <Skeleton margin={{vertical: 'large'}} />}
       {relatedFeeds && <Related feeds={relatedFeeds} margin={{top: 'large'}} />}

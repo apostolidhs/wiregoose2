@@ -2,6 +2,7 @@ import React, {useMemo, memo} from 'react';
 import {Box, Paragraph as P, Heading as H} from 'grommet';
 import {makeProxyUri} from 'helpers/image';
 import ImageComponent from 'components/image';
+import placeholderImg from 'assets/placeholder.jpg';
 
 const Paragraph = ({text}) => (
   <P size="large" margin="none">
@@ -15,9 +16,13 @@ const Header = ({text}) => (
   </H>
 );
 
-const Image = ({src}) => {
-  const proxySrc = useMemo(() => makeProxyUri(src), []);
-  return <ImageComponent src={proxySrc} fit="cover" />;
+export const Image = ({src, ...rest}) => {
+  const proxySrc = useMemo(() => makeProxyUri(src), [src]);
+  return (
+    <Box height={{min: '200px'}} {...rest}>
+      <ImageComponent height="100%" src={proxySrc} fallback={placeholderImg} fit="contain" />
+    </Box>
+  );
 };
 
 const Video = ({src}) => (
