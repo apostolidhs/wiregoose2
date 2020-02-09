@@ -28,6 +28,6 @@ module.exports = async () => {
       logger.error(e.toString());
     }
 
-    await wait(5000);
+    await wait(30000);
   }
 };

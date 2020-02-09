@@ -20,8 +20,12 @@ module.exports = filename => {
     level: process.env.NODE_ENV === 'development' ? 'silly' : 'info'
   });
 
-  return createLogger({
+  const logger = createLogger({
     transports: [consoleTransport, fileTransport],
     levels: config.npm.levels
   });
+
+  logger.stream = {write: message => logger.info(message)};
+
+  return logger;
 };

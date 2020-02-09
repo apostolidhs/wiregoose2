@@ -1,10 +1,9 @@
-const {Schema, model, SchemaTypes} = require('mongoose');
-require('mongoose-type-url');
+const {Schema, model} = require('mongoose');
 
 const schema = new Schema({
   name: {type: String, required: true, index: true, unique: true, maxlength: [64]},
-  link: {type: SchemaTypes.Url, required: true},
-  icon: {type: SchemaTypes.Url, required: true}
+  link: {type: String, required: true},
+  icon: {type: String, required: true}
 });
 
 module.exports = model('Provider', schema);

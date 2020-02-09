@@ -1,5 +1,4 @@
 const {Schema, model, SchemaTypes} = require('mongoose');
-require('mongoose-type-url');
 const dateFns = require('date-fns');
 const objectHash = require('object-hash');
 const {languages, categories} = require('../../../src/config');
@@ -35,10 +34,10 @@ const schema = new Schema(
     },
 
     title: {type: String, required: true, minlength: [6], maxlength: [128], validate: validateTitle},
-    image: {type: SchemaTypes.Url},
+    image: {type: String},
     description: {type: String, minlength: [15], maxlength: [256]},
     published: {type: Date, required: true},
-    link: {type: SchemaTypes.Url, required: true},
+    link: {type: String, required: true},
     lastHit: {type: Date},
     hits: {type: Number, default: 0},
     category: {type: String, enum: categories, required: true},
@@ -62,7 +61,7 @@ const schema = new Schema(
 
 schema.statics.saveFeeds = function(feeds) {
   return this.insertMany(
-    feeds.map(f => f.toObject()),
+    feeds.map(f => f.toObject()).sort((a, b) => a.published.getTime() - b.published.getTime()),
     {ordered: false}
   );
 };

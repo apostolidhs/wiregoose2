@@ -1,6 +1,5 @@
 const {Schema, model, SchemaTypes} = require('mongoose');
 const mongooseIdValidator = require('mongoose-id-validator');
-require('mongoose-type-url');
 const dateFns = require('date-fns');
 const {languages, categories} = require('../../../src/config');
 const ErrorSchema = require('./registrationError');
@@ -8,7 +7,7 @@ const Provider = require('./provider');
 
 const schema = new Schema({
   category: {type: String, enum: categories, required: true},
-  link: {type: SchemaTypes.Url, required: true},
+  link: {type: String, required: true},
   lang: {type: String, enum: languages, required: true},
   provider: {type: Schema.Types.ObjectId, ref: Provider.modelName, required: true},
 

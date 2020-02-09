@@ -5,14 +5,15 @@ const {check} = require('express-validator');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-const express = require('express');
 const download = require('image-downloader');
 const sharp = require('sharp');
 const LRUCache = require('lru-cache');
 const flatPromise = require('../helpers/flatPromise');
 const validationMiddleware = require('../helpers/validationMiddleware');
+const makeApp = require('../helpers/makeApp');
+const logger = require('./logger');
 
-const app = express();
+const app = makeApp({port: process.env.IMAGE_PROXY_PORT, host: process.env.IMAGE_PROXY_HOST, logger});
 
 const cacheDir = 'tmp/images';
 const baseDir = path.resolve(cacheDir);
@@ -44,7 +45,9 @@ const hashImage = url =>
     .update(url)
     .digest('hex');
 
-app.get('/', (req, res) => res.json({status: 'ok'}));
+app.get('/', (req, res) => res.json({status: 'ok', name: 'image-proxy'}));
+
+const sendOptions = {maxAge: 30 * 24 * 60 * 60 * 1000};
 
 app.get(
   '*',
@@ -61,7 +64,7 @@ app.get(
   validationMiddleware({
     params: req => {
       const {w, h} = req.query;
-      return {w: !w && !h ? 256 : w, h};
+      return {w, h};
     },
     onError: resp => resp.send('wrong w (width), h (height) parameter')
   }),
@@ -72,8 +75,8 @@ app.get(
     const filepath = path.join(baseDir, hash);
 
     if (lruCache.get(filepath)) {
-      res.sendFile(filepath);
-      console.log('send', url, filepath, 'cache hit');
+      res.sendFile(filepath, sendOptions);
+      logger.verbose('send', url, filepath, 'cache hit');
       return;
     }
 
@@ -87,7 +90,7 @@ app.get(
     );
 
     if (downloadError) {
-      console.log('failed download', url, downloadError + '');
+      logger.error('failed download', url, downloadError + '');
       return res.status(404).send(downloadError + '');
     }
 
@@ -99,7 +102,7 @@ app.get(
     );
 
     if (imageError && !imageError.toString().match(/unsupported image format/)) {
-      console.log('failed processing', url, imageError + '');
+      logger.error('failed processing', url, imageError + '');
       return res.status(404).send(imageError + '');
     }
 
@@ -109,13 +112,13 @@ app.get(
 
     lruCache.set(filepath, filepath);
 
-    res.sendFile(filepath);
-    console.log('send', url, filepath, 'cache miss');
+    res.sendFile(filepath, sendOptions);
+    logger.verbose('send', url, filepath, 'cache miss');
   }
 );
 
-app.use((err, req, res, next) => res.status(500).send(err.message));
-
-app.listen(4011, () => {
-  console.log(`✓ Proxy is running at http://localhost:${4011} in ${process.env.NODE_ENV} mode`);
+app.listen(process.env.IMAGE_PROXY_PORT, () => {
+  console.log(
+    `✓ Proxy is running at ${process.env.IMAGE_PROXY_HOST}:${process.env.IMAGE_PROXY_PORT} in ${process.env.NODE_ENV} mode`
+  );
 });
