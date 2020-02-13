@@ -13,7 +13,8 @@ const validationMiddleware = require('../helpers/validationMiddleware');
 const makeApp = require('../helpers/makeApp');
 const logger = require('./logger');
 
-const app = makeApp({port: process.env.IMAGE_PROXY_PORT, host: process.env.IMAGE_PROXY_HOST, logger});
+const host = 'http://localhost';
+const app = makeApp({port: process.env.IMAGE_PROXY_PORT, host, logger});
 
 const cacheDir = 'tmp/images';
 const baseDir = path.resolve(cacheDir);
@@ -118,7 +119,5 @@ app.get(
 );
 
 app.listen(process.env.IMAGE_PROXY_PORT, () => {
-  console.log(
-    `✓ Proxy is running at ${process.env.IMAGE_PROXY_HOST}:${process.env.IMAGE_PROXY_PORT} in ${process.env.NODE_ENV} mode`
-  );
+  console.log(`✓ Proxy is running at ${host}:${process.env.IMAGE_PROXY_PORT} in ${process.env.NODE_ENV} mode`);
 });

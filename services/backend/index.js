@@ -10,16 +10,15 @@ const logger = require('./logger');
 
 connect();
 
-const app = makeApp({port: process.env.BACKEND_PORT, host: process.env.BACKEND_HOST, logger});
+const host = 'http://localhost';
+const app = makeApp({port: process.env.BACKEND_PORT, host, logger});
 
 timelineRoutes(app);
 registrationRoutes(app);
 feedRoutes(app);
 
 app.listen(process.env.BACKEND_PORT, () => {
-  console.log(
-    `✓ Web server is running at ${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT} in ${process.env.NODE_ENV} mode`
-  );
+  console.log(`✓ Web server is running at ${host}:${process.env.BACKEND_PORT} in ${process.env.NODE_ENV} mode`);
 });
 
 module.exports = app;

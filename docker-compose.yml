@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  backend:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./deploy/backend/Dockerfile
+    depends_on:
+      - mongo
+    volumes:
+      - ./logs2:/logs
+    ports:
+      - '4200:4200'
+    environment:
+      - BACKEND_PORT=4200
+      - MONGODB_URI=mongodb://mongo/wiregoose2
+    links:
+      - mongo
+
+  # crawler:
+  #   restart: always
+  #   build:
+  #     context: ../
+  #     dockerfile: ./deploy/crawler/Dockerfile
+  #   depends_on:
+  #     - mongo
+  #   volumes:
+  #     - ./logs2:/logs
+  #   links:
+  #     - mongo
+
+  # proxy:
+  #   restart: always
+  #   build:
+  #     context: .
+  #     dockerfile: ./deploy/imageProxy/Dockerfile
+  #   volumes:
+  #     - ./logs2:/logs
+  #   ports:
+  #     - '4011:4011'
+  #   environment:
+  #     - IMAGE_PROXY_PORT=4011
+
+  mongo:
+    image: mongo
+    volumes:
+      - /Users/yannis/Documents/wiregoose2/data:/data/db
+    ports:
+      - '27017:27017'
