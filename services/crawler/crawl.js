@@ -1,11 +1,32 @@
 const Registration = require('../backend/models/registration');
+const flat = require('../helpers/flatPromise');
+const Feed = require('../backend/models/feed');
 const wait = require('../helpers/wait');
 const logger = require('./logger');
 const fromUrl = require('./fromUrl');
 
+const getStored = (docs, feeds, error) => {
+  if (error && Array.isArray(error.writeErrors)) return feeds.length - error.writeErrors.length;
+  return Array.isArray(docs) ? docs.length : 0;
+};
+
+const storeFeeds = async ({feeds, total}) => {
+  const [docs, feedsError] = await flat(Feed.saveFeeds(feeds));
+
+  const stats = {
+    stored: getStored(docs, feeds, feedsError),
+    total,
+    accepted: feeds.length
+  };
+  registration.addStats(stats);
+
+  return stats;
+};
+
 const crawl = async registration => {
   await registration.start();
-  const [stats, error] = await fromUrl(registration);
+  const [result, error] = await fromUrl(registration);
+  const stats = result && (await storeFeeds(result));
   await registration.stop();
   return [stats, error];
 };

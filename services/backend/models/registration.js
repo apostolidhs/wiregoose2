@@ -5,6 +5,8 @@ const {languages, categories} = require('../../../src/config');
 const ErrorSchema = require('./registrationError');
 const Provider = require('./provider');
 
+const categoryByIndex = categories.reduce((h, category, index) => ({...h, [category]: index}), {});
+
 const schema = new Schema({
   category: {type: String, enum: categories, required: true},
   link: {type: String, required: true},
@@ -54,6 +56,10 @@ schema.methods.addError = function(error) {
       created: new Date()
     })
   );
+};
+
+schema.methods.toJsonSafe = function() {
+  return {...this.toJSON(), _id: undefined, id: this.id, category: categoryByIndex[this.category]};
 };
 
 schema.statics.getNext = async function() {
