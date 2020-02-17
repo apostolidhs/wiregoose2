@@ -61,7 +61,7 @@ const Categories = ({category}) => {
           <CategoryName name={category} />
         </TextedIcon>
       )}
-      <Suspense fallback={'loading...'}>
+      <Suspense fallback={null}>
         <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
       </Suspense>
     </Main>

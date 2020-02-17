@@ -2,7 +2,7 @@ import React, {forwardRef} from 'react';
 import {Box} from 'grommet';
 import {Menu} from 'grommet-icons';
 import Link from 'components/sidebar/link';
-import Categories from './categories';
+import Content from './content';
 
 const Sidebar = forwardRef((props, ref) => {
   return (
@@ -12,7 +12,7 @@ const Sidebar = forwardRef((props, ref) => {
           Μενού
         </Link>
       </Box>
-      <Categories margin={{top: 'medium'}} />
+      <Content margin={{top: 'medium'}} />
     </Box>
   );
 });

@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {Box} from 'grommet';
 import styled, {keyframes} from 'styled-components';
-import Categories from './categories';
+import Content from './content';
 
 const containerTransitions = {
   entering: keyframes` from { transform: scaleX(0); opacity: 0; }`,
@@ -38,13 +38,15 @@ const Overlay = styled(Box)`
 
 const onOverlayClick = () => (window.location.hash = '');
 
-const Sidebar = ({transition}) => (
-  <Fragment>
-    <Overlay transition={transition} background="dark-6" onClick={onOverlayClick} />
-    <Container transition={transition} elevation="small" pad="medium" overflow={{vertical: 'auto'}}>
-      <Categories />
-    </Container>
-  </Fragment>
-);
+const Sidebar = ({transition}) => {
+  return (
+    <Fragment>
+      <Overlay transition={transition} background="dark-6" onClick={onOverlayClick} />
+      <Container transition={transition} elevation="small" pad="medium" overflow={{vertical: 'auto'}}>
+        <Content />
+      </Container>
+    </Fragment>
+  );
+};
 
 export default Sidebar;

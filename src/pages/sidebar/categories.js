@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Box} from 'grommet';
 import {useRegistrationsSelector} from 'providers/registrations/selectors';
 import RegistrationCategory from 'components/registrations/category';

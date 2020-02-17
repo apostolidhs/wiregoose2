@@ -1,5 +1,6 @@
 const {check} = require('express-validator');
 const Provider = require('../models/provider');
+const Registration = require('../models/registration');
 const validationMiddleware = require('../../helpers/validationMiddleware');
 
 module.exports = app => {
@@ -29,9 +30,15 @@ module.exports = app => {
 
   app.delete('/providers/:id', checkParams, async (req, res) => {
     const {id} = res.locals.params;
+
+    const [exists, existsError] = await Registration.exists({_id: id});
+    if (existsError) return res.status(500).json();
+    if (exists) return res.status(400).json({error: `The id ${id} exists in the registrations collection`});
+
     const [provider, error] = await flat(Provider.findByIdAndRemove(id));
     if (error) return res.status(500).json();
     if (!provider) return res.status(404).json();
+
     return res.json();
   });
 
