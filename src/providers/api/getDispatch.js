@@ -1,11 +1,14 @@
 import request from 'helpers/request';
 import makeTransformFeeds from 'providers/feeds/deserialize';
+import {getBackendUri} from 'helpers/environment';
+
+const uri = getBackendUri();
 
 export default ({config}) => {
   const {transformFeed, transformFeeds} = makeTransformFeeds(config);
   return {
     timelineExplore: ({target, limit, categories, providers}) =>
-      request.get('http://localhost:4100/timeline/explore', {
+      request.get(`${uri}/timeline/explore`, {
         params: {
           target,
           limit,
@@ -14,9 +17,9 @@ export default ({config}) => {
         },
         transform: ({feeds}) => ({feeds: transformFeeds(feeds)})
       }),
-    registrationsPerCategory: () => request.get('http://localhost:4100/registrationsPerCategory'),
+    registrationsPerCategory: () => request.get(`${uri}/registrationsPerCategory`),
     fetchFeed: (id, {article, related}) =>
-      request.get(`http://localhost:4100/feeds/${id}`, {
+      request.get(`${uri}/feeds/${id}`, {
         params: {article, related},
         transform: ({feed, relatedFeeds}) => ({feed: transformFeed(feed), relatedFeeds: transformFeeds(relatedFeeds)})
       })

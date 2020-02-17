@@ -3,6 +3,7 @@ const Registration = require('../models/registration');
 const Provider = require('../models/provider');
 const config = require('../../../src/config');
 const validationMiddleware = require('../../helpers/validationMiddleware');
+const flat = require('../../helpers/flatPromise');
 const fromUrl = require('../../crawler/fromUrl');
 
 module.exports = app => {

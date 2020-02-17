@@ -1,4 +1,4 @@
-import React, {Suspense, lazy, useRef, useEffect, useState, forwardRef} from 'react';
+import React, {Suspense, lazy, useRef, useEffect, useCallback, useState, forwardRef} from 'react';
 import {Box} from 'grommet';
 import {Router, navigate, Location} from '@reach/router';
 import Header from 'components/header';
@@ -32,8 +32,6 @@ const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => (
   </Box>
 ));
 
-const getPadding = ref => `${ref.current ? ref.current.clientHeight : 0}px`;
-
 const initialContentPadding = {
   horizontal: 'none',
   top: 'none',
@@ -53,16 +51,21 @@ const Pages = () => {
   const isAdmin = useIsAdminSelector();
 
   const headerRef = useRef();
-  const navBarRef = useRef();
   const [sidebarOpen, setSidebarOpen] = useState(isSidebarOpen);
   const [contentPadding, setContentPadding] = useState(initialContentPadding);
 
+  const onNavBarReady = useCallback(({height}) => {
+    setContentPadding(s => ({...s, bottom: `${height}px`}));
+  }, []);
+
   useEffect(() => {
-    setTimeout(() => {
-      setSidebarOpen(isSmall && isSidebarOpen());
-      setContentPadding({...initialContentPadding, top: getPadding(headerRef), bottom: getPadding(navBarRef)});
-    }, 0);
+    setSidebarOpen(isSmall && isSidebarOpen());
   }, [isSmall]);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+    setContentPadding(s => ({...s, top: `${headerRef.current.clientHeight}px`}));
+  }, [headerRef.current]);
 
   useStickyHeader(headerRef);
 
@@ -74,22 +77,24 @@ const Pages = () => {
         }
 
         return (
-          <Suspense fallback={null}>
-            <Layout>
-              <Header ref={headerRef} />
-              {isSmall && (
+          <Layout>
+            <Header ref={headerRef} />
+            {isSmall && (
+              <Suspense fallback={null}>
                 <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
                   {state => <SlideSidebar transition={state} />}
                 </Transition>
-              )}
-              <Box
-                alignSelf={isSmall ? 'stretch' : 'center'}
-                overflow="initial"
-                direction="row"
-                pad={contentPadding}
-                width={isLarge ? 'xlarge' : '100%'}
-                height={{min: 'initial'}}>
-                {!isSmall && (
+              </Suspense>
+            )}
+            <Box
+              alignSelf={isSmall ? 'stretch' : 'center'}
+              overflow="initial"
+              direction="row"
+              pad={contentPadding}
+              width={isLarge ? 'xlarge' : '100%'}
+              height={{min: 'initial'}}>
+              {!isSmall && (
+                <Suspense fallback={null}>
                   <Box
                     direction="column"
                     height={{min: 'initial'}}
@@ -98,29 +103,33 @@ const Pages = () => {
                     margin={{right: 'medium'}}>
                     <Sidebar />
                   </Box>
-                )}
-                <Suspense fallback={null}>
-                  <Router component={RouterComponent}>
-                    <Categories path="/" />
-                    <Categories path="category/:category" />
-                    <Sources path="source/:source/:category" />
-
-                    <Article path="feed/:feedId/article" />
-
-                    <Settings path="settings" />
-                    <Providers path="settings/providers" />
-                    <About path="settings/about" />
-                    <Credits path="settings/credits" />
-
-                    {isAdmin && <Admin path="admin/*" />}
-
-                    <NotFound default />
-                  </Router>
                 </Suspense>
-              </Box>
-              {isSmall && <NavBar ref={navBarRef} />}
-            </Layout>
-          </Suspense>
+              )}
+              <Suspense fallback={null}>
+                <Router component={RouterComponent}>
+                  <Categories path="/" />
+                  <Categories path="category/:category" />
+                  <Sources path="source/:source/:category" />
+
+                  <Article path="feed/:feedId/article" />
+
+                  <Settings path="settings" />
+                  <Providers path="settings/providers" />
+                  <About path="settings/about" />
+                  <Credits path="settings/credits" />
+
+                  {isAdmin && <Admin path="admin/*" />}
+
+                  <NotFound default />
+                </Router>
+              </Suspense>
+            </Box>
+            {isSmall && (
+              <Suspense fallback={null}>
+                <NavBar onReady={onNavBarReady} />
+              </Suspense>
+            )}
+          </Layout>
         );
       }}
     </Location>

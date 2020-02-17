@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef, useRef, useEffect} from 'react';
 import {Box, Button} from 'grommet';
 import {TextAlignLeft, Compass, Menu} from 'grommet-icons';
 import styled from 'styled-components';
@@ -15,7 +15,13 @@ const onSidebarClick = () => {
   window.location.hash = 'sidebar';
 };
 
-const NavBar = forwardRef((props, ref) => {
+const NavBar = ({onReady, props}) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    onReady({height: ref.current.clientHeight});
+  }, []);
+
   return (
     <Container ref={ref} {...props}>
       <Box as="nav" background="white" pad="small" direction="row" justify="around" border="top">
@@ -25,6 +31,6 @@ const NavBar = forwardRef((props, ref) => {
       </Box>
     </Container>
   );
-});
+};
 
 export default NavBar;

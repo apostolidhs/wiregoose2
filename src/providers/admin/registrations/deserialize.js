@@ -6,7 +6,7 @@ export default ({categories}) => {
     ...reg,
     category: categories[reg.category]
   });
-  const transformRegistrations = regs => regs.map(transformRegistrations);
+  const transformRegistrations = regs => regs.map(transformRegistration);
 
   return {transformRegistration, transformRegistrations};
 };
