@@ -1,6 +1,11 @@
-const {Schema} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-module.exports = new Schema({
+const schema = new Schema({
   message: String,
   created: Date
 });
+
+module.exports = {
+  model: model('RegistrationError', schema),
+  schema
+};

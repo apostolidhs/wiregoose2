@@ -29,6 +29,19 @@ const getRelated = async feed => {
 
 module.exports = app => {
   app.get(
+    '/feeds/articlemining',
+    check('link'),
+    validationMiddleware({params: ({query: {link}}) => ({link})}),
+    async (req, res) => {
+      const {link} = res.locals.params;
+      const [content, error] = await articleReader.fromURL(link);
+      if (error) return res.status(400).json({error});
+
+      res.json(content);
+    }
+  );
+
+  app.get(
     '/feeds/:feedId',
     [
       check('feedId')

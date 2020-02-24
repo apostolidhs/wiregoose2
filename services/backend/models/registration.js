@@ -1,8 +1,8 @@
-const {Schema, model, SchemaTypes} = require('mongoose');
+const {Schema, model} = require('mongoose');
 const mongooseIdValidator = require('mongoose-id-validator');
 const dateFns = require('date-fns');
 const {languages, categories} = require('../../../src/config');
-const ErrorSchema = require('./registrationError');
+const RegistrationError = require('./registrationError');
 const Provider = require('./provider');
 
 const categoryByIndex = categories.reduce((h, category, index) => ({...h, [category]: index}), {});
@@ -17,7 +17,7 @@ const schema = new Schema({
   accepted: [Number],
   stored: [Number],
 
-  failures: [ErrorSchema],
+  failures: [RegistrationError.schema],
 
   lastCrawl: {type: Date},
   isCrawling: {type: Boolean, default: false}
@@ -50,12 +50,13 @@ schema.methods.addStats = function({stored, total, accepted}) {
 };
 
 schema.methods.addError = function(error) {
-  this.failures.push(
-    new ErrorSchema({
+  this.failures.unshift(
+    new RegistrationError.model({
       message: error.toString(),
       created: new Date()
     })
   );
+  this.failures.slice(0, 20);
 };
 
 schema.methods.toJsonSafe = function() {

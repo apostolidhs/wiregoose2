@@ -1,19 +1,15 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Box} from 'grommet';
-import {useProvidersSelector} from 'providers/admin/providers';
+import {useProviderListSelector} from 'providers/admin/providers';
 import Provider from './provider';
 
-export const useProviderListSelector = () => {
-  const {byId, ids} = useProvidersSelector(({byId, ids}) => ({byId, ids}));
-  return useMemo(() => ids.map(id => byId[id]), [byId]);
-};
-
 const Registrations = () => {
+  const [expanded, setExpanded] = useState();
   const providers = useProviderListSelector();
   return (
     <Box>
       {providers.map(provider => (
-        <Provider key={provider.id} {...provider} />
+        <Provider expanded={expanded} onExpand={setExpanded} key={provider.id} {...provider} />
       ))}
     </Box>
   );

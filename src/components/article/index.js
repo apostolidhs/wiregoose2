@@ -24,10 +24,10 @@ export const Image = ({src, ...rest}) => {
     </Box>
   );
 };
-
+//"//www.youtube.com/embed/yCOY82UdFrw"
 const Video = ({src}) => (
   <Box height={{min: 'initial'}}>
-    <iframe src="//www.youtube.com/embed/yCOY82UdFrw" frameborder="0" allowfullscreen class="video" />
+    <iframe src={src} frameborder="0" allowfullscreen class="video" />
   </Box>
 );
 

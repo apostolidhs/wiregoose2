@@ -1,12 +1,17 @@
 import React from 'react';
 import {Box} from 'grommet';
-import Preview from 'components/admin/registration/preview';
+import Registration from 'components/admin/registration';
 
-const Registrations = ({registrations, ...rest}) => {
+const Registrations = ({expanded, onExpand, registrations, ...rest}) => {
   return (
-    <Box direction="row" {...rest}>
+    <Box direction="row" wrap {...rest}>
       {registrations.map(registration => (
-        <Preview key={registration.id} registration={registration} />
+        <Registration
+          key={registration.id}
+          registration={registration}
+          expanded={expanded === registration.id}
+          onExpand={onExpand}
+        />
       ))}
     </Box>
   );

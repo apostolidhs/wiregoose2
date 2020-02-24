@@ -9,12 +9,12 @@ export const useRegistrationsByProviderSelector = providerId => {
   return useMemo(() => ids.filter(id => byId[id].provider === providerId).map(id => byId[id]), [providerId, byId]);
 };
 
-const Provider = ({id, name}) => {
+const Provider = ({expanded, onExpand, id, name}) => {
   const registrations = useRegistrationsByProviderSelector(id);
   return (
     <Box gap="small">
       <Header name={name} />
-      <Registrations registrations={registrations} />
+      <Registrations expanded={expanded} onExpand={onExpand} registrations={registrations} />
     </Box>
   );
 };

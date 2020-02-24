@@ -1,5 +1,12 @@
 export default () => ({
-  name: '',
+  category: '',
   link: '',
-  icon: ''
+  lang: '',
+  provider: null,
+  total: [],
+  accepted: [],
+  stored: [],
+  failures: [],
+  lastCrawl: null,
+  isCrawling: false
 });

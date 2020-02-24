@@ -1,6 +1,6 @@
 const {validationResult} = require('express-validator');
 
-const sendJson = (resp, errors) => resp.json({errors: errors.mapped()});
+const sendJson = (resp, errors) => resp.json({error: errors.mapped()});
 
 module.exports = ({params, onError = sendJson}) => {
   return (req, res, next) => {

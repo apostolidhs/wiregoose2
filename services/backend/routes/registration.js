@@ -4,6 +4,7 @@ const Provider = require('../models/provider');
 const config = require('../../../src/config');
 const validationMiddleware = require('../../helpers/validationMiddleware');
 const flat = require('../../helpers/flatPromise');
+const guard = require('../../helpers/middlewares/errorGuard');
 const fromUrl = require('../../crawler/fromUrl');
 
 module.exports = app => {
@@ -18,7 +19,7 @@ module.exports = app => {
         return {lang};
       }
     }),
-    async (req, res) => {
+    guard(async (req, res) => {
       const {lang} = res.locals.params;
       const [registrations, providers] = await Promise.all([Registration.find({lang}), Provider.find()]);
 
@@ -48,43 +49,55 @@ module.exports = app => {
           return {name, icon, link};
         })
       });
-    }
+    })
   );
 
   app.get(
     '/registrations/crawl',
-    check('link').escape(),
+    check('link'),
     validationMiddleware({
       params: req => {
         const {link} = req.query;
         return {link};
       }
     }),
-    async (req, res) => {
+    guard(async (req, res) => {
       const {link} = res.locals.params;
-      const registration = new Registration({
+      const registration = {
+        _id: 'FFFFFFFFFFFFFFFFFFFFFFFF',
         category: 'country',
         link,
         lang: 'gr',
-        provider: 'FFFFFFFFFFFFFFFFFFFFFFFF'
-      });
-      const [result, error] = await flat(fromUrl(registration));
+        provider: {name: 'mock', link, _id: '000000000000000000000000'}
+      };
+      const [result, error] = await fromUrl(registration);
       if (error) res.status(400).json({error});
-      return res.json(result);
-    }
+
+      const {feeds, total} = result;
+      return res.json({
+        feeds: feeds.map(f => f.toJsonSafe()),
+        total
+      });
+    })
   );
 
-  app.get('/registrations', async (req, res) => {
-    const [registrations, error] = await flat(Registration.find());
-    if (error) res.status(500).json();
-    res.json(registrations.map(r => r.toJsonSafe()));
-  });
+  app.get(
+    '/registrations',
+    guard(async (req, res) => {
+      const [registrations, error] = await flat(Registration.find());
+      if (error) res.status(500).json();
+      res.json(registrations.map(r => r.toJsonSafe()));
+    })
+  );
 
-  app.post('/registrations', async (req, res) => {
-    const [registration, error] = await flat(Registration.create(req.body));
-    if (error) res.status(500).json();
-    return res.json(registration.toJsonSafe());
-  });
+  app.post(
+    '/registrations',
+    guard(async (req, res) => {
+      const [registration, error] = await flat(Registration.create(req.body));
+      if (error) res.status(500).json();
+      return res.json(registration.toJsonSafe());
+    })
+  );
 
   const checkParams = [
     check('id')
@@ -98,21 +111,29 @@ module.exports = app => {
     })
   ];
 
-  app.delete('/registrations/:id', checkParams, async (req, res) => {
-    const {id} = res.locals.params;
-    const [registration, error] = await flat(Registration.findByIdAndRemove(id));
-    if (error) return res.status(500).json();
-    if (!registration) return res.status(404).json();
-    return res.json();
-  });
+  app.delete(
+    '/registrations/:id',
+    checkParams,
+    guard(async (req, res) => {
+      const {id} = res.locals.params;
+      const [registration, error] = await flat(Registration.findByIdAndRemove(id));
+      if (error) return res.status(500).json();
+      if (!registration) return res.status(404).json();
+      return res.json();
+    })
+  );
 
-  app.put('/registrations/:id', checkParams, async (req, res) => {
-    const {id} = res.locals.params;
-    const [registration, error] = await flat(Registration.findByIdAndUpdate(id, req.body, {new: true}));
+  app.put(
+    '/registrations/:id',
+    checkParams,
+    guard(async (req, res) => {
+      const {id} = res.locals.params;
+      const [registration, error] = await flat(Registration.findByIdAndUpdate(id, req.body, {new: true}));
 
-    if (error) return res.status(500).json();
-    if (!registration) return res.status(404).json();
+      if (error) return res.status(500).json();
+      if (!registration) return res.status(404).json();
 
-    return res.json(registration.toJsonSafe());
-  });
+      return res.json(registration.toJsonSafe());
+    })
+  );
 };

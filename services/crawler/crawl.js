@@ -10,7 +10,7 @@ const getStored = (docs, feeds, error) => {
   return Array.isArray(docs) ? docs.length : 0;
 };
 
-const storeFeeds = async ({feeds, total}) => {
+const storeFeeds = async (registration, {feeds, total}) => {
   const [docs, feedsError] = await flat(Feed.saveFeeds(feeds));
 
   const stats = {
@@ -26,7 +26,7 @@ const storeFeeds = async ({feeds, total}) => {
 const crawl = async registration => {
   await registration.start();
   const [result, error] = await fromUrl(registration);
-  const stats = result && (await storeFeeds(result));
+  const stats = result && (await storeFeeds(registration, result));
   await registration.stop();
   return [stats, error];
 };
@@ -49,6 +49,6 @@ module.exports = async () => {
       logger.error(e.toString());
     }
 
-    await wait(30000);
+    await wait(10000);
   }
 };
