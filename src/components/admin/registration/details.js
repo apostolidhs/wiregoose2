@@ -8,7 +8,7 @@ import Link from './link';
 import ActionBar from './actionBar';
 import CrawlReport from './crawlReport';
 
-const Details = ({registration: {id, failures}, ...rest}) => {
+const Details = ({registration: {id, failures, processing}, onSave, onDelete, ...rest}) => {
   const {categories, languages} = useConfigSelector();
   const link = useRegistrationSelector(id, ({link}) => link);
   const crawl = useRegistrationAction('crawl');
@@ -27,7 +27,7 @@ const Details = ({registration: {id, failures}, ...rest}) => {
       <RegistrationField.Select fieldKey="lang" resourceId={id} options={languages} placeholder="Language" />
       <Link resourceId={id} onCrawl={onCrawl} />
       {crawlReport && <CrawlReport resourceId={id} {...crawlReport}></CrawlReport>}
-      <ActionBar resourceId={id} />
+      <ActionBar resourceId={id} processing={processing} onSave={onSave} onDelete={onDelete} />
     </Box>
   );
 };

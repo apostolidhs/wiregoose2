@@ -71,7 +71,7 @@ module.exports = app => {
         provider: {name: 'mock', link, _id: '000000000000000000000000'}
       };
       const [result, error] = await fromUrl(registration);
-      if (error) res.status(400).json({error});
+      if (error) return res.status(400).json({error});
 
       const {feeds, total} = result;
       return res.json({
@@ -85,7 +85,7 @@ module.exports = app => {
     '/registrations',
     guard(async (req, res) => {
       const [registrations, error] = await flat(Registration.find());
-      if (error) res.status(500).json();
+      if (error) return res.status(500).json();
       res.json(registrations.map(r => r.toJsonSafe()));
     })
   );
@@ -94,7 +94,7 @@ module.exports = app => {
     '/registrations',
     guard(async (req, res) => {
       const [registration, error] = await flat(Registration.create(req.body));
-      if (error) res.status(500).json();
+      if (error) return res.status(500).json(error);
       return res.json(registration.toJsonSafe());
     })
   );
@@ -105,7 +105,7 @@ module.exports = app => {
       .escape(),
     validationMiddleware({
       params: req => {
-        const {id} = req.query;
+        const {id} = req.params;
         return {id};
       }
     })

@@ -7,17 +7,25 @@ const getParams = params =>
     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
     .join('&');
 
-const request = (href, {params, transform = identity, method = 'GET', ...options} = {}) => {
+const request = (href, {params, transform = identity, method = 'GET', headers, ...options} = {}) => {
   const controller = new AbortController();
 
   const search = params && getParams(params);
   const link = search ? `${href}?${search}` : href;
-  const request = fetch(link, {signal: controller.signal, method, ...options}).then(response =>
-    response.json().then(data => {
-      const {status, statusText} = response;
-      if (response.ok) return {data: transform(data), status, statusText};
-      throw {data, status, statusText};
-    })
+  const request = fetch(link, {
+    signal: controller.signal,
+    method,
+    headers: {'Content-Type': 'application/json', ...headers},
+    ...options
+  }).then(response =>
+    response
+      .json()
+      .catch(e => null)
+      .then(data => {
+        const {status, statusText} = response;
+        if (response.ok) return {data: transform(data), status, statusText};
+        throw {data, status, statusText};
+      })
   );
 
   request.abort = () => {

@@ -1487,13 +1487,6 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.8.3":
-  version "7.8.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
-  integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
 "@babel/template@^7.4.0", "@babel/template@^7.7.0":
   version "7.7.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.7.0.tgz#4fadc1b8e734d97f56de39c77de76f2562e597d0"
@@ -9896,14 +9889,13 @@ react-error-overlay@^6.0.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.4.tgz#0d165d6d27488e660bc08e57bdabaad741366f7a"
   integrity sha512-ueZzLmHltszTshDMwyfELDq8zOA803wQ1ZuzCccXa1m57k1PxSHfflPD5W9YIiTXLs0JTLzoj6o1LuM5N6zzNA==
 
-react-hoax@^0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/react-hoax/-/react-hoax-0.0.24.tgz#b369158e5dcfb22079ff3bf0cf9b02ac142bc85c"
-  integrity sha512-kTTaKLnIWPRKEURv/N/PUBXZUKav6H1LLtptgmnrITNYezhkOYC2ptc1ymvls5Wo8vwpER3OHj3omjQAnnt4KQ==
+react-hoax@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-hoax/-/react-hoax-1.0.7.tgz#b41f580f7ecfc11740fbf20ccad956502ca06030"
+  integrity sha512-70Pjp2KISUgQaOIlG/JmuiqVI40n0nu7vb5lg7hrnLf/Y2pIUEYQRIa+EnmW0iO3TsCb5K6pDLAxdKWMWzKUiA==
   dependencies:
-    "@babel/runtime" "^7.8.3"
     lodash "^4.17.15"
-    use-context-selector "^1.0.1"
+    use-context-selector "^1.1.1"
 
 react-intl@^3.11.0:
   version "3.11.0"
@@ -11835,10 +11827,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-context-selector@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/use-context-selector/-/use-context-selector-1.0.1.tgz#e179173c6e8f2d0a552ff90e9c1ad87581243913"
-  integrity sha512-1kqu7JVg5n0wXAAYyPVTXMumqPMQw1SLCqAks8/v43AvVlWh/JERaMQA0OUdi3FxbVMK7PYxY5vC7FtH/51hBA==
+use-context-selector@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/use-context-selector/-/use-context-selector-1.1.1.tgz#1180ad98dcc585aee39c458a3e5582392a1afcf9"
+  integrity sha512-MDcSTShyTB+PMlbIeN0kWzTeognnXyH6ffZL+fHwaTegNRQvpzbELIZW80Bdmjn+xckxfVugfz2WqTXcFsA8UA==
 
 use@^3.1.0:
   version "3.1.1"

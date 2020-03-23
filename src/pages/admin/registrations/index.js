@@ -1,16 +1,22 @@
-import React, {useMemo, useState} from 'react';
-import {Box} from 'grommet';
-import {useProviderListSelector} from 'providers/admin/providers';
-import Provider from './provider';
+import React, {useCallback} from 'react';
+import {Box, Button} from 'grommet';
+import {useProviderSelector, useProviderAction} from 'providers/admin/providers';
+import Provider from 'components/admin/provider';
+import Providers from './providers';
 
 const Registrations = () => {
-  const [expanded, setExpanded] = useState();
-  const providers = useProviderListSelector();
+  const initializeResource = useProviderAction('initializeResource');
+  const disabled = useProviderSelector('new', s => !s);
+
+  const onCreate = useCallback(() => initializeResource('new'), []);
+
   return (
-    <Box>
-      {providers.map(provider => (
-        <Provider expanded={expanded} onExpand={setExpanded} key={provider.id} {...provider} />
-      ))}
+    <Box gap="medium" margin={{top: 'medium', right: 'medium'}}>
+      <Box direction="row" justify="end">
+        <Button onClick={onCreate} disabled={!disabled} label="Add Provider" />
+      </Box>
+      {!disabled && <Provider id="new" />}
+      <Providers />
     </Box>
   );
 };

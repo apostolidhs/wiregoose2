@@ -4,28 +4,24 @@ import {Box} from 'grommet';
 import Preview from './preview';
 import Details from './details';
 
-const Container = styled(Box)`
-  ${({processing}) => processing && 'opacity: 0.2;'}
-`;
-
-const Registration = ({expanded, onExpand, registration, ...rest}) => {
+const Registration = ({onSave, onDelete, expanded, onExpand, registration, ...rest}) => {
   const {id, processing} = registration;
   const expand = useCallback(() => onExpand(id), [id]);
 
   return (
-    <Container
+    <Box
       width={expanded ? '100%' : 'medium'}
       onClick={expand}
       hoverIndicator={!expanded}
-      processing={processing}
+      animation={processing ? 'fadeIn' : null}
       pad="medium"
       gap="small"
       margin="small"
       elevation="small"
       {...rest}>
       <Preview registration={registration} />
-      {(true || expanded) && <Details registration={registration} />}
-    </Container>
+      {expanded && <Details registration={registration} onSave={onSave} onDelete={onDelete} />}
+    </Box>
   );
 };
 

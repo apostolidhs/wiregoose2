@@ -7,13 +7,13 @@ const flat = require('../../helpers/flatPromise');
 module.exports = app => {
   app.get('/providers', async (req, res) => {
     const [providers, error] = await flat(Provider.find());
-    if (error) res.status(500).json();
+    if (error) return res.status(500).json();
     res.json(providers.map(r => r.toJsonSafe()));
   });
 
   app.post('/providers', async (req, res) => {
     const [provider, error] = await flat(Provider.create(req.body));
-    if (error) res.status(500).json();
+    if (error) return res.status(400).json({error: error.toString()});
     return res.json(provider.toJsonSafe());
   });
 
@@ -23,7 +23,7 @@ module.exports = app => {
       .escape(),
     validationMiddleware({
       params: req => {
-        const {id} = req.query;
+        const {id} = req.params;
         return {id};
       }
     })
