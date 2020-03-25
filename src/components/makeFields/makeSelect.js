@@ -48,7 +48,7 @@ export default useMember => {
 
     return (
       <Component
-        value={value}
+        value={value || undefined}
         onChange={change}
         options={options}
         onClose={close}

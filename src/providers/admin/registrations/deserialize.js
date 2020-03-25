@@ -1,8 +1,8 @@
-import getInitialState from './getInitialState';
+import getResourceInitialState from './getResourceInitialState';
 
 export default ({categories}) => {
   const transformRegistration = reg => ({
-    ...getInitialState(),
+    ...getResourceInitialState(),
     ...reg,
     category: categories[reg.category]
   });

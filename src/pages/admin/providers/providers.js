@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import {Box} from 'grommet';
-import {useProviderListSelector} from 'providers/admin/providers';
+import {useProvidersSelector} from 'providers/admin/providers';
 import Provider from './provider';
 
 const Providers = props => {
-  const [expanded, setExpanded] = useState();
-  const providers = useProviderListSelector();
+  const ids = useProvidersSelector(({ids}) => ids);
 
   return (
     <Box gap="medium" {...props}>
-      {providers.map(provider => (
-        <Provider expanded={expanded} onExpand={setExpanded} key={provider.id} id={provider.id} />
+      {ids.map(id => (
+        <Provider key={id} id={id} />
       ))}
     </Box>
   );

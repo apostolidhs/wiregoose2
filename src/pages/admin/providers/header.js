@@ -5,8 +5,8 @@ import {useRegistrationSelector, useRegistrationsSelector, useRegistrationAction
 import {useProviderAction} from 'providers/admin/providers';
 import {useProviderSelector, useProvidersSelector} from 'providers/admin/providers';
 
-const Header = ({id, onExpand, ...rest}) => {
-  const initializeResource = useRegistrationAction('initializeResource');
+const Header = ({id, ...rest}) => {
+  const {initializeResource, update: updateRegistration} = useRegistrationAction();
   const {remove, update} = useProviderAction();
   const disabled = useRegistrationSelector('new', resource => !!resource);
 
@@ -16,7 +16,7 @@ const Header = ({id, onExpand, ...rest}) => {
 
   const onCreate = useCallback(() => {
     initializeResource('new', {lang: 'gr', provider: id});
-    onExpand('new');
+    updateRegistration('expanded', 'new');
   }, []);
   const onEdit = useCallback(() => update('editedId', id), [id]);
   const onDelete = useCallback(() => remove(id), [id]);

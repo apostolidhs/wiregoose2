@@ -4,13 +4,12 @@ import {useConfigSelector} from 'providers/config/selectors';
 import Category from './category';
 
 const Categories = props => {
-  const [expanded, setExpanded] = useState();
   const {categories} = useConfigSelector();
 
   return (
     <Box gap="medium" {...props}>
       {categories.map(category => (
-        <Category key={category} category={category} expanded={expanded} onExpand={setExpanded} />
+        <Category key={category} category={category} />
       ))}
     </Box>
   );

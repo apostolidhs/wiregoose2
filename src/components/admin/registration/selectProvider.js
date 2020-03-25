@@ -1,6 +1,6 @@
 import React from 'react';
 import {RegistrationField} from 'providers/admin/registrations';
-import {useProviderListSelector, useProviderSelector} from 'providers/admin/providers';
+import {useProviderListSelector} from 'providers/admin/providers';
 
 const selectValue = ({id}) => id;
 
