@@ -1,5 +1,4 @@
 import React, {useCallback, memo} from 'react';
-import styled from 'styled-components';
 import {Box} from 'grommet';
 import Preview from './preview';
 import Details from './details';

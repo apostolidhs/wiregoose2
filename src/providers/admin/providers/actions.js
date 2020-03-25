@@ -21,7 +21,7 @@ export const save = id => (dispatch, getState, {getApi, notification}) => {
 };
 
 export const remove = id => (dispatch, getState, {getApi, notification}) => {
-  if (id === 'new') return dispatch(hoaxActions.removeResource(id));
+  if (id === 'new') return Promise.resolve(dispatch(hoaxActions.removeResource(id)));
 
   dispatch(hoaxActions.startProcessResource(id));
   return getApi()

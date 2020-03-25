@@ -1,5 +1,3 @@
 export default () => ({
-  name: '',
-  link: '',
-  icon: ''
+  editedId: null
 });

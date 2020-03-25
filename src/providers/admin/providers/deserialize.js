@@ -1,4 +1,4 @@
-import getInitialState from './getInitialState';
+import getInitialState from './getResourceInitialState';
 
 export default ({categories}) => {
   const transformProvider = reg => ({

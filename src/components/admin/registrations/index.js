@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Box} from 'grommet';
 import {useRegistrationAction} from 'providers/admin/registrations';
 import Registration from 'components/admin/registration';
@@ -25,4 +25,4 @@ const Registrations = ({expanded, onExpand, registrations, ...rest}) => {
   );
 };
 
-export default Registrations;
+export default memo(Registrations);

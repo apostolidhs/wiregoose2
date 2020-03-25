@@ -3,7 +3,8 @@ import {Router} from '@reach/router';
 import {useApiSelector} from 'providers/api/selectors';
 import {useRegistrationAction} from 'providers/admin/registrations';
 import {useProviderAction} from 'providers/admin/providers';
-import Registrations from './registrations';
+import Providers from './providers';
+import Categories from './categories';
 
 const useFetchRegistrations = api => {
   const {startFetch, doneFetch, failFetch} = useRegistrationAction();
@@ -42,7 +43,8 @@ const Page = () => {
 
   return (
     <Router>
-      <Registrations path="/" />
+      <Providers path="/" />
+      <Categories path="/categories" />
     </Router>
   );
 };

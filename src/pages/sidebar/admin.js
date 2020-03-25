@@ -8,8 +8,8 @@ const Admin = props => (
     <Link to={`/admin`} Icon={Menu} title="Registrations">
       Registrations
     </Link>
-    <Link to={`/admin/providers`} Icon={Menu} title="Providers">
-      Providers
+    <Link to={`/admin/categories`} Icon={Menu} title="Categories">
+      Categories
     </Link>
   </Box>
 );

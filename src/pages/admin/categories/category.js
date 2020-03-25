@@ -1,26 +1,23 @@
 import React, {useMemo} from 'react';
 import {Box} from 'grommet';
+import Registrations from 'components/admin/registrations';
 import {useRegistrationsSelector} from 'providers/admin/registrations';
 import Header from './header';
-import Registrations from './registrations';
 
-export const useRegistrationsByProviderSelector = providerId => {
+const Category = ({category, expanded, onExpand, ...rest}) => {
   const {byId, ids} = useRegistrationsSelector(({byId, ids}) => ({byId, ids}));
-  return useMemo(
+  const registrations = useMemo(
     () =>
       ids
+        .filter(id => byId[id].category === category)
         .sort((a, b) => (a === 'new' ? -1 : 1))
-        .filter(id => byId[id].provider === providerId)
         .map(id => byId[id]),
-    [providerId, byId]
+    [byId]
   );
-};
 
-const Provider = ({expanded, onExpand, id, ...rest}) => {
-  const registrations = useRegistrationsByProviderSelector(id);
   return (
     <Box gap="small" border={{color: 'light-3'}} pad="small" {...rest}>
-      <Header id={id} onExpand={onExpand} />
+      <Header category={category} onExpand={onExpand} />
       {registrations.length > 0 && (
         <Registrations expanded={expanded} onExpand={onExpand} registrations={registrations} />
       )}
@@ -28,4 +25,4 @@ const Provider = ({expanded, onExpand, id, ...rest}) => {
   );
 };
 
-export default Provider;
+export default Category;
