@@ -4,7 +4,7 @@ import CategoryList from './categories';
 
 const Categories = () => {
   return (
-    <Box gap="medium" margin={{top: 'medium', right: 'medium'}}>
+    <Box gap="medium" margin={{right: 'medium'}}>
       <CategoryList />
     </Box>
   );

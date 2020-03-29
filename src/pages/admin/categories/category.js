@@ -8,13 +8,13 @@ const Category = ({category, ...rest}) => {
   const {byId, ids} = useRegistrationsSelector(({byId, ids}) => ({byId, ids}));
   const registrationIds = useMemo(
     () => ids.filter(id => byId[id].category === category).sort((a, b) => (a === 'new' ? -1 : 1)),
-    [byId, category]
+    [ids, category]
   );
 
   return (
     <Box gap="small" border={{color: 'light-3'}} pad="small" {...rest}>
       <Header category={category} />
-      {registrationIds.length > 0 && <Registrations ids={registrationIds} />}
+      {registrationIds.length > 0 && <Registrations ids={registrationIds} provider />}
     </Box>
   );
 };

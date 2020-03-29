@@ -5,12 +5,13 @@ import max from 'lodash/max';
 const ChartLine = ({points, ...rest}) => {
   const values = useMemo(() => points.map((point, index) => [index, point]), [points]);
   return (
-    <GChart type="line" values={values} size={{width: 'full', height: 'xxsmall'}} thickness="xsmall" round {...rest} />
+    <GChart type="line" values={values} size={{width: 'full', height: '30px'}} thickness="xxsmall" round {...rest} />
   );
 };
 
 const Chart = ({total, accepted, stored, ...rest}) => {
   const maxValue = useMemo(() => max(total), [total]);
+
   return (
     <Box {...rest}>
       <Stack fill>

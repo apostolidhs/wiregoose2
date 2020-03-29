@@ -48,7 +48,7 @@ const hashImage = url =>
 
 app.get('/', (req, res) => res.json({status: 'ok', name: 'image-proxy'}));
 
-const sendOptions = {maxAge: 30 * 24 * 60 * 60 * 1000};
+const sendOptions = {maxAge: 30 * 24 * 60 * 60 * 1000, headers: {'Content-Type': 'image/jpeg'}};
 
 app.get(
   '*',
@@ -77,7 +77,7 @@ app.get(
 
     if (lruCache.get(filepath)) {
       res.sendFile(filepath, sendOptions);
-      logger.verbose('send', url, filepath, 'cache hit');
+      logger.verbose(`send cache hit ${url} ${filepath}`);
       return;
     }
 
@@ -91,7 +91,7 @@ app.get(
     );
 
     if (downloadError) {
-      logger.error('failed download', url, downloadError + '');
+      logger.error(`failed download ${url} ${downloadError.toString}`);
       return res.status(404).send(downloadError + '');
     }
 
@@ -103,7 +103,7 @@ app.get(
     );
 
     if (imageError && !imageError.toString().match(/unsupported image format/)) {
-      logger.error('failed processing', url, imageError + '');
+      logger.error(`failed processing ${url} ${imageError.toString()}`);
       return res.status(404).send(imageError + '');
     }
 
@@ -113,8 +113,8 @@ app.get(
 
     lruCache.set(filepath, filepath);
 
+    logger.verbose(`cache miss ${url} ${filepath}`);
     res.sendFile(filepath, sendOptions);
-    logger.verbose('send', url, filepath, 'cache miss');
   }
 );
 

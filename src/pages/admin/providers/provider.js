@@ -10,7 +10,7 @@ export const useRegistrationsByProviderSelector = providerId => {
   const {byId, ids} = useRegistrationsSelector(({byId, ids}) => ({byId, ids}));
   return useMemo(() => ids.filter(id => byId[id].provider === providerId).sort((a, b) => (a === 'new' ? -1 : 1)), [
     providerId,
-    byId
+    ids
   ]);
 };
 
@@ -22,7 +22,7 @@ const Provider = ({id, ...rest}) => {
     <Box gap="small" border={{color: 'light-3'}} pad="small" {...rest}>
       <Header id={id} />
       {isEditing && <ProviderComponent id={id} />}
-      {ids.length > 0 && <Registrations ids={ids} />}
+      {ids.length > 0 && <Registrations pad={{top: 'small'}} ids={ids} category />}
     </Box>
   );
 };

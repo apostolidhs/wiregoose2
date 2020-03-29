@@ -20,6 +20,10 @@ export default config => {
         params: {link},
         transform: ({feeds, total}) => ({feeds: transformFeeds(feeds), total})
       }),
+    syncRegistration: id =>
+      request.get(`${uri}/registrations/sync/${id}`, {
+        transform: transformRegistrations
+      }),
 
     fetchProviders: () => request.get(`${uri}/providers`),
     updateProvider: (id, body) => request.put(`${uri}/providers/${id}`, {body}),

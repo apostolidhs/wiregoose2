@@ -10,7 +10,7 @@ const Providers = () => {
 
   const onCreate = useCallback(() => initializeResource('new'), []);
   return (
-    <Box gap="medium" margin={{top: 'medium', right: 'medium'}}>
+    <Box gap="medium">
       <Box direction="row" justify="end">
         <Button onClick={onCreate} disabled={hasNew} label="Add Provider" />
       </Box>

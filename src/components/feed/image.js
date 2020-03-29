@@ -1,8 +1,7 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {Box} from 'grommet';
 import {Link} from '@reach/router';
-import {makeProxyUri} from 'helpers/image';
 import Image from 'components/image';
 
 const StyledLink = styled(Link)`
@@ -10,13 +9,12 @@ const StyledLink = styled(Link)`
 `;
 
 const FeedImage = ({feedId, src, height = 170, width, ...rest}) => {
-  const proxySrc = useMemo(() => makeProxyUri(src, {height, width}), [src]);
   const heightPx = `${height}px`;
   const widthPx = width && `${width}px`;
   return (
     <Box height={heightPx} width={widthPx} {...rest}>
       <StyledLink to={`/feed/${feedId}/article`}>
-        <Image src={proxySrc} fit="cover" height="100%" width="100%" />
+        <Image src={src} h={height} w={width} fit="cover" height="100%" width="100%" />
       </StyledLink>
     </Box>
   );

@@ -1,4 +1,5 @@
 import {hoaxActions} from 'react-hoax';
+import maxBy from 'lodash/maxBy';
 
 export const crawl = (id, link) => (dispatch, getState, {getApi}) => {
   dispatch(hoaxActions.startProcessResource(id));
@@ -53,4 +54,42 @@ export const remove = id => (dispatch, getState, {getApi, notification}) => {
       dispatch(hoaxActions.doneProcessResource(id));
       notification.warning(`Registration removal failed, ${e.toString()}`);
     });
+};
+
+const nestedSync = (dispatch, getState, {getApi, ref}) => {
+  ref.animationId = requestAnimationFrame(() => {
+    ref.timeoutId = setTimeout(() => {
+      const lastSyncId = maxBy(getState().ids, id => getState().byId[id].lastCrawl.getTime());
+      ref.promise = lastSyncId ? getApi().admin.syncRegistration(lastSyncId) : Promise.resolve({data: []});
+      ref.promise
+        .then(({data}) => {
+          data.forEach(({id, total, accepted, stored, failures, lastCrawl, isCrawling}) =>
+            dispatch(
+              hoaxActions.initializeResource(id, {
+                ...getState().byId[id],
+                total,
+                accepted,
+                stored,
+                failures,
+                lastCrawl,
+                isCrawling
+              })
+            )
+          );
+          dispatch(hoaxActions.update('lastSync', new Date()));
+        })
+        .then(() => nestedSync(dispatch, getState, {getApi, ref}));
+    }, 15 * 1000);
+  });
+};
+
+export const sync = () => (dispatch, getState, {getApi}) => {
+  const ref = {};
+  nestedSync(dispatch, getState, {getApi, ref});
+
+  return () => {
+    clearTimeout(ref.timeoutId);
+    cancelAnimationFrame(ref.animationId);
+    ref.promise && ref.promise.abort();
+  };
 };

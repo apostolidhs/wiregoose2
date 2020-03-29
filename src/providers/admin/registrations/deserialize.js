@@ -1,10 +1,11 @@
 import getResourceInitialState from './getResourceInitialState';
 
 export default ({categories}) => {
-  const transformRegistration = reg => ({
+  const transformRegistration = ({category, lastCrawl, ...reg}) => ({
     ...getResourceInitialState(),
     ...reg,
-    category: categories[reg.category]
+    category: categories[category],
+    lastCrawl: new Date(lastCrawl)
   });
   const transformRegistrations = regs => regs.map(transformRegistration);
 

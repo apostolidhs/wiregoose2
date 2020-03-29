@@ -90,15 +90,6 @@ module.exports = app => {
     })
   );
 
-  app.post(
-    '/registrations',
-    guard(async (req, res) => {
-      const [registration, error] = await flat(Registration.create(req.body));
-      if (error) return res.status(500).json(error);
-      return res.json(registration.toJsonSafe());
-    })
-  );
-
   const checkParams = [
     check('id')
       .isMongoId()
@@ -110,6 +101,36 @@ module.exports = app => {
       }
     })
   ];
+
+  app.get(
+    '/registrations/sync/:id',
+    checkParams,
+    guard(async (req, res) => {
+      const {id} = res.locals.params;
+      if (!id) return res.status(404).json();
+
+      const [lastRegistration, error] = await flat(Registration.findById(id).select({lastCrawl: 1}));
+      if (error) return res.status(500).json(error);
+
+      const [registrations, syncError] = await flat(
+        Registration.find({lastCrawl: {$gt: lastRegistration.lastCrawl}}).sort({
+          lastCrawl: 1
+        })
+      );
+      if (syncError) return res.status(500).json(error);
+
+      res.json(registrations.map(r => r.toJsonSafe()));
+    })
+  );
+
+  app.post(
+    '/registrations',
+    guard(async (req, res) => {
+      const [registration, error] = await flat(Registration.create(req.body));
+      if (error) return res.status(500).json(error);
+      return res.json(registration.toJsonSafe());
+    })
+  );
 
   app.delete(
     '/registrations/:id',

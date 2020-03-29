@@ -1,1 +1,1 @@
-export default () => ({expanded: null});
+export default () => ({expandedId: null, lastSync: new Date()});

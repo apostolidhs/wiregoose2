@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useMemo, ids} from 'react';
 import makeFields from 'components/makeFields';
 import {useApiSelector} from 'providers/api/selectors';
 import {useNotification} from 'providers/notifications';
@@ -18,6 +18,26 @@ const RegistrationProvider = ({children}) => {
 
   const extraArgument = {getApi: () => ref.current, notification};
   return <Hoax.Provider extraArgument={extraArgument}>{children}</Hoax.Provider>;
+};
+
+const getSum = (target, array) =>
+  array.reduce((h, num, index) => {
+    h[index] = num + (target[index] || 0);
+    return h;
+  }, target);
+
+export const useRegistrationsChart = ids => {
+  const byId = useRegistrationsSelector(({byId}) => byId);
+  return useMemo(() =>
+    ids.reduce(
+      (h, i) => ({
+        total: getSum(h.total, byId[i].total),
+        accepted: getSum(h.accepted, byId[i].accepted),
+        stored: getSum(h.stored, byId[i].stored)
+      }),
+      {total: [], accepted: [], stored: []}
+    )
+  );
 };
 
 export default RegistrationProvider;
