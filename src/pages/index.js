@@ -5,13 +5,14 @@ import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
 import {Transition} from 'react-transition-group';
 import {useScreenSize} from 'providers/theme/selectors';
-import {useIsAdminSelector} from 'providers/session';
+import {useIsAdmin} from 'providers/session';
 
 const NavBar = lazy(() => import(/* webpackChunkName: 'components.navbar' */ 'components/navbar'));
 const SlideSidebar = lazy(() => import(/* webpackChunkName: 'components.sidebar.slide' */ './sidebar/slide'));
 const Sidebar = lazy(() => import(/* webpackChunkName: 'components.sidebar' */ './sidebar'));
 
 const Admin = lazy(() => import(/* webpackChunkName: 'page.admin' */ './admin'));
+const Login = lazy(() => import(/* webpackChunkName: 'page.login' */ './login'));
 const Categories = lazy(() => import(/* webpackChunkName: 'page.categories' */ './categories'));
 const Sources = lazy(() => import(/* webpackChunkName: 'page.sources' */ './sources'));
 const Article = lazy(() => import(/* webpackChunkName: 'page.article' */ './article'));
@@ -48,7 +49,7 @@ const NotFound = () => {
 const Pages = () => {
   let prevLocation = window.location.href;
   const {isSmall, isLarge} = useScreenSize();
-  const isAdmin = useIsAdminSelector();
+  const isAdmin = useIsAdmin();
 
   const headerRef = useRef();
   const [sidebarOpen, setSidebarOpen] = useState(isSidebarOpen);
@@ -117,6 +118,8 @@ const Pages = () => {
                   <Providers path="settings/providers" />
                   <About path="settings/about" />
                   <Credits path="settings/credits" />
+
+                  <Login path="login" />
 
                   {isAdmin && <Admin path="admin/*" />}
 

@@ -59,7 +59,10 @@ export const remove = id => (dispatch, getState, {getApi, notification}) => {
 const nestedSync = (dispatch, getState, {getApi, ref}) => {
   ref.animationId = requestAnimationFrame(() => {
     ref.timeoutId = setTimeout(() => {
-      const lastSyncId = maxBy(getState().ids, id => getState().byId[id].lastCrawl.getTime());
+      const lastSyncId = maxBy(getState().ids, id => {
+        const {lastCrawl} = getState().byId[id];
+        return lastCrawl ? lastCrawl.getTime() : 0;
+      });
       ref.promise = lastSyncId ? getApi().admin.syncRegistration(lastSyncId) : Promise.resolve({data: []});
       ref.promise
         .then(({data}) => {

@@ -6,7 +6,7 @@ export const useSessionSelector = Hoax.useSelector;
 export const useSessionAction = Hoax.useAction;
 export const SessionField = Hoax.Field;
 
-export const useIsAdminSelector = () => useSessionSelector(({token}) => !!token);
+export const useIsAdmin = () => useSessionSelector(({token}) => !!token);
 
 const SessionContainer = ({children}) => {
   // load session from localstorage

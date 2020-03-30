@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useConfigSelector} from 'providers/config/selectors';
-import {useIsAdminSelector} from 'providers/session';
+import {useIsAdmin} from 'providers/session';
 import Context from './context';
 import getDispatch from './getDispatch';
 
 const ApiProvider = ({children}) => {
   const config = useConfigSelector();
-  const isAdmin = useIsAdminSelector();
+  const isAdmin = useIsAdmin();
   const [dispatch, setDispatch] = useState(() => getDispatch({config}));
 
   useEffect(() => {

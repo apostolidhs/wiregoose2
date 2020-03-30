@@ -5,7 +5,7 @@ export default ({categories}) => {
     ...getResourceInitialState(),
     ...reg,
     category: categories[category],
-    lastCrawl: new Date(lastCrawl)
+    lastCrawl: lastCrawl && new Date(lastCrawl)
   });
   const transformRegistrations = regs => regs.map(transformRegistration);
 
