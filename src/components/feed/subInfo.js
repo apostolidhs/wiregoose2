@@ -6,8 +6,11 @@ import {useSelectProvider} from 'providers/registrations/selectors';
 import ProviderIcon from 'components/providers/icon';
 import {CategoryName} from 'components/categories';
 
+const emptyObject = {};
+
 const SubInfo = ({provider, published, category, ...rest}) => {
-  const {icon} = useSelectProvider(provider) || {};
+  const {icon} = useSelectProvider(provider) || emptyObject;
+
   return (
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
       <Box direction="row">

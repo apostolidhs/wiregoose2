@@ -6,15 +6,15 @@ const helmet = require('helmet');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const createApp = ({port, host, logger}) => {
+const createApp = ({port, host, logger, allowOrigin = '*'}) => {
   const app = express();
 
   app.set('host', host);
   app.set('port', port);
   app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', allowOrigin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,authorization');
     next();
   });
   app.use(compression());

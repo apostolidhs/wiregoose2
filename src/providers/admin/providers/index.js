@@ -1,7 +1,6 @@
 import React, {useMemo, useRef} from 'react';
 import makeFields from 'components/makeFields';
-import {useApiSelector} from 'providers/api/selectors';
-import {useNotification} from 'providers/notifications';
+import useExtraArgument from '../useExtraArgument';
 import Hoax from './hoax';
 
 export const useProviderMember = Hoax.useMember;
@@ -22,12 +21,7 @@ export const useProviderListSelector = () => {
 };
 
 const ProviderProvider = ({children}) => {
-  const ref = useRef();
-  const api = useApiSelector();
-  ref.current = api;
-  const notification = useNotification();
-
-  const extraArgument = {getApi: () => ref.current, notification};
+  const extraArgument = useExtraArgument();
   return <Hoax.Provider extraArgument={extraArgument}>{children}</Hoax.Provider>;
 };
 

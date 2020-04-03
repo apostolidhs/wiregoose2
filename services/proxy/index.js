@@ -14,14 +14,19 @@ const makeApp = require('../helpers/makeApp');
 const logger = require('./logger');
 
 const host = 'http://localhost';
-const app = makeApp({port: process.env.IMAGE_PROXY_PORT, host, logger});
+const app = makeApp({
+  port: process.env.IMAGE_PROXY_PORT,
+  host,
+  logger,
+  allowOrigin: 'https://wiregoose.com http://wiregoose.com http://localhost',
+});
 
 const cacheDir = 'tmp/images';
 const baseDir = path.resolve(cacheDir);
 const lockPath = path.join(baseDir, '.lockProxy');
 const lruCache = new LRUCache({
   max: 1024,
-  dispose: key => fs.unlinkSync(key)
+  dispose: (key) => fs.unlinkSync(key),
 });
 
 if (fs.existsSync(lockPath)) {
@@ -40,11 +45,7 @@ setInterval(() => {
   fs.writeFileSync(lockPath, JSON.stringify(data));
 }, 60 * 60 * 1000);
 
-const hashImage = url =>
-  crypto
-    .createHash('md5')
-    .update(url)
-    .digest('hex');
+const hashImage = (url) => crypto.createHash('md5').update(url).digest('hex');
 
 app.get('/', (req, res) => res.json({status: 'ok', name: 'image-proxy'}));
 
@@ -52,22 +53,13 @@ const sendOptions = {maxAge: 30 * 24 * 60 * 60 * 1000, headers: {'Content-Type':
 
 app.get(
   '*',
-  [
-    check('w')
-      .isInt({min: 0, max: 1024})
-      .optional()
-      .toInt(),
-    check('h')
-      .isInt({min: 0, max: 1024})
-      .optional()
-      .toInt()
-  ],
+  [check('w').isInt({min: 0, max: 1024}).optional().toInt(), check('h').isInt({min: 0, max: 1024}).optional().toInt()],
   validationMiddleware({
-    params: req => {
+    params: (req) => {
       const {w, h} = req.query;
       return {w, h};
     },
-    onError: resp => resp.send('wrong w (width), h (height) parameter')
+    onError: (resp) => resp.send('wrong w (width), h (height) parameter'),
   }),
   async (req, res) => {
     const {w, h} = res.locals.params;
@@ -86,7 +78,7 @@ app.get(
         url,
         dest: filepath,
         extractFilename: false,
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
       })
     );
 

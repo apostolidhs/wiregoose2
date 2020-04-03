@@ -5,19 +5,18 @@ const config = require('../../../src/config');
 const validationMiddleware = require('../../helpers/validationMiddleware');
 const flat = require('../../helpers/flatPromise');
 const guard = require('../../helpers/middlewares/errorGuard');
+const checkPermission = require('../../helpers/middlewares/checkPermission');
 const fromUrl = require('../../crawler/fromUrl');
 
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     '/registrationsPerCategory',
-    check('lang')
-      .isIn(config.languages)
-      .optional(),
+    check('lang').isIn(config.languages).optional(),
     validationMiddleware({
-      params: req => {
+      params: (req) => {
         const {lang} = {lang: 'gr', ...req.query};
         return {lang};
-      }
+      },
     }),
     guard(async (req, res) => {
       const {lang} = res.locals.params;
@@ -38,28 +37,29 @@ module.exports = app => {
       const providersById = providers.reduce((h, provider) => ({...h, [provider.id]: provider}), {});
       const providersIndexById = providersBatch.reduce((h, providerId, index) => ({...h, [providerId]: index}), {});
 
-      const providerIndexesByCategoryIndex = config.categories.map(category =>
-        [...(providersSetPerCategory[category] || [])].map(providerId => providersIndexById[providerId])
+      const providerIndexesByCategoryIndex = config.categories.map((category) =>
+        [...(providersSetPerCategory[category] || [])].map((providerId) => providersIndexById[providerId])
       );
 
       res.json({
         registrations: providerIndexesByCategoryIndex,
-        providers: providersBatch.map(providerId => {
+        providers: providersBatch.map((providerId) => {
           const {name, icon, link} = providersById[providerId];
           return {name, icon, link};
-        })
+        }),
       });
     })
   );
 
   app.get(
     '/registrations/crawl',
+    checkPermission,
     check('link'),
     validationMiddleware({
-      params: req => {
+      params: (req) => {
         const {link} = req.query;
         return {link};
-      }
+      },
     }),
     guard(async (req, res) => {
       const {link} = res.locals.params;
@@ -68,42 +68,42 @@ module.exports = app => {
         category: 'country',
         link,
         lang: 'gr',
-        provider: {name: 'mock', link, _id: '000000000000000000000000'}
+        provider: {name: 'mock', link, _id: '000000000000000000000000'},
       };
       const [result, error] = await fromUrl(registration);
       if (error) return res.status(400).json({error});
 
       const {feeds, total} = result;
       return res.json({
-        feeds: feeds.map(f => f.toJsonSafe()),
-        total
+        feeds: feeds.map((f) => f.toJsonSafe()),
+        total,
       });
     })
   );
 
   app.get(
     '/registrations',
+    checkPermission,
     guard(async (req, res) => {
       const [registrations, error] = await flat(Registration.find());
       if (error) return res.status(500).json();
-      res.json(registrations.map(r => r.toJsonSafe()));
+      res.json(registrations.map((r) => r.toJsonSafe()));
     })
   );
 
   const checkParams = [
-    check('id')
-      .isMongoId()
-      .escape(),
+    check('id').isMongoId().escape(),
     validationMiddleware({
-      params: req => {
+      params: (req) => {
         const {id} = req.params;
         return {id};
-      }
-    })
+      },
+    }),
   ];
 
   app.get(
     '/registrations/sync/:id',
+    checkPermission,
     checkParams,
     guard(async (req, res) => {
       const {id} = res.locals.params;
@@ -114,17 +114,18 @@ module.exports = app => {
 
       const [registrations, syncError] = await flat(
         Registration.find({lastCrawl: {$gt: lastRegistration.lastCrawl}}).sort({
-          lastCrawl: 1
+          lastCrawl: 1,
         })
       );
       if (syncError) return res.status(500).json(error);
 
-      res.json(registrations.map(r => r.toJsonSafe()));
+      res.json(registrations.map((r) => r.toJsonSafe()));
     })
   );
 
   app.post(
     '/registrations',
+    checkPermission,
     guard(async (req, res) => {
       const [registration, error] = await flat(Registration.create(req.body));
       if (error) return res.status(500).json(error);
@@ -134,6 +135,7 @@ module.exports = app => {
 
   app.delete(
     '/registrations/:id',
+    checkPermission,
     checkParams,
     guard(async (req, res) => {
       const {id} = res.locals.params;
@@ -146,6 +148,7 @@ module.exports = app => {
 
   app.put(
     '/registrations/:id',
+    checkPermission,
     checkParams,
     guard(async (req, res) => {
       const {id} = res.locals.params;

@@ -1,6 +1,16 @@
 import {hoaxActions} from 'react-hoax';
 
-export const save = id => (dispatch, getState, {getApi, notification}) => {
+export const fetch = () => (dispatch, getState, {getApi, notification}) => {
+  dispatch(hoaxActions.startFetch);
+  return getApi()
+    .admin.fetchProviders()
+    .then(({data}) => dispatch(hoaxActions.doneFetch(data)))
+    .catch((error) => {
+      dispatch(hoaxActions.failFetch);
+    });
+};
+
+export const save = (id) => (dispatch, getState, {getApi, notification}) => {
   dispatch(hoaxActions.startProcessResource(id));
   const provider = getState().byId[id];
   const promise = id === 'new' ? getApi().admin.createProvider(provider) : getApi().admin.updateProvider(id, provider);
@@ -20,7 +30,7 @@ export const save = id => (dispatch, getState, {getApi, notification}) => {
     });
 };
 
-export const remove = id => (dispatch, getState, {getApi, notification}) => {
+export const remove = (id) => (dispatch, getState, {getApi, notification}) => {
   if (id === 'new') return Promise.resolve(dispatch(hoaxActions.removeResource(id)));
 
   dispatch(hoaxActions.startProcessResource(id));
@@ -30,7 +40,7 @@ export const remove = id => (dispatch, getState, {getApi, notification}) => {
       dispatch(hoaxActions.removeResource(id));
       notification.info('Provider deleted');
     })
-    .catch(e => {
+    .catch((e) => {
       dispatch(hoaxActions.doneProcessResource(id));
       notification.warning(`Provider removal failed, ${e.toString()}`);
     });

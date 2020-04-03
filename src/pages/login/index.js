@@ -17,14 +17,16 @@ const Login = ({resourceId, onCrawl, ...rest}) => {
   }, [value.token]);
 
   return (
-    <Box gap="small" justify="between" direction="row" {...rest}>
-      <Form value={value} onChange={setValue} onSubmit={onSubmit}>
-        <FormField label="Token" name="token">
-          <TextInput placeholder="Token..." name="token" />
-        </FormField>
+    <Box margin={{top: 'large'}} align="center" {...rest}>
+      <Box gap="small" width="medium" {...rest}>
+        <Form value={value} onChange={setValue} onSubmit={onSubmit}>
+          <FormField label="Token" name="token">
+            <TextInput placeholder="Token..." name="token" required />
+          </FormField>
 
-        <Button type="submit" label="Update" primary />
-      </Form>
+          <Button type="submit" label="Login" primary />
+        </Form>
+      </Box>
     </Box>
   );
 };

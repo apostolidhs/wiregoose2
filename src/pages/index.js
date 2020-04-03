@@ -1,6 +1,6 @@
 import React, {Suspense, lazy, useRef, useEffect, useCallback, useState, forwardRef} from 'react';
 import {Box} from 'grommet';
-import {Router, navigate, Location} from '@reach/router';
+import {Router, navigate, Location, Redirect} from '@reach/router';
 import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
 import {Transition} from 'react-transition-group';
@@ -36,7 +36,7 @@ const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => (
 const initialContentPadding = {
   horizontal: 'none',
   top: 'none',
-  bottom: 'none'
+  bottom: 'none',
 };
 
 const isSidebarOpen = () => window.location.hash === '#sidebar';
@@ -56,7 +56,7 @@ const Pages = () => {
   const [contentPadding, setContentPadding] = useState(initialContentPadding);
 
   const onNavBarReady = useCallback(({height}) => {
-    setContentPadding(s => ({...s, bottom: `${height}px`}));
+    setContentPadding((s) => ({...s, bottom: `${height}px`}));
   }, []);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const Pages = () => {
 
   useEffect(() => {
     if (!headerRef.current) return;
-    setContentPadding(s => ({...s, top: `${headerRef.current.clientHeight}px`}));
+    setContentPadding((s) => ({...s, top: `${headerRef.current.clientHeight}px`}));
   }, [headerRef.current]);
 
   useStickyHeader(headerRef);
@@ -83,7 +83,7 @@ const Pages = () => {
             {isSmall && (
               <Suspense fallback={null}>
                 <Transition in={sidebarOpen} timeout={300} mountOnEnter unmountOnExit>
-                  {state => <SlideSidebar transition={state} />}
+                  {(state) => <SlideSidebar transition={state} />}
                 </Transition>
               </Suspense>
             )}
@@ -119,9 +119,10 @@ const Pages = () => {
                   <About path="settings/about" />
                   <Credits path="settings/credits" />
 
-                  <Login path="login" />
-
                   {isAdmin && <Admin path="admin/*" />}
+                  {!isAdmin && <Redirect from="/admin/*" to="/login" noThrow />}
+
+                  <Login path="login" />
 
                   <NotFound default />
                 </Router>
