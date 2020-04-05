@@ -16,7 +16,7 @@ const Provider = ({category, name, icon, ...rest}) => {
   const {isSmall} = useScreenSize();
   return (
     <StyledLink to={`/source/${name}/${category}`} title={name} {...rest}>
-      <ProviderIcon src={icon} size={isSmall ? 'xxsmall' : '32px'} />
+      <ProviderIcon src={icon} size={isSmall ? '32px' : '22px'} />
     </StyledLink>
   );
 };
@@ -32,10 +32,10 @@ const Providers = ({category, providers}) => {
 
   return (
     <Box gap="small" direction="row" wrap margin={{left: '36px'}}>
-      {initialProviders.map(provider => (
+      {initialProviders.map((provider) => (
         <Provider key={provider.name} category={category} {...provider} />
       ))}
-      {!expand && <Button plain onClick={onClick} icon={<More size="32px" />} />}
+      {!expand && <Button plain onClick={onClick} icon={<More size="22px" />} alignSelf="start" />}
       <Collapsible open={expand}>
         {restProviders.map((provider, index) => (
           <Provider
@@ -54,7 +54,7 @@ const Category = ({category, providers}) => {
   const categoryName = useCategoryName();
   const Icon = () => <CategoryIcon name={category} />;
   return (
-    <Box gap="small">
+    <Box gap="xsmall">
       <Link to={`/category/${category}`} title={categoryName(category)} Icon={Icon}>
         <CategoryName name={category} />
       </Link>

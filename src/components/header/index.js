@@ -23,7 +23,7 @@ const Header = forwardRef((props, ref) => {
         width={isLarge ? 'xlarge' : '100%'}
         background="white">
         <Link noActive to="/">
-          <Heading margin="none" level="2">
+          <Heading margin="2px" level="2">
             Wiregoose
           </Heading>
         </Link>

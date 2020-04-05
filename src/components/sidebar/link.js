@@ -25,11 +25,11 @@ const getLink = (to, title) => {
 const Link = ({to, title, Icon, children, ...rest}) => {
   const link = useMemo(() => getLink(to, title), [to]);
   return (
-    <Box as={link} gap="small" direction="row" {...rest}>
+    <Box align="end" as={link} gap="small" direction="row" {...rest}>
       <Box justify="center">
         <Icon />
       </Box>
-      <Text size="xlarge">{children}</Text>
+      <Text size="large">{children}</Text>
     </Box>
   );
 };

@@ -9,6 +9,8 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
+    text-decoration-color: initial;
+    color: initial;
   }
   a:-webkit-any-link {
     color: initial;
