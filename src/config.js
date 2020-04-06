@@ -1,17 +1,20 @@
 module.exports = {
   languages: ['gr', 'en'],
   categories: [
-    'country', //society
+    'country',
     'world',
     'politics',
     'economy',
-    'science', //technology, environment
+    'lifestyle',
+    'viral',
+    'society',
+    'health',
+    'sport',
+    'culture',
+    'technology',
+    'science',
     'travel',
-    'sports',
-    'food',
     'auto',
-    'entertainment', //lifestyle, viral, media
-    'health', //education
-    'culture' //art
-  ]
+    'media',
+  ],
 };

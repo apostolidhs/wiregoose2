@@ -1,5 +1,7 @@
-const dotenv = require('dotenv');
-dotenv.config({path: '.env'});
+if (NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config({path: '.env'});
+}
 
 const {connect} = require('../helpers/mongoose');
 const timelineRoutes = require('./routes/timeline');

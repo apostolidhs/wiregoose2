@@ -31,10 +31,10 @@ const types = {
   p: Paragraph,
   h: Header,
   img: Image,
-  video: Video
+  video: Video,
 };
 
-const filterContent = content => content.filter(section => types[section.type]);
+const filterContent = (content) => content.filter((section) => types[section.type]);
 
 const Article = ({content, ...rest}) => (
   <Box gap="large" height={{min: 'initial'}} {...rest}>

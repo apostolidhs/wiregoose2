@@ -7,13 +7,13 @@ const flat = require('../../helpers/flatPromise');
 const checkPermission = require('../../helpers/middlewares/checkPermission');
 
 module.exports = (app) => {
-  app.get('/providers', checkPermission, async (req, res) => {
+  app.get('/api/providers', checkPermission, async (req, res) => {
     const [providers, error] = await flat(Provider.find());
     if (error) return res.status(500).json();
     res.json(providers.map((r) => r.toJsonSafe()));
   });
 
-  app.post('/providers', checkPermission, async (req, res) => {
+  app.post('/api/providers', checkPermission, async (req, res) => {
     const [provider, error] = await flat(Provider.create(req.body));
     if (error) return res.status(400).json({error: error.toString()});
     return res.json(provider.toJsonSafe());
@@ -30,7 +30,7 @@ module.exports = (app) => {
   ];
 
   app.delete(
-    '/providers/:id',
+    '/api/providers/:id',
     checkPermission,
     checkParams,
     guard(async (req, res) => {
@@ -49,7 +49,7 @@ module.exports = (app) => {
   );
 
   app.put(
-    '/providers/:id',
+    '/api/providers/:id',
     checkPermission,
     checkParams,
     guard(async (req, res) => {

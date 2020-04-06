@@ -49,6 +49,6 @@ module.exports = async () => {
       logger.error(e.toString());
     }
 
-    await wait(10000);
+    await wait(30000);
   }
 };

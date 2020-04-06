@@ -28,7 +28,7 @@ const Article = ({feedId}) => {
     published,
     category,
     image,
-    articleContent
+    articleContent,
   } = useFeedSelector(feedId) || initialFeedState;
   const [nextRelatedFeed, ...relatedFeeds] = useRelatedFeedsSelector(feedId);
   const api = useApiSelector();
@@ -46,8 +46,8 @@ const Article = ({feedId}) => {
 
     const promise = api.fetchFeed(feedId, fetchOptions);
     promise
-      .then(response => feedFetchFinished(feedId, response.data, fetchOptions))
-      .catch(error => {
+      .then((response) => feedFetchFinished(feedId, response.data, fetchOptions))
+      .catch((error) => {
         console.error(error);
         feedFetchFailed(feedId, fetchOptions);
       });

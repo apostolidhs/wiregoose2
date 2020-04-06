@@ -1,5 +1,7 @@
-const dotenv = require('dotenv');
-dotenv.config({path: '.env'});
+if (NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.config({path: '.env'});
+}
 
 const {check} = require('express-validator');
 const crypto = require('crypto');

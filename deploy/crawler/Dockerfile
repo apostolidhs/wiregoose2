@@ -2,13 +2,13 @@ FROM node:latest
 
 WORKDIR /home/nodejs/app
 
-RUN npm install pm2 -g --production
+RUN yarn global add pm2 --production
 
 COPY ./package.json .
-RUN npm install --production
+RUN yarn --production
 COPY ./src/config.js ./src/config.js
 COPY ./services ./services
 
 ENV  NODE_ENV production
 
-CMD ["npm", "run", "production:crawl-feeds"]
+CMD ["yarn", "production:crawl-feeds"]

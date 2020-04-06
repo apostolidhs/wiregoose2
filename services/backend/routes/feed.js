@@ -31,7 +31,7 @@ const getRelated = async (feed) => {
 
 module.exports = (app) => {
   app.get(
-    '/feeds/articlemining',
+    '/api/feeds/articlemining',
     checkPermission,
     check('link'),
     validationMiddleware({params: ({query: {link}}) => ({link})}),
@@ -45,7 +45,7 @@ module.exports = (app) => {
   );
 
   app.get(
-    '/feeds/:feedId',
+    '/api/feeds/:feedId',
     [
       check('feedId').isMongoId().escape(),
       check('article').toBoolean().optional(),

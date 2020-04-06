@@ -11,10 +11,10 @@ const StyledImage = styled(GImage)`
 const Image = ({src, w: width, h: height, ...rest}) => {
   const proxyUri = useMemo(() => {
     const params = [width && `w=${width}`, height && `h=${height}`].join('&');
-    return isMockedImage()
+    return isMockedImage() || !src
       ? placeholderImg
       : `${getImageProxyUri()}/${encodeURIComponent(src)}${params ? `?${params}` : ''}`;
-  }, []);
+  }, [src]);
 
   return <StyledImage src={proxyUri || placeholderImg} fallback={placeholderImg} {...rest} />;
 };

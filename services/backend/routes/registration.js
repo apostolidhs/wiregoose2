@@ -10,7 +10,7 @@ const fromUrl = require('../../crawler/fromUrl');
 
 module.exports = (app) => {
   app.get(
-    '/registrationsPerCategory',
+    '/api/registrationsPerCategory',
     check('lang').isIn(config.languages).optional(),
     validationMiddleware({
       params: (req) => {
@@ -52,7 +52,7 @@ module.exports = (app) => {
   );
 
   app.get(
-    '/registrations/crawl',
+    '/api/registrations/crawl',
     checkPermission,
     check('link'),
     validationMiddleware({
@@ -82,7 +82,7 @@ module.exports = (app) => {
   );
 
   app.get(
-    '/registrations',
+    '/api/registrations',
     checkPermission,
     guard(async (req, res) => {
       const [registrations, error] = await flat(Registration.find());
@@ -102,7 +102,7 @@ module.exports = (app) => {
   ];
 
   app.get(
-    '/registrations/sync/:id',
+    '/api/registrations/sync/:id',
     checkPermission,
     checkParams,
     guard(async (req, res) => {
@@ -124,7 +124,7 @@ module.exports = (app) => {
   );
 
   app.post(
-    '/registrations',
+    '/api/registrations',
     checkPermission,
     guard(async (req, res) => {
       const [registration, error] = await flat(Registration.create(req.body));
@@ -134,7 +134,7 @@ module.exports = (app) => {
   );
 
   app.delete(
-    '/registrations/:id',
+    '/api/registrations/:id',
     checkPermission,
     checkParams,
     guard(async (req, res) => {
@@ -147,7 +147,7 @@ module.exports = (app) => {
   );
 
   app.put(
-    '/registrations/:id',
+    '/api/registrations/:id',
     checkPermission,
     checkParams,
     guard(async (req, res) => {

@@ -6,7 +6,7 @@ const guard = require('../../helpers/middlewares/errorGuard');
 
 module.exports = (app) => {
   app.get(
-    '/timeline/explore',
+    '/api/timeline/explore',
     [
       check('target').isMongoId().optional().escape(),
       check('limit').isInt({min: 5, max: 50}).optional().toInt(),
