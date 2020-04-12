@@ -6,11 +6,11 @@ const guard = require('../../helpers/middlewares/errorGuard');
 const flat = require('../../helpers/flatPromise');
 const checkPermission = require('../../helpers/middlewares/checkPermission');
 
-module.exports = (app) => {
+module.exports = app => {
   app.get('/api/providers', checkPermission, async (req, res) => {
     const [providers, error] = await flat(Provider.find());
     if (error) return res.status(500).json();
-    res.json(providers.map((r) => r.toJsonSafe()));
+    res.json(providers.map(r => r.toJsonSafe()));
   });
 
   app.post('/api/providers', checkPermission, async (req, res) => {
@@ -22,11 +22,11 @@ module.exports = (app) => {
   const checkParams = [
     check('id').isMongoId().escape(),
     validationMiddleware({
-      params: (req) => {
+      params: req => {
         const {id} = req.params;
         return {id};
-      },
-    }),
+      }
+    })
   ];
 
   app.delete(

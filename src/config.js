@@ -9,12 +9,12 @@ module.exports = {
     'viral',
     'society',
     'health',
-    'sport',
+    'sports',
     'culture',
     'technology',
     'science',
     'travel',
     'auto',
-    'media',
-  ],
+    'media'
+  ]
 };

@@ -36,14 +36,18 @@ module.exports = async () => {
     try {
       const registration = await Registration.getNext();
 
-      const started = Date.now();
-      logger.verbose(`start crawling ${registration.provider.name}, ${registration.category}`);
-      const [stats, error] = await crawl(registration);
+      if (registration) {
+        const started = Date.now();
+        logger.verbose(`start crawling ${registration.provider.name}, ${registration.category}`);
+        const [stats, error] = await crawl(registration);
 
-      if (stats) {
-        logger.verbose(`${stats.accepted}/${stats.total} parsed, ${stats.stored} stored in ${Date.now() - started}ms.`);
-      } else {
-        logger.verbose(`crawl failure: '${error + error.toString()}' in ${Date.now() - started}ms.`);
+        if (stats) {
+          logger.verbose(
+            `${stats.accepted}/${stats.total} parsed, ${stats.stored} stored in ${Date.now() - started}ms.`
+          );
+        } else {
+          logger.verbose(`crawl failure: '${error + error.toString()}' in ${Date.now() - started}ms.`);
+        }
       }
     } catch (e) {
       logger.error(e.toString());

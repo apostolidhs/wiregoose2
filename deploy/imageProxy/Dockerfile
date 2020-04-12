@@ -11,4 +11,4 @@ COPY ./services ./services
 
 ENV  NODE_ENV production
 
-CMD ["yarn", "image-proxy"]
+CMD ["yarn", "production:image-proxy"]

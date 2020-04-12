@@ -11,4 +11,4 @@ COPY ./services ./services
 
 ENV  NODE_ENV production
 
-CMD ["yarn", "backend-start"]
+CMD ["yarn", "production:backend-start"]

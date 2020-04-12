@@ -8,12 +8,15 @@ import {
   Currency,
   PersonalComputer,
   Navigate,
-  Cafeteria,
+  Organization,
+  Technology,
+  Announce,
   Yoga,
   Car,
   Aid,
   Multimedia,
-  Bar
+  Diamond,
+  Channel
 } from 'grommet-icons';
 
 const icons = {
@@ -21,14 +24,17 @@ const icons = {
   world: Globe,
   politics: Manual,
   economy: Currency,
+  lifestyle: Diamond,
+  viral: Announce,
+  society: Organization,
   science: PersonalComputer,
   travel: Navigate,
   sports: Yoga,
-  food: Cafeteria,
   auto: Car,
-  entertainment: Bar,
   health: Aid,
-  culture: Multimedia
+  culture: Multimedia,
+  technology: Technology,
+  media: Channel
 };
 
 export const CategoryIcon = ({name, ...rest}) => {

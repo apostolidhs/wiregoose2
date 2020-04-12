@@ -9,9 +9,9 @@ const CrawlReport = ({resourceId, feeds, total, ...rest}) => {
       <Text>
         {feeds.length}/{total} successful feeds
       </Text>
-      <Box gap="medium" border={{side: 'top', color: 'light-5'}}>
+      <Box gap="medium" overflow="auto" height={{max: '600px'}} border={{side: 'top', color: 'light-5'}}>
         {feeds.map(feed => (
-          <Box gap="small" key={feed.id} border={{side: 'bottom', color: 'light-6'}}>
+          <Box gap="small" key={feed.id} height={{min: 'initial'}} border={{side: 'bottom', color: 'light-6'}}>
             <Feed feed={feed} />
             <ArticleMinning
               pad={{vertical: 'small'}}

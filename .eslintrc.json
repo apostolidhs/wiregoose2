@@ -6,7 +6,9 @@
       "jsx": true
     }
   },
+  "plugins": ["react-hooks"],
   "rules": {
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "error"
   }
 }

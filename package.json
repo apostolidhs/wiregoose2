@@ -49,19 +49,20 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-react-app": "^5.2.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "prettier": "^2.0.2"
   },
   "scripts": {
     "load-fixtures": "node ./scripts/loadFixtures",
     "backend-test": "jest",
     "backend-start": "node ./services/backend",
-    "production:backend-start": "NODE_ENV=production pm2 start ./services/backend",
+    "production:backend-start": "NODE_ENV=production pm2-runtime start ./services/backend",
     "frontend-start": "react-scripts start",
-    "frontend-build": "react-scripts build",
+    "frontend-build": "NODE_ENV=production react-scripts build",
     "image-proxy": "node ./services/proxy",
-    "production:image-proxy": "NODE_ENV=production pm2 start ./services/proxy",
+    "production:image-proxy": "NODE_ENV=production pm2-runtime start ./services/proxy",
     "crawl-feeds": "node ./services/crawler",
-    "production:crawl-feeds": "NODE_ENV=production pm2 start ./services/crawler"
+    "production:crawl-feeds": "NODE_ENV=production pm2-runtime start ./services/crawler"
   },
   "browserslist": {
     "production": [
