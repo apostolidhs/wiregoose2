@@ -31,13 +31,13 @@ const types = {
   p: Paragraph,
   h: Header,
   img: Image,
-  video: Video,
+  video: Video
 };
 
-const filterContent = (content) => content.filter((section) => types[section.type]);
+const filterContent = content => content.filter(section => types[section.type]);
 
 const Article = ({content, ...rest}) => (
-  <Box gap="large" height={{min: 'initial'}} {...rest}>
+  <Box gap="large" align="center" height={{min: 'initial'}} {...rest}>
     {filterContent(content).map(({type, ...rest}, index) => {
       const Component = types[type];
       return <Component key={index} {...rest} />;

@@ -5,7 +5,7 @@ const guard = require('../../helpers/middlewares/errorGuard');
 const checkPermission = require('../../helpers/middlewares/checkPermission');
 const articleReader = require('../articleReader');
 
-const getArticle = async (feed) => {
+const getArticle = async feed => {
   if (feed.articleCreatedAt) return feed;
 
   const [content, error] = await articleReader.fromURL(feed.link);
@@ -19,17 +19,17 @@ const getArticle = async (feed) => {
   return feed;
 };
 
-const getRelated = async (feed) => {
+const getRelated = async feed => {
   const {lang, category, _id} = feed;
   const feeds = await Feed.find({lang, _id: {$lt: _id}, category})
     .select(Feed.selectFeed())
     .sort({_id: -1})
     .limit(4);
 
-  return feeds.map((f) => f.toJsonSafe());
+  return feeds.map(f => f.toJsonSafe());
 };
 
-module.exports = (app) => {
+module.exports = app => {
   app.get(
     '/api/feeds/articlemining',
     checkPermission,
@@ -49,19 +49,18 @@ module.exports = (app) => {
     [
       check('feedId').isMongoId().escape(),
       check('article').toBoolean().optional(),
-      check('related').toBoolean().optional(),
+      check('related').toBoolean().optional()
     ],
     validationMiddleware({
-      params: (req) => {
+      params: req => {
         const {feedId, article, related} = {...req.query, ...req.params};
         return {feedId, article, related};
-      },
+      }
     }),
     guard(async (req, res) => {
       const {feedId, article, related} = res.locals.params;
-
       const feed = await Feed.findById(feedId).select({...Feed.selectFeed(), ...(article && Feed.selectArticle())});
-      if (!feed) return res.status(404);
+      if (!feed) return res.status(404).json();
 
       if (article) {
         await getArticle(feed);

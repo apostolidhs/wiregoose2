@@ -10,9 +10,9 @@ const Explore = () => {
     <Main>
       <Back absolute />
       <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon>
-      <Box pad={{horizontal: 'small', vertical: 'medium'}} gap="small">
-        <Paragraph size="xlarge" margin={{top: 'none', bottom: 'none'}}>
-          Εμπνεύστηκε, Σχεδιάστηκε, Αναπτύχθηκε από τον <i>Γιάννη Αποστολίδη</i>
+      <Box pad={{horizontal: 'small', vertical: 'medium'}} justify="center" gap="small">
+        <Paragraph size="large" textAlign="center" justify="center" width="100%" margin={{top: 'none', bottom: 'none'}}>
+          Εμπνεύστηκε, Σχεδιάστηκε, Αναπτύχθηκε από τον Γιάννη Αποστολίδη
         </Paragraph>
         <Box direction="row" justify="center" gap="medium">
           <Anchor

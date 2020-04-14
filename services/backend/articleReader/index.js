@@ -66,24 +66,12 @@ const getNormalizedUrl = url => {
 const fromURL = async url => {
   const normalizedUrl = getNormalizedUrl(url);
   const [dom, fetchError] = await flat(JSDOM.fromURL(normalizedUrl));
-  if (fetchError) return [, errorTypes.fetch];
+  if (fetchError) return [[], errorTypes.fetch];
 
   const content = parse(dom, {href: normalizedUrl});
-  if (!content.length) return [, errorTypes.parse];
+  if (!content.length) return [[], errorTypes.parse];
 
   return [content];
 };
-
-// fromFile('/Users/yannis/Documents/wiregoose2/fixtures/articles/skai2.htm', {
-//   href: 'https://example.com/myarticle'
-// }).then(c => console.log(JSON.stringify(c, 0, 2)));
-
-// fromURL('https://www.in.gr/2020/01/09/greece/diki-xrysis-aygis-agkalia-tis-magdas-fyssa-sti-dikigoro-tis/').then(c =>
-//   console.log(JSON.stringify(c, 0, 2))
-// );
-
-// fromURL(
-//   'https://www.protothema.gr/sports/article/960063/viral-paiktis-topikis-omadas-perase-olous-tous-adipalous-kai-skorare'
-// ).then(c => console.log(JSON.stringify(c, 0, 2)));
 
 module.exports = {fromURL, fromFile};

@@ -2,26 +2,29 @@ import React from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import {el} from 'date-fns/locale';
 import {Box, Text} from 'grommet';
-import {useSelectProvider} from 'providers/registrations/selectors';
-import ProviderIcon from 'components/providers/icon';
-import {CategoryName} from 'components/categories';
+import {useFeedSelector} from 'providers/feeds/selectors';
+import Link from 'components/providers/link';
+import {CategoryLink} from 'components/categories';
 
 const emptyObject = {};
 
-const SubInfo = ({provider, published, category, ...rest}) => {
-  const {icon} = useSelectProvider(provider) || emptyObject;
+const SubInfo = ({id, ...rest}) => {
+  const {provider, published, category, author} = useFeedSelector(id);
 
   return (
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
       <Box direction="row">
-        <ProviderIcon src={icon} size="32px" />
+        <Link name={provider} category={category} size="32px" />
         <Text alignSelf="center" color="dark-2" margin={{left: 'small'}}>
           {formatDistanceToNow(new Date(published), {locale: el})}
         </Text>
+        {author && (
+          <Text alignSelf="center" color="dark-2">
+            , {author}
+          </Text>
+        )}
       </Box>
-      <Text alignSelf="center" color="dark-2">
-        <CategoryName name={category} />
-      </Text>
+      <CategoryLink category={category} alignSelf="center" color="dark-2" />
     </Box>
   );
 };

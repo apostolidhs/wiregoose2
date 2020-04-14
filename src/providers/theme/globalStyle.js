@@ -7,6 +7,9 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
 
+  :focus {
+    outline: 0;
+  }
   a {
     text-decoration: none;
     text-decoration-color: initial;

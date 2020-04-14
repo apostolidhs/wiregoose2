@@ -14,12 +14,12 @@ const StyledBox = styled(RouterLink)`
 `;
 
 const getLink = (to, title) => {
-  const CategoryLink = ({children, className}) => (
+  const SidebarLink = ({children, className}) => (
     <StyledBox to={to} title={title} className={className}>
       {children}
     </StyledBox>
   );
-  return CategoryLink;
+  return SidebarLink;
 };
 
 const Link = ({to, title, Icon, children, ...rest}) => {

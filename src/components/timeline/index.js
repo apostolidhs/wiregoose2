@@ -11,7 +11,7 @@ const feedProps = {
   height: '450px',
   pad: {horizontal: 'small', vertical: 'medium'},
   border: {
-    color: 'light-3',
+    color: 'light-4',
     side: 'bottom'
   },
   width: {max: '450px'},

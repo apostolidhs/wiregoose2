@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useMemo, lazy, Suspense} from 'react';
 import {navigate} from '@reach/router';
 import {Edit} from 'grommet-icons';
+import {useNotification} from 'providers/notifications';
 import {CategoryName} from 'components/categories';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
@@ -19,6 +20,7 @@ const getOlder = feeds => {
 };
 
 const Categories = ({category}) => {
+  const notification = useNotification();
   const {categories} = useConfigSelector();
   const api = useApiSelector();
   const {feeds, loaded, loading} = useFeedCategory(category);
@@ -43,7 +45,10 @@ const Categories = ({category}) => {
 
     promise
       .then(({data: {feeds}}) => categoryFetchFinished(category, feeds))
-      .catch(error => categoryFetchFailed(category));
+      .catch(error => {
+        categoryFetchFailed(category);
+        notification.server(error);
+      });
 
     return () => promise.abort();
   }, [target, category]);

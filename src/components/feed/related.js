@@ -10,7 +10,7 @@ const Related = ({feed: {id, title, image, provider, published, category}, ...re
       {image && <Image feedId={id} src={image} height={80} />}
       {title && <TextTitle feedId={id}>{title}</TextTitle>}
     </Box>
-    <SubInfo provider={provider} published={published} category={category} />
+    <SubInfo id={id} />
   </Box>
 );
 

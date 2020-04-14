@@ -10,6 +10,7 @@ import {
   useSelectProvider,
   useSelectRegistrationsLoaded
 } from 'providers/registrations/selectors';
+import {useNotification} from 'providers/notifications';
 import Back from 'components/back';
 import Main from 'components/main';
 import Header from './header';
@@ -23,6 +24,7 @@ const getOlder = feeds => {
 };
 
 const Sources = ({source, category = 'all'}) => {
+  const notification = useNotification();
   const categoryName = useCategoryName();
   const isRegistrationsLoaded = useSelectRegistrationsLoaded();
   const providerCategories = useSelectCategoriesByProvider(source);
@@ -44,9 +46,9 @@ const Sources = ({source, category = 'all'}) => {
   const [hasMore, setHasMore] = useState(false);
 
   useMemo(() => {
-    if (!categories.length && isRegistrationsLoaded) navigate('/');
+    if (!providerCategories.length && isRegistrationsLoaded) navigate('/');
     setTarget();
-  }, [categories]);
+  }, [providerCategories]);
 
   useEffect(() => {
     setHasMore(feeds.length > 0 && Number.isInteger(feeds.length % limit));
@@ -60,10 +62,12 @@ const Sources = ({source, category = 'all'}) => {
       ...(!isAll && {categories: [category]}),
       ...(source && {providers: [source]})
     });
-
     promise
       .then(({data: {feeds}}) => sourceFetchFinished(source, category, feeds))
-      .catch(error => sourceFetchFailed(source, category));
+      .catch(error => {
+        sourceFetchFailed(source, category);
+        notification.server(error);
+      });
 
     return () => promise.abort();
   }, [target, source, category]);

@@ -17,16 +17,25 @@ const request = (href, {params, transform = identity, method = 'GET', headers, .
     method,
     headers: {'Content-Type': 'application/json', ...headers},
     ...options
-  }).then(response =>
-    response
-      .json()
-      .catch(e => null)
-      .then(data => {
-        const {status, statusText} = response;
-        if (response.ok) return {data: transform(data), status, statusText};
-        throw {data, status, statusText};
-      })
-  );
+  })
+    .catch(error => {
+      error.status = -1;
+      error.statusText = error.name;
+      return error;
+    })
+    .then(response =>
+      response.status === -1
+        ? {response}
+        : response
+            .json()
+            .catch(e => null)
+            .then(data => ({data, response}))
+    )
+    .then(({data, response}) => {
+      const {status, statusText} = response;
+      if (response.ok) return {data: transform(data), status, statusText};
+      throw {data, status, statusText};
+    });
 
   request.abort = () => {
     controller.abort();

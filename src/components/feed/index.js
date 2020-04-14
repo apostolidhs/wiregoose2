@@ -12,18 +12,17 @@ const Feed = ({feed: {id, image, title, description, provider, published, catego
   const visibleTitle = !!title;
   const descriptionSize = visibleDescription && (image ? 100 - title.length : 256);
   const margin = {vertical: 'xsmall'};
-  const subInfoProps = {provider, published, category, margin};
 
   return (
     <Box as="article" {...rest}>
       {visibleImage && <Image feedId={id} src={image} />}
-      {visibleImage && <SubInfo {...subInfoProps} />}
+      {visibleImage && <SubInfo id={id} />}
       {visibleTitle && (
         <Title feedId={id} flex={image && !visibleDescription && 'grow'} margin={margin}>
           {title}
         </Title>
       )}
-      {!visibleImage && <SubInfo {...subInfoProps} flex={!image && !visibleDescription && 'grow'} />}
+      {!visibleImage && <SubInfo id={id} flex={!image && !visibleDescription && 'grow'} />}
       {visibleDescription && (
         <Description feedId={id} margin={margin} size={descriptionSize}>
           {description}
