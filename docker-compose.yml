@@ -5,12 +5,13 @@ services:
     build:
       context: .
       dockerfile: ./deploy/backend/Dockerfile
+    image: japostol/wiregoose:backend
     depends_on:
       - mongo
     volumes:
-      - ./logs:/logs
+      - /usr/src/wiregoose/logs:/logs
     ports:
-      - '4200:4200'
+      - '5001:5001'
     env_file:
       - ./.env.production
     links:
@@ -20,12 +21,13 @@ services:
     build:
       context: ./
       dockerfile: ./deploy/crawler/Dockerfile
+    image: japostol/wiregoose:crawler
     depends_on:
       - mongo
     env_file:
       - ./.env.production
     volumes:
-      - ./logs:/logs
+      - /usr/src/wiregoose/logs:/logs
     links:
       - mongo
 
@@ -33,16 +35,17 @@ services:
     build:
       context: .
       dockerfile: ./deploy/imageProxy/Dockerfile
+    image: japostol/wiregoose:proxy
     volumes:
-      - ./logs:/logs
+      - /usr/src/wiregoose/logs:/logs
     ports:
-      - '4011:4011'
+      - '5002:5002'
     env_file:
       - ./.env.production
 
   mongo:
     image: mongo
-    volumes:
-      - /Users/yannis/Documents/wiregoose2/data:/data/db
-    ports:
-      - '27017:27017'
+  volumes:
+    - /usr/src/wiregoose/data:/data/db
+  ports:
+    - '5003:27017'
