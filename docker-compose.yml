@@ -45,7 +45,7 @@ services:
 
   mongo:
     image: mongo
-  volumes:
-    - /usr/src/wiregoose/data:/data/db
-  ports:
-    - '5003:27017'
+    volumes:
+      - /usr/src/wiregoose/data:/data/db
+    ports:
+      - '5003:27017'

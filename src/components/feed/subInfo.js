@@ -6,10 +6,10 @@ import {useFeedSelector} from 'providers/feeds/selectors';
 import Link from 'components/providers/link';
 import {CategoryLink} from 'components/categories';
 
-const emptyObject = {};
-
 const SubInfo = ({id, ...rest}) => {
-  const {provider, published, category, author} = useFeedSelector(id);
+  const feed = useFeedSelector(id);
+  if (!feed) return null;
+  const {provider, published, category, author} = feed;
 
   return (
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
