@@ -16,7 +16,7 @@ const Feed = ({feed: {id, image, title, description, provider, published, catego
   return (
     <Box as="article" {...rest}>
       {visibleImage && <Image feedId={id} src={image} />}
-      {visibleImage && <SubInfo id={id} />}
+      {visibleImage && <SubInfo margin={{top: 'xsmall'}} id={id} />}
       {visibleTitle && (
         <Title feedId={id} flex={image && !visibleDescription && 'grow'} margin={margin}>
           {title}

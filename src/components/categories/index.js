@@ -16,7 +16,8 @@ import {
   Aid,
   Multimedia,
   Diamond,
-  Channel
+  Channel,
+  Cafeteria
 } from 'grommet-icons';
 import {Box, Text} from 'grommet';
 import styled from 'styled-components';
@@ -36,6 +37,7 @@ const icons = {
   auto: Car,
   health: Aid,
   culture: Multimedia,
+  tastes: Cafeteria,
   technology: Technology,
   media: Channel
 };

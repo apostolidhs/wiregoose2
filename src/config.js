@@ -14,6 +14,7 @@ module.exports = {
     'technology',
     'science',
     'travel',
+    'tastes',
     'auto',
     'media'
   ]

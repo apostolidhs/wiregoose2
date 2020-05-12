@@ -15,6 +15,7 @@ export default {
   'category.travel': 'Ταξίδια',
   'category.auto': 'Auto',
   'category.media': 'Media',
+  'category.tastes': 'Γεύσεις',
 
   'social.share.link': 'Αντιγραφή συνδέσμου',
   'social.share.twitter': 'Kοινοποίηση στο Twitter',
