@@ -12,6 +12,7 @@ import Related from 'components/article/related';
 import ArticleComponent, {Image} from 'components/article';
 import Header from 'components/article/header';
 import Skeleton from 'components/article/skeleton';
+import Disclaimer from './disclaimer';
 import {HeadingSkeleton} from './skeleton';
 import ErrorSlate from './errorSlate';
 import Error404 from './Error404';
@@ -43,6 +44,9 @@ const Article = ({feedId}) => {
       navigate('/');
       return;
     }
+
+    window.scrollTo(0, 0);
+
     if (articleLoaded && relatedLoaded) return;
 
     const fetchOptions = {article: !articleLoaded, related: !relatedLoaded};
@@ -74,6 +78,7 @@ const Article = ({feedId}) => {
           {title}
         </Heading>
       )}
+      {loaded && !articleError && <Disclaimer id={feedId} margin={{top: 'small'}} />}
       {loaded && <SubInfo id={feedId} margin={{top: 'large'}} />}
       {(image || loading) && <Image src={image} margin={{top: 'large'}} />}
       {articleLoaded && articleError && <ErrorSlate id={feedId} margin={{vertical: 'large'}} />}

@@ -91,7 +91,7 @@ app.get(
 
     const [imageBuffer, imageError] = await flatPromise(
       sharp(filepath)
-        // .resize({...(w && {width: w}), ...(h && {height: h})})
+        .resize({...(w && {width: w}), ...(h && {height: h})})
         .jpeg()
         .toBuffer()
     );

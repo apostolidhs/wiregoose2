@@ -15,8 +15,8 @@ const Header = ({text}) => (
 );
 
 export const Image = ({src, ...rest}) => (
-  <Box height={{min: '200px'}} {...rest}>
-    <ImageComponent height="100%" src={src} fit="contain" />
+  <Box height={{min: '200px', max: '400px'}} {...rest}>
+    <ImageComponent width="100%" src={src} fit="contain" />
   </Box>
 );
 

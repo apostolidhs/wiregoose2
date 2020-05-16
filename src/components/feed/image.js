@@ -12,7 +12,7 @@ const FeedImage = ({feedId, src, height = 170, width, ...rest}) => {
   const heightPx = `${height}px`;
   const widthPx = width && `${width}px`;
   return (
-    <Box height={heightPx} width={widthPx} {...rest}>
+    <Box height={heightPx} width={{min: widthPx, max: widthPx}} {...rest}>
       <StyledLink to={`/feed/${feedId}/article`}>
         <Image src={src} h={height} w={width} fit="cover" height="100%" width="100%" />
       </StyledLink>
