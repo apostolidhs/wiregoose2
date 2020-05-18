@@ -6,6 +6,7 @@ import ProviderIcon from 'components/providers/icon';
 import Back from 'components/back';
 import Main from 'components/main';
 import TextedIcon from 'components/textedIcon';
+import Helmet from 'components/helmet';
 
 const Provider = ({icon, link, name, ...rest}) => (
   <Box direction="row" gap="small" {...rest}>
@@ -18,6 +19,11 @@ const Providers = () => {
   const {providers} = useRegistrationsSelector();
   return (
     <Main>
+      <Helmet
+        title="Πηγές - Wiregoose"
+        description="Οι πηγές των νέων"
+        keywords={['πηγές', 'νέα', 'ειδήσεις', 'πάροχοι']}
+      />
       <Back absolute />
       <TextedIcon Icon={Announce}>Πηγές</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>

@@ -17,6 +17,12 @@ export default {
   'category.media': 'Media',
   'category.tastes': 'Γεύσεις',
 
+  'category.description': 'Όλες οι ειδήσεις από την κατηγορία {category}',
+  'category.description.all': 'Όλη η ροή των ειδήσεων',
+
+  'source.description': 'Όλες οι ειδήσεις της κατηγορίας {category} από το {source}',
+  'source.description.all': 'Όλες οι ειδήσεις από το {source}',
+
   'social.share.link': 'Αντιγραφή συνδέσμου',
   'social.share.twitter': 'Kοινοποίηση στο Twitter',
   'social.share.facebook': 'Kοινοποίηση στο Facebook'

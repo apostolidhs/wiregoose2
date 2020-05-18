@@ -1,12 +1,13 @@
-import React, {useEffect, useState, useMemo, lazy, Suspense} from 'react';
+import React, {useEffect, useState, useMemo, lazy, Suspense, useCallback} from 'react';
 import {navigate} from '@reach/router';
-import {Edit} from 'grommet-icons';
+import useIntl from 'providers/localization/useIntl';
 import {useNotification} from 'providers/notifications';
-import {CategoryName} from 'components/categories';
+import {CategoryIcon, useCategoryName} from 'components/categories';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
 import TextedIcon from 'components/textedIcon';
+import Helmet from 'components/helmet';
 import Back from 'components/back';
 import Main from 'components/main';
 
@@ -20,8 +21,10 @@ const getOlder = feeds => {
 };
 
 const Categories = ({category}) => {
+  const t = useIntl();
   const notification = useNotification();
   const {categories} = useConfigSelector();
+  const getCategoryName = useCategoryName();
   const api = useApiSelector();
   const {feeds, loaded, loading} = useFeedCategory(category);
   const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed} = useFeedDispatch();
@@ -29,7 +32,7 @@ const Categories = ({category}) => {
   const [hasMore, setHasMore] = useState(false);
 
   useMemo(() => {
-    if (!categories.includes(category) && category) navigate('/');
+    if (category && !categories.includes(category)) navigate('/');
     setTarget();
   }, [category]);
 
@@ -58,14 +61,18 @@ const Categories = ({category}) => {
     setTarget(getOlder(feeds));
   };
 
+  const Icon = useCallback(props => <CategoryIcon name={category} {...props} />, [category]);
+  const categoryName = getCategoryName(category || 'all');
+
   return (
     <Main height="100%" width="100%">
+      <Helmet
+        title={`${categoryName} - Wiregoose`}
+        description={t(`category.description${category ? '' : '.all'}`, {category: categoryName})}
+        keywords={['νέα', 'ειδήσεις', categoryName]}
+      />
       {category && <Back absolute noLabel />}
-      {category && (
-        <TextedIcon Icon={Edit}>
-          <CategoryName name={category} />
-        </TextedIcon>
-      )}
+      {category && <TextedIcon Icon={Icon}>{categoryName}</TextedIcon>}
       <Suspense fallback={null}>
         <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
       </Suspense>

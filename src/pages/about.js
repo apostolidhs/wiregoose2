@@ -3,11 +3,17 @@ import {Heading, Anchor, Paragraph, Box} from 'grommet';
 import {Info} from 'grommet-icons';
 import Back from 'components/back';
 import Main from 'components/main';
+import Helmet from 'components/helmet';
 import TextedIcon from 'components/textedIcon';
 
 const Explore = () => {
   return (
     <Main height="100%" width="100%">
+      <Helmet
+        title="Σχετικά - Wiregoose"
+        description="Πληροφορίες σχετικά με το Wiregoose"
+        keywords={['σχετικά', 'πληροφορίες', 'rss']}
+      />
       <Back absolute />
       <TextedIcon Icon={Info}>Σχετικά</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>

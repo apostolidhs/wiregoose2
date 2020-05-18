@@ -1,13 +1,22 @@
 import React from 'react';
-import {Heading, Anchor, Paragraph, Box} from 'grommet';
+import {Anchor, Paragraph, Box} from 'grommet';
 import {Edit, Mail, Linkedin} from 'grommet-icons';
 import Back from 'components/back';
 import Main from 'components/main';
 import TextedIcon from 'components/textedIcon';
+import Helmet from 'components/helmet';
 
-const Explore = () => {
+const Credits = () => {
+  const title = `Δημιουργοί - Wiregoose`;
+  const url = `${process.env.PUBLIC_URL}${window.location.pathname}`;
+  const description = 'Οι δημιουργοί του Wiregoose';
   return (
     <Main>
+      <Helmet
+        title="Δημιουργοί - Wiregoose"
+        description="Οι δημιουργοί του Wiregoose"
+        keywords={['δημιουργοί σελίδας', 'κατασκευαστές', 'ποιοί είμαστε']}
+      />
       <Back absolute />
       <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}} justify="center" align="center" gap="small">
@@ -31,4 +40,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default Credits;

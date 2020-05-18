@@ -4,6 +4,7 @@ import {Tab} from 'grommet';
 import {useCategoryName} from 'components/categories';
 import Timeline from 'components/timeline';
 import {useApiSelector} from 'providers/api/selectors';
+import useIntl from 'providers/localization/useIntl';
 import {useFeedSource, useFeedDispatch} from 'providers/feeds/selectors';
 import {
   useSelectCategoriesByProvider,
@@ -13,6 +14,7 @@ import {
 import {useNotification} from 'providers/notifications';
 import Back from 'components/back';
 import Main from 'components/main';
+import Helmet from 'components/helmet';
 import Header from './header';
 import Tabs from './tabs';
 
@@ -24,8 +26,9 @@ const getOlder = feeds => {
 };
 
 const Sources = ({source, category = 'all'}) => {
+  const t = useIntl();
   const notification = useNotification();
-  const categoryName = useCategoryName();
+  const getCategoryName = useCategoryName();
   const isRegistrationsLoaded = useSelectRegistrationsLoaded();
   const providerCategories = useSelectCategoriesByProvider(source);
   const categories = useMemo(() => ['all', ...providerCategories], [providerCategories]);
@@ -77,13 +80,21 @@ const Sources = ({source, category = 'all'}) => {
     setTarget(getOlder(feeds));
   };
 
+  const categoryName = getCategoryName(category);
+  const providerName = provider.name;
+
   return (
     <Main height="100%" width="100%">
+      <Helmet
+        title={`${categoryName} | ${providerName} - Wiregoose`}
+        description={t(`source.description${isAll ? '.all' : ''}`, {category: categoryName, source: providerName})}
+        keywords={['νέα', 'ειδήσεις', providerName, categoryName]}
+      />
       <Back absolute noLabel />
       <Header {...provider} />
       <Tabs activeIndex={activeIndex} onActive={onActive} flex="grow" justify="start">
         {categories.map((cat, index) => (
-          <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={categoryName(cat)}>
+          <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={getCategoryName(cat)}>
             <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
           </Tab>
         ))}

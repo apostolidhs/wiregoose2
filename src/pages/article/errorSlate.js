@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Box, Text, Paragraph, Button} from 'grommet';
 import {DocumentMissing} from 'grommet-icons';
 import {useFeedSelector} from 'providers/feeds/selectors';
+import getLink from './getLink';
 
 const StyledText = styled(Text)`
   vertical-align: top;
@@ -25,7 +26,7 @@ const ErrorSlate = ({id, ...rest}) => {
         <DocumentMissing color="status-warning" size="32px" />{' '}
         <StyledText size="large">Δεν καταφέραμε να σας φέρουμε το άρθρο</StyledText>
       </Paragraph>
-      <Button label={`Μεταφερθείτε στο ${provider}`} size="large" href={link} target="_blank" />
+      <Button label={`Μεταφερθείτε στο ${provider}`} size="large" href={getLink(link)} target="_blank" />
     </Box>
   );
 };

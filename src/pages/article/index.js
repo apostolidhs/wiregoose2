@@ -10,8 +10,11 @@ import FeedLink from 'components/feed/link';
 import FeedLinkSkeleton from 'components/feed/link/skeleton';
 import Related from 'components/article/related';
 import ArticleComponent, {Image} from 'components/article';
+import {useCategoryName} from 'components/categories';
 import Header from 'components/article/header';
 import Skeleton from 'components/article/skeleton';
+import Helmet from 'components/helmet';
+import {clearText, getKeywords} from 'helpers/sanitize';
 import Disclaimer from './disclaimer';
 import {HeadingSkeleton} from './skeleton';
 import ErrorSlate from './errorSlate';
@@ -26,17 +29,22 @@ const Article = ({feedId}) => {
     loaded,
     loading,
     title,
+    category,
+    description,
     articleLoaded,
     articleLoading,
     relatedLoaded,
     relatedLoading,
+    published,
     image,
+    author,
     articleError,
     articleContent
   } = useFeedSelector(feedId) || initialFeedState;
   const [nextRelatedFeed, ...relatedFeeds] = useRelatedFeedsSelector(feedId);
   const api = useApiSelector();
   const {feedFetchStarted, feedFetchFinished, feedFetchFailed} = useFeedDispatch();
+  const getCategoryName = useCategoryName();
   const [errorCode, setErrorCode] = useState();
 
   useEffect(() => {
@@ -67,8 +75,21 @@ const Article = ({feedId}) => {
   if (errorCode === 404) return <Error404 />;
   if (errorCode && errorCode !== -1) return <Error500 />;
 
+  const clearedTitle = clearText(title);
+  const categoryName = loaded && getCategoryName(category);
+
   return (
     <Main pad="medium" height="initial" overflow="initial">
+      <Helmet
+        title={`${clearedTitle} - Wiregoose ${categoryName}`}
+        description={description}
+        image={image}
+        section={categoryName}
+        author={author}
+        published={published}
+        type="article"
+        keywords={[...getKeywords(clearedTitle), categoryName]}
+      />
       <Header feedId={feedId} />
       {relatedLoading && <FeedLinkSkeleton margin={{top: 'xsmall'}} />}
       {nextRelatedFeed && <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />}
