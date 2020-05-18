@@ -2,35 +2,6 @@ import React, {memo} from 'react';
 import {Helmet as ReactHelmet} from 'react-helmet';
 import logoImg from 'assets/logo.png';
 
-const types = {
-  title: content => ({
-    meta: [
-      {property: 'og:title', content},
-      {property: 'twitter:title', content}
-    ]
-  }),
-  description: content => ({
-    meta: [
-      {name: 'description', content},
-      {property: 'og:description', content},
-      {property: 'twitter:description', content}
-    ]
-  }),
-  url: content => ({
-    link: [{rel: 'canonical', href: content}],
-    meta: [
-      {property: 'og:url', content},
-      {property: 'twitter:url', content}
-    ]
-  }),
-  image: content => ({
-    meta: [
-      {property: 'og:image', content},
-      {property: 'twitter:image', content}
-    ]
-  })
-};
-
 const Helmet = ({
   title,
   description,
@@ -42,18 +13,20 @@ const Helmet = ({
   type = 'website',
   keywords = []
 }) => {
-  const props = [
-    title && types.title(title),
-    description && types.description(description),
-    url && types.url(url),
-    image && types.image(image)
-  ]
-    .filter(Boolean)
-    .reduce((h, {meta, link = []}) => ({meta: [...h.meta, ...meta], link: [...h.link, ...link]}), {meta: [], link: []});
-
   return (
-    <ReactHelmet title={title} {...props}>
-      <meta property="og:site_name" content="Wiregoose" />
+    <ReactHelmet>
+      <title>{title}</title>
+      <meta property="og:title" content={title} />
+      <link rel="canonical" href={url} />
+      <meta name="description" content={description} />
+      <meta property="twitter:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="twitter:description" content={description} />
+      <meta property="og:url" content={url} />
+      <meta property="twitter:url" content={url} />
+      <meta property="og:image" content={image} />
+      <meta property="twitter:image" content={image} />
+      <meta property="og:site_name" content="Wiregoose" /> />
       <meta property="fb:app_id" content="821271344594009" />
       <meta name="twitter:site" content="@wiregoose" />
       <meta property="twitter:card" content="summary" />
