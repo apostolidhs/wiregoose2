@@ -24,7 +24,7 @@ const Feed = ({feed: {id, image, title, description, provider, published, catego
       )}
       {!visibleImage && <SubInfo id={id} flex={!image && !visibleDescription && 'grow'} />}
       {visibleDescription && (
-        <Description feedId={id} margin={margin} size={descriptionSize}>
+        <Description feedId={id} margin={image ? margin : {vertical: 'small'}} size={descriptionSize}>
           {description}
         </Description>
       )}
