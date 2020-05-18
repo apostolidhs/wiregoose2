@@ -1,4 +1,4 @@
-import React, {useCallback, memo, useEffect} from 'react';
+import React, {useCallback, memo} from 'react';
 import {Box} from 'grommet';
 import {useRegistrationSelector, useRegistrationsSelector, useRegistrationAction} from 'providers/admin/registrations';
 import Preview from './preview';

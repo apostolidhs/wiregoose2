@@ -1,4 +1,4 @@
-import React, {useMemo, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FormattedMessage} from 'react-intl';
 import useIntl from 'providers/localization/useIntl';
 import {

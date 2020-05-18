@@ -1,4 +1,4 @@
-import React, {useRef, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import makeFields from 'components/makeFields';
 import useExtraArgument from '../useExtraArgument';
 import Hoax from './hoax';
@@ -20,14 +20,14 @@ const getSum = (target, array) =>
     return h;
   }, target);
 
-export const useRegistrationsChart = (ids) => {
+export const useRegistrationsChart = ids => {
   const byId = useRegistrationsSelector(({byId}) => byId);
   return useMemo(() =>
     ids.reduce(
       (h, i) => ({
         total: getSum(h.total, byId[i].total),
         accepted: getSum(h.accepted, byId[i].accepted),
-        stored: getSum(h.stored, byId[i].stored),
+        stored: getSum(h.stored, byId[i].stored)
       }),
       {total: [], accepted: [], stored: []}
     )

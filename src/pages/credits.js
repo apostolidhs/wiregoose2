@@ -7,9 +7,6 @@ import TextedIcon from 'components/textedIcon';
 import Helmet from 'components/helmet';
 
 const Credits = () => {
-  const title = `Δημιουργοί - Wiregoose`;
-  const url = `${process.env.PUBLIC_URL}${window.location.pathname}`;
-  const description = 'Οι δημιουργοί του Wiregoose';
   return (
     <Main>
       <Helmet

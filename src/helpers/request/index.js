@@ -1,5 +1,4 @@
 import identity from 'lodash/identity';
-import {error} from 'winston';
 
 const getParams = params =>
   Object.keys(params)
@@ -34,7 +33,7 @@ const request = (href, {params, transform = identity, method = 'GET', headers, .
     .then(({data, response}) => {
       const {status, statusText} = response;
       if (response.ok) return {data: transform(data), status, statusText};
-      throw {data, status, statusText};
+      throw {data, status, statusText}; // eslint-disable-line
     });
 
   request.abort = () => {

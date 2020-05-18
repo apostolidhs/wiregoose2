@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Text} from 'grommet';
+import {Box} from 'grommet';
 import {StatusCritical, Clock} from 'grommet-icons';
 import Pill from 'components/admin/pill';
 import Chart from './chart';

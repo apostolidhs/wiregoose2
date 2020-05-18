@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {Box, Button} from 'grommet';
 import {TextAlignLeft, Compass, Menu} from 'grommet-icons';
 import styled from 'styled-components';

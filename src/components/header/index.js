@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react';
 import styled from 'styled-components';
-import {Box, Heading, Button, Header as GHeader} from 'grommet';
+import {Box, Heading, Header as GHeader} from 'grommet';
 import Link from 'components/link';
 import {useScreenSize} from 'providers/theme/selectors';
 

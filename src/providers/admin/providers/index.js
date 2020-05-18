@@ -1,4 +1,4 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useMemo} from 'react';
 import makeFields from 'components/makeFields';
 import useExtraArgument from '../useExtraArgument';
 import Hoax from './hoax';

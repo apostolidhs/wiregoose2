@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useNavigate} from '@reach/router';
 import {Box, Button, Form, FormField, TextInput} from 'grommet';
 import {useSessionMember} from 'providers/session';

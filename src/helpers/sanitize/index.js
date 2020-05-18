@@ -1,6 +1,6 @@
 export const clearText = title =>
   title
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+    .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, '')
     .split(/(\s+)/)
     .join(' ');
 

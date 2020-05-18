@@ -1,4 +1,4 @@
-import React, {useMemo, memo} from 'react';
+import React, {memo} from 'react';
 import {Box, Paragraph as P, Heading as H} from 'grommet';
 import ImageComponent from 'components/image';
 
@@ -23,7 +23,7 @@ export const Image = ({src, ...rest}) => (
 //"//www.youtube.com/embed/yCOY82UdFrw"
 const Video = ({src}) => (
   <Box height={{min: 'initial'}}>
-    <iframe src={src} frameborder="0" allowfullscreen class="video" />
+    <iframe src={src} title="Βίντεο" frameborder="0" allowfullscreen class="video" />
   </Box>
 );
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useMemo} from 'react';
+import React, {useCallback} from 'react';
 import {TextInput} from 'grommet';
 
 export default useMember => {

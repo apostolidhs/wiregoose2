@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text} from 'grommet';
 import {useProviderSelector} from 'providers/admin/providers';
 import Pill from 'components/admin/pill';
 

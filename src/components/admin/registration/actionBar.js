@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Box, Button} from 'grommet';
 
 const ActionBar = ({resourceId, processing, onSave, onDelete, ...rest}) => {

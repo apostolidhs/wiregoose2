@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box} from 'grommet';
 import {useConfigSelector} from 'providers/config/selectors';
 import Category from './category';

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Main, Heading, Box, Image, Text, Button} from 'grommet';
+import React from 'react';
+import {Main, Heading, Image, Text, Button} from 'grommet';
 import Link from 'components/link';
 import SurlicatorImg from 'assets/suricato.png';
 

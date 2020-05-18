@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, Box} from 'grommet';
 import {Announce, Info, Edit} from 'grommet-icons';
 import {Link} from '@reach/router';

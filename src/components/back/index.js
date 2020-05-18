@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {Button} from 'grommet';
 import {FormPrevious} from 'grommet-icons';
@@ -16,14 +16,7 @@ const StyledButton = styled(Button)`
 const goBack = () => window.history.back();
 
 const Back = ({onClick = goBack, noLabel, ...rest}) => (
-  <StyledButton
-    icon={<FormPrevious size="32px" />}
-    gap="none"
-    // label={!noLabel && 'Πίσω'}
-    onClick={onClick}
-    plain
-    {...rest}
-  />
+  <StyledButton icon={<FormPrevious size="32px" />} gap="none" onClick={onClick} plain {...rest} />
 );
 
 export default Back;

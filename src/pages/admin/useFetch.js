@@ -1,9 +1,9 @@
-import {useEffect, useRef} from 'react';
+import {useEffect} from 'react';
 import {useApiSelector} from 'providers/api/selectors';
 import {useRegistrationAction, useRegistrationsSelector} from 'providers/admin/registrations';
 import {useProviderAction} from 'providers/admin/providers';
 
-const useSync = (api) => {
+const useSync = api => {
   const loaded = useRegistrationsSelector(({loaded}) => loaded);
   const sync = useRegistrationAction('sync');
 

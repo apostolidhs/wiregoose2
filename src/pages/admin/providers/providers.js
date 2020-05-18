@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box} from 'grommet';
 import {useProvidersSelector} from 'providers/admin/providers';
 import Provider from './provider';

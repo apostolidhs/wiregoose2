@@ -1,4 +1,4 @@
-import React, {lazy, Fragment} from 'react';
+import React, {lazy} from 'react';
 import {Box} from 'grommet';
 import {useIsAdmin} from 'providers/session';
 import Categories from './categories';
