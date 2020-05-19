@@ -43,6 +43,18 @@ services:
     env_file:
       - ./.env.production
 
+  ssr:
+    build:
+      context: .
+      dockerfile: ./deploy/ssr/Dockerfile
+    image: japostol/wiregoose:ssr
+    volumes:
+      - /usr/src/wiregoose/logs:/logs
+    ports:
+      - '5003:5003'
+    env_file:
+      - ./.env.production
+
   mongo:
     image: mongo
     volumes:
