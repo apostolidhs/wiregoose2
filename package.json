@@ -30,6 +30,7 @@
     "morgan": "^1.10.0",
     "normalize-url": "^5.0.0",
     "object-hash": "^2.0.3",
+    "puppeteer": "^3.1.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
@@ -66,7 +67,9 @@
     "image-proxy": "node ./services/proxy",
     "production:image-proxy": "NODE_ENV=production pm2-runtime start ./services/proxy",
     "crawl-feeds": "node ./services/crawler",
-    "production:crawl-feeds": "NODE_ENV=production pm2-runtime start ./services/crawler"
+    "production:crawl-feeds": "NODE_ENV=production pm2-runtime start ./services/crawler",
+    "ssr": "node ./services/ssr",
+    "production:ssr": "NODE_ENV=production pm2-runtime start ./services/ssr"
   },
   "eslintConfig": {
     "extends": "react-app"
