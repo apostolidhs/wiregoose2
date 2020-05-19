@@ -51,7 +51,7 @@ services:
     volumes:
       - /usr/src/wiregoose/logs:/logs
     ports:
-      - '5003:5003'
+      - '5004:5004'
     env_file:
       - ./.env.production
 
