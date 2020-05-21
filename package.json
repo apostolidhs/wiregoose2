@@ -1,6 +1,6 @@
 {
   "name": "wiregoose2",
-  "homepage": "https://wiregoose.com",
+  "homepage": "https://www.wiregoose.com",
   "version": "1.0.0",
   "description": "All news in one place",
   "main": "index.js",
@@ -62,7 +62,7 @@
     "backend-start": "node ./services/backend",
     "production:backend-start": "NODE_ENV=production pm2-runtime start ./services/backend",
     "frontend-start": "EXTEND_ESLINT=true react-scripts start",
-    "frontend-build": "NODE_ENV=production EXTEND_ESLINT=true react-scripts build",
+    "frontend-build": "NODE_ENV=production EXTEND_ESLINT=true PUBLIC_URL=https://www.wiregoose.com react-scripts build",
     "deploy-frontend": "rsync -av --exclude '*.map' ./build $DEPLOYER:/usr/src/wiregoose/",
     "image-proxy": "node ./services/proxy",
     "production:image-proxy": "NODE_ENV=production pm2-runtime start ./services/proxy",

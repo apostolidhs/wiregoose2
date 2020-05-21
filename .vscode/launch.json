@@ -21,6 +21,13 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "SSR",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/services/ssr/index.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Proxy",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/services/proxy/index.js"

@@ -13,6 +13,7 @@ module.exports = {
     'culture',
     'technology',
     'science',
+    'environment',
     'travel',
     'tastes',
     'auto',

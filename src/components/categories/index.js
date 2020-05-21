@@ -17,7 +17,8 @@ import {
   Multimedia,
   Diamond,
   Channel,
-  Cafeteria
+  Cafeteria,
+  Grow
 } from 'grommet-icons';
 import {Box, Text} from 'grommet';
 import styled from 'styled-components';
@@ -39,7 +40,8 @@ const icons = {
   culture: Multimedia,
   tastes: Cafeteria,
   technology: Technology,
-  media: Channel
+  media: Channel,
+  environment: Grow
 };
 
 export const CategoryIcon = ({name, ...rest}) => {

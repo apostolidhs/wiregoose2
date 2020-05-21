@@ -38,6 +38,7 @@ const Article = ({feedId}) => {
     published,
     image,
     author,
+    provider,
     articleError,
     articleContent
   } = useFeedSelector(feedId) || initialFeedState;
@@ -81,7 +82,7 @@ const Article = ({feedId}) => {
   return (
     <Main pad="medium" height="initial" overflow="initial">
       <Helmet
-        title={`${clearedTitle} - Wiregoose ${categoryName}`}
+        title={`${clearedTitle} - Wiregoose από ${provider}`}
         description={description}
         image={image}
         section={categoryName}

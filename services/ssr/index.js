@@ -21,7 +21,7 @@ const lruCache = new LRUCache({max: 256});
 let browser;
 let page;
 puppeteer
-  .launch({headless: true})
+  .launch({headless: true, args: ['--no-sandbox']})
   .then(br => {
     browser = br;
     return browser.newPage();
@@ -30,12 +30,12 @@ puppeteer
     page = pg;
   });
 
-const webpage = process.env.NODE_ENV === 'production' ? 'https://wiregoose/' : 'http://localhost:3000/';
+const webpage = process.env.NODE_ENV === 'production' ? 'https://www.wiregoose.com/' : 'http://localhost:3000/';
 
 const ssr = async url => {
   await page.goto(url, {waitUntil: 'networkidle0'});
   const html = await page.content();
-  return html.replace(/href=\"\//g, `href="${webpage}`);
+  return html.replace(/href=\"\//g, `href="${webpage}`).replace(/src=\"\//g, `src="${webpage}`);
 };
 
 app.get('*', async (req, res) => {
@@ -44,9 +44,11 @@ app.get('*', async (req, res) => {
   if (lruCache.has(url)) return res.send(lruCache.get(url));
 
   const [html, error] = await flat(ssr(url));
-  lruCache.set(url, html);
 
-  return error ? res.status(400).send(error) : res.send(html);
+  if (error) return res.status(400).send(error);
+
+  lruCache.set(url, html);
+  return res.send(html);
 });
 
 process.on('SIGTERM', async () => {

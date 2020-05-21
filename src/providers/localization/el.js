@@ -12,6 +12,7 @@ export default {
   'category.culture': 'Πολιτισμός',
   'category.technology': 'Τεχνολογία',
   'category.science': 'Επιστήμη',
+  'category.environment': 'Περιβάλλον',
   'category.travel': 'Ταξίδια',
   'category.auto': 'Auto',
   'category.media': 'Media',
