@@ -42,6 +42,7 @@ const Link = ({link}) => {
             icon={checked ? <Checkmark size="medium" color="neutral-3" /> : <GLink size="medium" />}
             title={t('social.share.link')}
             onClick={copy}
+            alignSelf="start"
           />
         )}
       </Transition>

@@ -1,11 +1,11 @@
 const {JSDOM} = require('jsdom');
 const Readability = require('readability');
 const flat = require('../../helpers/flatPromise');
+const wwwUrl = require('../../helpers/wwwUrl');
 const errorTypes = require('../models/articleErrorTypes');
 const extractImage = require('./image');
 const extractVideo = require('./video');
 const extractText = require('./text');
-const url2 = require('url');
 
 const headings = new Set(['H1', 'H2', 'H3', 'H4', 'H5', 'H6']);
 
@@ -58,13 +58,8 @@ const fromFile = async (filepath, {href}) => {
   return [content];
 };
 
-const getNormalizedUrl = url => {
-  const {host, ...parsed} = url2.parse(url);
-  return host.startsWith('www') ? url : url2.format({...parsed, host: `www.${host}`});
-};
-
 const fromURL = async url => {
-  const normalizedUrl = getNormalizedUrl(url);
+  const normalizedUrl = wwwUrl(url);
   const [dom, fetchError] = await flat(JSDOM.fromURL(normalizedUrl));
   if (fetchError) return [[], errorTypes.fetch];
 

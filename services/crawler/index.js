@@ -29,7 +29,7 @@ connect().then(() => {
 // });
 
 // connect().then(async () => {
-//   const registration = getRegistration('protothema', 'https://www.protothema.gr/culture/rss');
+//   const registration = getRegistration('newsit', 'https://www.sport24.gr/?widget=rssfeed&view=feed');
 //   const [result, error] = await fromUrl(registration);
 //   console.log(result, error);
 // });

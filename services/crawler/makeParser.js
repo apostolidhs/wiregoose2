@@ -5,7 +5,8 @@ module.exports = () =>
     customFields: {
       item: [
         ['media:thumbnail', 'image'],
-        ['a10:updated', 'updated']
+        ['a10:updated', 'updated'],
+        ['summary', 'description']
       ]
     },
     timeout: 10000,

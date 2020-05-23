@@ -1,6 +1,6 @@
 import React from 'react';
 import {Heading, Anchor, Paragraph, Box} from 'grommet';
-import {Announce} from 'grommet-icons';
+import {Rss} from 'grommet-icons';
 import {useRegistrationsSelector} from 'providers/registrations/selectors';
 import ProviderIcon from 'components/providers/icon';
 import Back from 'components/back';
@@ -25,7 +25,7 @@ const Providers = () => {
         keywords={['πηγές', 'νέα', 'ειδήσεις', 'πάροχοι']}
       />
       <Back absolute />
-      <TextedIcon Icon={Announce}>Πηγές</TextedIcon>
+      <TextedIcon Icon={Rss}>Πηγές</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>
         <Paragraph size="xlarge" margin={{top: 'none', bottom: 'none'}}>
           Σεβόμαστε τις πηγές που αντλούμε τα νέα. Για αυτόν τον λόγο τονίζουμε με πολύ εμφανή τρόπο την πηγή που

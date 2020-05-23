@@ -1,3 +1,3 @@
 const {clean} = require('./helpers');
 
-module.exports = ({creator}) => clean(creator, 2, 128);
+module.exports = ({creator, author}) => clean(creator || author, 2, 128);

@@ -4,13 +4,14 @@ import {More} from 'grommet-icons';
 import ProviderLink from 'components/providers/link';
 import {CategoryLink} from 'components/categories';
 
-const wrapThreshold = 3;
+const defaultWrapThreshold = 4;
 
 const Providers = ({category, providers}) => {
-  const shouldWrap = providers.length > wrapThreshold;
+  const shouldWrap = providers.length > defaultWrapThreshold;
   const [expand, setExpand] = useState(!shouldWrap);
-  const initialProviders = useMemo(() => [...providers].slice(0, wrapThreshold), [providers]);
-  const restProviders = useMemo(() => [...providers].slice(wrapThreshold), [providers]);
+  const wrapThreshold = expand ? defaultWrapThreshold + 1 : defaultWrapThreshold;
+  const initialProviders = useMemo(() => [...providers].slice(0, wrapThreshold), [providers, expand]);
+  const restProviders = useMemo(() => [...providers].slice(wrapThreshold), [providers, expand]);
   const onClick = useCallback(() => setExpand(true), []);
 
   return (
@@ -20,14 +21,11 @@ const Providers = ({category, providers}) => {
       ))}
       {!expand && <Button plain onClick={onClick} icon={<More size="22px" />} alignSelf="start" />}
       <Collapsible open={expand}>
-        {restProviders.map((provider, index) => (
-          <ProviderLink
-            key={provider.name}
-            category={category}
-            name={provider.name}
-            margin={{top: index > 0 ? 'xsmall' : 'none'}}
-          />
-        ))}
+        <Box gap="small" direction="row" wrap>
+          {restProviders.map((provider, index) => (
+            <ProviderLink key={provider.name} category={category} name={provider.name} margin={{top: 'xsmall'}} />
+          ))}
+        </Box>
       </Collapsible>
     </Box>
   );

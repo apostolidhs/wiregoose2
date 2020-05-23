@@ -5,7 +5,7 @@ import {useSelectProvider} from 'providers/registrations/selectors';
 import Icon from './icon';
 
 const StyledLink = styled(RouterLink)`
-  /* margin-top: ${({theme, margin}) => margin && theme.global.edgeSize[margin.top]}; */
+  margin-top: ${({theme, margin}) => margin && theme.global.edgeSize[margin.top]};
   img {
     vertical-align: bottom;
   }

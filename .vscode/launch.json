@@ -7,6 +7,7 @@
     {
       "type": "node",
       "request": "launch",
+      "cwd": "${workspaceFolder}",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/services/backend/index.js"
@@ -14,6 +15,7 @@
     {
       "type": "node",
       "request": "launch",
+      "cwd": "${workspaceFolder}",
       "name": "Crawler",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/services/crawler/index.js"
@@ -21,6 +23,7 @@
     {
       "type": "node",
       "request": "launch",
+      "cwd": "${workspaceFolder}",
       "name": "SSR",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/services/ssr/index.js"
@@ -29,6 +32,7 @@
       "type": "node",
       "request": "launch",
       "name": "Proxy",
+      "cwd": "${workspaceFolder}",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/services/proxy/index.js"
     }

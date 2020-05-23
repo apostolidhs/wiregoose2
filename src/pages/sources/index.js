@@ -81,14 +81,13 @@ const Sources = ({source, category = 'all'}) => {
   };
 
   const categoryName = getCategoryName(category);
-  const providerName = provider.name;
 
   return (
     <Main height="100%" width="100%">
       <Helmet
-        title={`${categoryName} | ${providerName} - Wiregoose`}
-        description={t(`source.description${isAll ? '.all' : ''}`, {category: categoryName, source: providerName})}
-        keywords={['νέα', 'ειδήσεις', providerName, categoryName]}
+        title={`${categoryName} | ${source} - Wiregoose`}
+        description={t(`source.description${isAll ? '.all' : ''}`, {category: categoryName, source})}
+        keywords={['νέα', 'ειδήσεις', source, categoryName]}
       />
       <Back absolute noLabel />
       <Header {...provider} />

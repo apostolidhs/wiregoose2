@@ -10,6 +10,7 @@ const path = require('path');
 const download = require('image-downloader');
 const sharp = require('sharp');
 const LRUCache = require('lru-cache');
+const wwwUrl = require('../helpers/wwwUrl');
 const flatPromise = require('../helpers/flatPromise');
 const validationMiddleware = require('../helpers/validationMiddleware');
 const makeApp = require('../helpers/makeApp');
@@ -65,6 +66,7 @@ app.get(
   }),
   async (req, res) => {
     const {w, h} = res.locals.params;
+    // const url = wwwUrl(decodeURIComponent(req.url.substring(1)));
     const url = decodeURIComponent(req.url.substring(1));
     const hash = hashImage(url + JSON.stringify({w, h}));
     const filepath = path.join(baseDir, hash);

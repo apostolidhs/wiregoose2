@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Box} from 'grommet';
-import {Announce, Info, Edit} from 'grommet-icons';
+import {Rss, Info, Edit} from 'grommet-icons';
 import {Link} from '@reach/router';
 import Back from 'components/back';
 import Main from 'components/main';
@@ -30,7 +30,7 @@ const Settings = () => {
         <SettingsLink path="about" Icon={Info}>
           Σχετικά
         </SettingsLink>
-        <SettingsLink path="providers" Icon={Announce}>
+        <SettingsLink path="providers" Icon={Rss}>
           Πηγές
         </SettingsLink>
         <SettingsLink path="credits" Icon={Edit}>

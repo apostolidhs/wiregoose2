@@ -18,13 +18,15 @@ import {
   Diamond,
   Channel,
   Cafeteria,
-  Grow
+  Grow,
+  Rss
 } from 'grommet-icons';
 import {Box, Text} from 'grommet';
 import styled from 'styled-components';
 import {Link as RouterLink} from '@reach/router';
 
 const icons = {
+  all: Rss,
   country: Local,
   world: Globe,
   politics: Manual,
@@ -70,7 +72,10 @@ export const CategoryLink = ({category, color, size, iconSize, icon, ...rest}) =
   const categoryName = useCategoryName();
   const link = useCallback(
     ({children, className}) => (
-      <StyledBox to={`/category/${category}`} title={categoryName(category)} className={className}>
+      <StyledBox
+        to={category === 'all' ? '/' : `/category/${category}`}
+        title={categoryName(category)}
+        className={className}>
         {children}
       </StyledBox>
     ),
