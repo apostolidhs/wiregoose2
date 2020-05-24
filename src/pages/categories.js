@@ -21,18 +21,19 @@ const getOlder = feeds => {
 };
 
 const Categories = ({category}) => {
+  const isAll = category === 'all';
   const t = useIntl();
   const notification = useNotification();
   const {categories} = useConfigSelector();
   const getCategoryName = useCategoryName();
   const api = useApiSelector();
-  const {feeds, loaded, loading} = useFeedCategory(category);
-  const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed} = useFeedDispatch();
+  const {feeds, loaded, loading, lastClickedId} = useFeedCategory(category);
+  const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed, categoryFeedClicked} = useFeedDispatch();
   const [target, setTarget] = useState();
   const [hasMore, setHasMore] = useState(false);
 
   useMemo(() => {
-    if (category && !categories.includes(category)) navigate('/');
+    if (!isAll && !categories.includes(category)) navigate('/');
     setTarget();
   }, [category]);
 
@@ -44,7 +45,7 @@ const Categories = ({category}) => {
     if (!target && feeds.length) return;
 
     categoryFetchStarted(category);
-    const promise = api.timelineExplore({target, limit, ...(category && {categories: [category]})});
+    const promise = api.timelineExplore({target, limit, ...(!isAll && {categories: [category]})});
 
     promise
       .then(({data: {feeds}}) => categoryFetchFinished(category, feeds))
@@ -56,25 +57,37 @@ const Categories = ({category}) => {
     return () => promise.abort();
   }, [target, category]);
 
+  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), [
+    lastClickedId
+  ]);
+  const feedProps = useMemo(() => ({onClick: id => categoryFeedClicked(category, id)}), [category]);
+
   const loadMoreItems = () => {
     if (loading || !loaded) return;
     setTarget(getOlder(feeds));
   };
 
   const Icon = useCallback(props => <CategoryIcon name={category} {...props} />, [category]);
-  const categoryName = getCategoryName(category || 'all');
+  const categoryName = getCategoryName(category);
 
   return (
     <Main height="100%" width="100%">
       <Helmet
         title={`${categoryName} - Wiregoose`}
-        description={t(`category.description${category ? '' : '.all'}`, {category: categoryName})}
+        description={t(`category.description${isAll ? '.all' : ''}`, {category: categoryName})}
         keywords={['νέα', 'ειδήσεις', categoryName]}
       />
-      {category && <Back absolute noLabel />}
-      {category && <TextedIcon Icon={Icon}>{categoryName}</TextedIcon>}
+      {!isAll && <Back absolute noLabel />}
+      {!isAll && <TextedIcon Icon={Icon}>{categoryName}</TextedIcon>}
       <Suspense fallback={null}>
-        <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
+        <Timeline
+          feeds={feeds}
+          loadMoreItems={loadMoreItems}
+          hasMore={hasMore}
+          loading={loading}
+          feedProps={feedProps}
+          scrollToIndex={scrollToIndex}
+        />
       </Suspense>
     </Main>
   );

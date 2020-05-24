@@ -6,7 +6,7 @@ import SubInfo from './subInfo';
 import Description from './description';
 import ActionBar from './actionBar';
 
-const Feed = ({feed: {id, image, title, description, provider, published, category}, ...rest}) => {
+const Feed = ({feed: {id, image, title, description}, ...rest}) => {
   const visibleImage = !!image;
   const visibleDescription = description && (title.length < 50 || !image);
   const visibleTitle = !!title;

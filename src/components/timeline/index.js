@@ -1,4 +1,5 @@
 import React, {useMemo} from 'react';
+import noop from 'lodash/noop';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
@@ -7,7 +8,7 @@ import Feed from 'components/feed';
 import Skeleton from 'components/feed/skeleton';
 import 'react-virtualized/styles.css';
 
-const feedProps = {
+const defaultFeedProps = {
   height: '450px',
   pad: {horizontal: 'small', vertical: 'medium'},
   border: {
@@ -18,17 +19,19 @@ const feedProps = {
   margin: {horizontal: 'auto'}
 };
 
-const getListItem = feeds => ({index, key, style}) => {
+const getListItem = (feeds, {onClick = noop, ...feedProps}) => ({index, key, style}) => {
   const feed = feeds[index];
+  const click = () => onClick(feed.id);
+
   return (
     <div key={key} style={style}>
-      {feed ? <Feed feed={feed} {...feedProps} /> : <Skeleton {...feedProps} />}
+      {feed ? <Feed feed={feed} onClick={click} {...defaultFeedProps} {...feedProps} /> : <Skeleton {...feedProps} />}
     </div>
   );
 };
 
-const Timeline = ({feeds, loadMoreItems, hasMore, loading}) => {
-  const ListItem = useMemo(() => getListItem(feeds), [feeds]);
+const Timeline = ({feeds, loadMoreItems, hasMore, feedProps, ...rest}) => {
+  const ListItem = useMemo(() => getListItem(feeds, feedProps), [feeds]);
   const itemCount = hasMore ? feeds.length + 1 : feeds.length;
   const isRowLoaded = ({index}) => feeds && index < feeds.length;
 
@@ -36,10 +39,7 @@ const Timeline = ({feeds, loadMoreItems, hasMore, loading}) => {
     <WindowScroller>
       {({height, isScrolling, registerChild: windowRegisterChild, onChildScroll, scrollTop}) => (
         <div style={{flex: '1 1 auto'}}>
-          <InfiniteLoader
-            isRowLoaded={isRowLoaded}
-            loadMoreRows={hasMore ? loadMoreItems : () => {}}
-            rowCount={itemCount}>
+          <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={hasMore ? loadMoreItems : noop} rowCount={itemCount}>
             {({onRowsRendered, registerChild}) => (
               <AutoSizer disableHeight>
                 {({width}) => (
@@ -57,6 +57,7 @@ const Timeline = ({feeds, loadMoreItems, hasMore, loading}) => {
                       rowRenderer={ListItem}
                       scrollTop={scrollTop}
                       width={width}
+                      {...rest}
                     />
                   </div>
                 )}

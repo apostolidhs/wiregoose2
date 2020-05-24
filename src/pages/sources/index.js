@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, useCallback} from 'react';
+import React, {useEffect, useState, useMemo, useCallback, useRef} from 'react';
 import {navigate} from '@reach/router';
 import {Tab} from 'grommet';
 import {useCategoryName} from 'components/categories';
@@ -34,17 +34,13 @@ const Sources = ({source, category = 'all'}) => {
   const categories = useMemo(() => ['all', ...providerCategories], [providerCategories]);
   const provider = useSelectProvider(source);
 
-  const tabRef = el => {
-    if (!el) return;
-    setTimeout(() => el && el.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'end'}), 500);
-  };
   const activeIndex = categories.indexOf(category);
   const isAll = activeIndex === 0;
   const onActive = useCallback(index => navigate(`/source/${source}/${categories[index]}`), [categories, source]);
 
   const api = useApiSelector();
-  const {feeds, loaded, loading} = useFeedSource(source, category);
-  const {sourceFetchStarted, sourceFetchFinished, sourceFetchFailed} = useFeedDispatch();
+  const {feeds, loaded, loading, lastClickedId} = useFeedSource(source, category);
+  const {sourceFetchStarted, sourceFetchFinished, sourceFetchFailed, sourceFeedClicked} = useFeedDispatch();
   const [target, setTarget] = useState();
   const [hasMore, setHasMore] = useState(false);
 
@@ -80,6 +76,23 @@ const Sources = ({source, category = 'all'}) => {
     setTarget(getOlder(feeds));
   };
 
+  const tabRef = useRef();
+  const timeoutRef = useRef();
+
+  useEffect(() => {
+    if (!isRegistrationsLoaded) return;
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      const parentNode = tabRef.current.parentNode;
+      parentNode.scrollTo(tabRef.current.offsetLeft - parentNode.offsetWidth / 2, 0);
+    }, 500);
+  }, [isRegistrationsLoaded, activeIndex]);
+
+  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), [
+    lastClickedId
+  ]);
+  const feedProps = useMemo(() => ({onClick: id => sourceFeedClicked(source, category, id)}), [category]);
+
   const categoryName = getCategoryName(category);
 
   return (
@@ -93,8 +106,15 @@ const Sources = ({source, category = 'all'}) => {
       <Header {...provider} />
       <Tabs activeIndex={activeIndex} onActive={onActive} flex="grow" justify="start">
         {categories.map((cat, index) => (
-          <Tab ref={index === activeIndex ? tabRef : null} key={cat} title={getCategoryName(cat)}>
-            <Timeline feeds={feeds} loadMoreItems={loadMoreItems} hasMore={hasMore} loading={loading} />
+          <Tab key={cat} ref={index === activeIndex ? tabRef : null} title={getCategoryName(cat)}>
+            <Timeline
+              feeds={feeds}
+              loadMoreItems={loadMoreItems}
+              hasMore={hasMore}
+              loading={loading}
+              feedProps={feedProps}
+              scrollToIndex={scrollToIndex === -1 ? 0 : scrollToIndex}
+            />
           </Tab>
         ))}
       </Tabs>

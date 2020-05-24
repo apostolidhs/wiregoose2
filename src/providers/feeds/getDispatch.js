@@ -1,6 +1,6 @@
 import getInitialFeedState from './getInitialFeedState';
 
-export const initialBucket = {loading: false, loaded: false, ids: []};
+export const initialBucket = {loading: false, loaded: false, ids: [], lastClickedId: null};
 export const initialState = {feeds: {}, sources: {}, categories: {}, articles: initialBucket};
 
 const addFeed = (stateFeeds, feed, attrs) => {
@@ -61,10 +61,13 @@ export default dispatch => ({
   categoryFetchStarted: name => dispatch(s => setCategory(s, name, {loading: true})),
   categoryFetchFinished: (name, feeds) => dispatch(s => categoryFetchFinished(s, name, feeds)),
   categoryFetchFailed: name => dispatch(s => setCategory(s, name, {loading: false})),
+  categoryFeedClicked: (name, lastClickedId) => dispatch(s => setCategory(s, name, {lastClickedId})),
 
   sourceFetchStarted: (source, category) => dispatch(s => setSource(s, source, category, {loading: true})),
   sourceFetchFinished: (source, category, feeds) => dispatch(s => sourceFetchFinished(s, source, category, feeds)),
   sourceFetchFailed: (source, category) => dispatch(s => setSource(s, source, category, {loading: false})),
+  sourceFeedClicked: (source, category, lastClickedId) =>
+    dispatch(s => setSource(s, source, category, {lastClickedId})),
 
   feedFetchStarted: (id, {article, related}) =>
     dispatch(s => {

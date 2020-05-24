@@ -11,7 +11,7 @@ const download = (url, {dest, redirects = 3, currentRedirects = 0, ...options}) 
   return new Promise((resolve, reject) =>
     request
       .get(url, {...requestHeaders, timeout: 6000, ...options}, res => {
-        if (res.statusCode === 301 && res.headers.location) {
+        if ((res.statusCode === 301 || res.statusCode === 302) && res.headers.location) {
           res.resume();
 
           if (currentRedirects === redirects) return reject('max redirects');
@@ -28,7 +28,7 @@ const download = (url, {dest, redirects = 3, currentRedirects = 0, ...options}) 
 
         if (res.statusCode !== 200) {
           res.resume();
-          return reject(new Error(`${res.statusCode}`));
+          return reject(`${res.statusCode}`);
         }
 
         res.pipe(fs.createWriteStream(dest)).once('close', () => resolve({filename: dest}));
