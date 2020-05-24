@@ -1,4 +1,5 @@
 const Parser = require('rss-parser');
+const requestHeaders = require('../helpers/requestHeaders');
 
 module.exports = () =>
   new Parser({
@@ -10,5 +11,6 @@ module.exports = () =>
       ]
     },
     timeout: 10000,
-    maxRedirects: 10
+    maxRedirects: 10,
+    requestOptions: requestHeaders
   });

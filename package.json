@@ -21,7 +21,6 @@
     "grommet": "^2.11.3",
     "grommet-icons": "^4.4.0",
     "helmet": "^3.22.0",
-    "image-downloader": "^3.5.0",
     "jsdom": "^16.2.2",
     "lodash": "^4.17.15",
     "lru-cache": "^5.1.1",

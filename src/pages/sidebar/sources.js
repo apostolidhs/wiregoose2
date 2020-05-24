@@ -1,14 +1,14 @@
 import React from 'react';
 import {Box} from 'grommet';
-import {CategoryLink} from 'components/categories';
+import {useRegistrationsSelector} from 'providers/registrations/selectors';
+import Category from 'components/registrations/category';
 
 const Sources = props => {
+  const {providers} = useRegistrationsSelector();
+
   return (
     <Box direction="column" gap="small" height={{min: 'auto'}} {...props}>
-      <Box gap="xsmall">
-        <CategoryLink size="large" icon category="all" />
-        {/* <Providers category={category} providers={providers} /> */}
-      </Box>
+      <Category category="all" providers={providers} />
     </Box>
   );
 };

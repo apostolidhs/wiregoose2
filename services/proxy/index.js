@@ -7,14 +7,14 @@ const {check} = require('express-validator');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-const download = require('image-downloader');
+const download = require('./download'); //require('image-downloader');
 const sharp = require('sharp');
 const LRUCache = require('lru-cache');
-const wwwUrl = require('../helpers/wwwUrl');
 const flatPromise = require('../helpers/flatPromise');
 const validationMiddleware = require('../helpers/validationMiddleware');
 const makeApp = require('../helpers/makeApp');
 const logger = require('./logger');
+const toWhitelist = require('./toWhitelist');
 
 const host = 'http://localhost';
 const app = makeApp({
@@ -66,8 +66,8 @@ app.get(
   }),
   async (req, res) => {
     const {w, h} = res.locals.params;
-    // const url = wwwUrl(decodeURIComponent(req.url.substring(1)));
-    const url = decodeURIComponent(req.url.substring(1));
+
+    const url = toWhitelist(decodeURIComponent(req.url.substring(1)));
     const hash = hashImage(url + JSON.stringify({w, h}));
     const filepath = path.join(baseDir, hash);
 
@@ -78,17 +78,14 @@ app.get(
     }
 
     const [, downloadError] = await flatPromise(
-      download.image({
-        url,
-        dest: filepath,
-        extractFilename: false,
-        rejectUnauthorized: false
+      download(url, {
+        dest: filepath
       })
     );
 
     if (downloadError) {
-      logger.error(`failed download ${url} ${downloadError.toString}`);
-      return res.status(404).send(downloadError + '');
+      logger.error(`failed download ${url} ${downloadError.toString()}`);
+      return res.status(404).send(downloadError.toString());
     }
 
     const [imageBuffer, imageError] = await flatPromise(
@@ -100,7 +97,7 @@ app.get(
 
     if (imageError && !imageError.toString().match(/unsupported image format/)) {
       logger.error(`failed processing ${url} ${imageError.toString()}`);
-      return res.status(404).send(imageError + '');
+      return res.status(404).send(imageError.toString());
     }
 
     if (imageBuffer) {

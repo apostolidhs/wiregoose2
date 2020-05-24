@@ -9,7 +9,7 @@ import TextedIcon from 'components/textedIcon';
 import Helmet from 'components/helmet';
 
 const Provider = ({icon, link, name, ...rest}) => (
-  <Box direction="row" gap="small" {...rest}>
+  <Box gap="small" width="200px" align="center" {...rest}>
     <ProviderIcon src={icon} size="32px" />
     <Anchor href={link} target="_blank" primary alignSelf="center" label={name} />
   </Box>
@@ -27,7 +27,7 @@ const Providers = () => {
       <Back absolute />
       <TextedIcon Icon={Rss}>Πηγές</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>
-        <Paragraph size="xlarge" margin={{top: 'none', bottom: 'none'}}>
+        <Paragraph size="xlarge" alignSelf="center" margin={{top: 'none', bottom: 'none'}}>
           Σεβόμαστε τις πηγές που αντλούμε τα νέα. Για αυτόν τον λόγο τονίζουμε με πολύ εμφανή τρόπο την πηγή που
           προέρχεται το νέο. Επίσης δίνουμε την δυνατότητα στον χρήστη της εφαρμογής μας να διαβάσει το νέο απευθείας
           από την πηγή του.
@@ -35,9 +35,9 @@ const Providers = () => {
         <Heading level="3" margin={{top: 'large', bottom: 'none'}}>
           Λίστα Πηγών
         </Heading>
-        <Box height={{min: 'initial'}} gap="medium" margin={{top: 'large'}}>
+        <Box direction="row" wrap height={{min: 'initial'}} gap="medium" margin={{top: 'large'}}>
           {providers.map(provider => (
-            <Provider key={provider.name} {...provider} />
+            <Provider key={provider.name} margin={{bottom: 'large'}} {...provider} />
           ))}
         </Box>
       </Box>

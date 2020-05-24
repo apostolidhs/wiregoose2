@@ -15,8 +15,9 @@ const SubInfo = ({id, ...rest}) => {
     if (!published) return null;
 
     const rawDate = formatDistanceToNow(new Date(published), {locale: el});
-    const [estimation, ...literals] = rawDate.split(' ');
-    return literals.length > 1 ? literals.join(' ') : rawDate;
+    const literals = rawDate.split(' ');
+
+    return literals.length > 2 ? literals.splice(1).join(' ') : rawDate;
   }, [published]);
 
   if (!feed) return null;
