@@ -1,4 +1,4 @@
-import React, {lazy} from 'react';
+import React, {lazy, memo} from 'react';
 import {Box} from 'grommet';
 import {useIsAdmin} from 'providers/session';
 import Categories from './categories';
@@ -17,4 +17,4 @@ const Content = props => {
   );
 };
 
-export default Content;
+export default memo(Content);

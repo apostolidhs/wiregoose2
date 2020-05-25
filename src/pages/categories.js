@@ -57,9 +57,7 @@ const Categories = ({category}) => {
     return () => promise.abort();
   }, [target, category]);
 
-  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), [
-    lastClickedId
-  ]);
+  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), []);
   const feedProps = useMemo(() => ({onClick: id => categoryFeedClicked(category, id)}), [category]);
 
   const loadMoreItems = () => {

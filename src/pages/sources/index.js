@@ -88,9 +88,7 @@ const Sources = ({source, category = 'all'}) => {
     }, 500);
   }, [isRegistrationsLoaded, activeIndex]);
 
-  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), [
-    lastClickedId
-  ]);
+  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), []);
   const feedProps = useMemo(() => ({onClick: id => sourceFeedClicked(source, category, id)}), [category]);
 
   const categoryName = getCategoryName(category);

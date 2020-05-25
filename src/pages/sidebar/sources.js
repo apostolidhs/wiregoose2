@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Box} from 'grommet';
 import {useRegistrationsSelector} from 'providers/registrations/selectors';
 import Category from 'components/registrations/category';
@@ -13,4 +13,4 @@ const Sources = props => {
   );
 };
 
-export default Sources;
+export default memo(Sources);

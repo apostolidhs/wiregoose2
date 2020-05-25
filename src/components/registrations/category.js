@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useCallback} from 'react';
+import React, {useState, useMemo, useCallback, memo} from 'react';
 import {Box, Collapsible, Button} from 'grommet';
 import {More} from 'grommet-icons';
 import ProviderLink from 'components/providers/link';
@@ -38,4 +38,4 @@ const Category = ({category, providers}) => (
   </Box>
 );
 
-export default Category;
+export default memo(Category);

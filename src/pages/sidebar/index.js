@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, {forwardRef, memo} from 'react';
 import {Box} from 'grommet';
 import {Menu} from 'grommet-icons';
 import Link from 'components/sidebar/link';
@@ -17,4 +17,4 @@ const Sidebar = forwardRef((props, ref) => {
   );
 });
 
-export default Sidebar;
+export default memo(Sidebar);

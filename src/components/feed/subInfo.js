@@ -36,7 +36,7 @@ const SubInfo = ({id, ...rest}) => {
         {author && (
           <Text alignSelf="center" size={size} color="dark-2">
             ,{' '}
-            <Truncate size={isSmall ? 13 : 40} trailing=".">
+            <Truncate size={isSmall ? 11 : 40} trailing=".">
               {author}
             </Truncate>
           </Text>
