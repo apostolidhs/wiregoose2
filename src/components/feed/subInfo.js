@@ -6,10 +6,11 @@ import {useFeedSelector} from 'providers/feeds/selectors';
 import Link from 'components/providers/link';
 import {CategoryLink} from 'components/categories';
 import Truncate from 'components/truncate';
+import {useScreenSize} from 'providers/theme/selectors';
 
 const SubInfo = ({id, ...rest}) => {
   const feed = useFeedSelector(id);
-
+  const {isSmall} = useScreenSize();
   const published = feed && feed.published;
   const date = useMemo(() => {
     if (!published) return null;
@@ -22,17 +23,22 @@ const SubInfo = ({id, ...rest}) => {
 
   if (!feed) return null;
   const {provider, category, author} = feed;
+  const minimize = author && author.length > 10;
+  const size = minimize ? 'small' : null;
 
   return (
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
       <Box direction="row">
         <Link name={provider} category={category} size="32px" />
-        <Text alignSelf="center" color="dark-2" margin={{left: 'small'}}>
+        <Text alignSelf="center" size={size} color="dark-2" margin={{left: 'small'}}>
           {date}
         </Text>
         {author && (
-          <Text alignSelf="center" color="dark-2">
-            , <Truncate size={20}>{author}</Truncate>
+          <Text alignSelf="center" size={size} color="dark-2">
+            ,{' '}
+            <Truncate size={isSmall ? 13 : 40} trailing=".">
+              {author}
+            </Truncate>
           </Text>
         )}
       </Box>

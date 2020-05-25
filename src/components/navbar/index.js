@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import {Box, Button} from 'grommet';
 import {TextAlignLeft, Compass, Menu} from 'grommet-icons';
 import styled from 'styled-components';
-import Link from '../link';
+import Link from 'components/link';
 
 const Container = styled(Box)`
   position: fixed;
