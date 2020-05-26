@@ -23,7 +23,7 @@ export const Image = ({src, ...rest}) => (
 //"//www.youtube.com/embed/yCOY82UdFrw"
 const Video = ({src}) => (
   <Box height={{min: 'initial'}}>
-    <iframe src={src} title="Βίντεο" frameborder="0" allowfullscreen class="video" />
+    <iframe src={src} title="Βίντεο" frameBorder="0" allowFullScreen className="video" />
   </Box>
 );
 
