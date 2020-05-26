@@ -47,6 +47,7 @@ const NotFound = () => {
 };
 
 const Pages = () => {
+  let prevLocation = window.location.href;
   const {isSmall, isLarge} = useScreenSize();
   const isAdmin = useIsAdmin();
 
@@ -69,73 +70,83 @@ const Pages = () => {
 
   useStickyHeader(headerRef);
 
-  const onMenuClick = () => {
+  const onMenuClick = useCallback(() => {
     window.location.hash = 'sidebar';
     setSidebarOpen(true);
-  };
+  }, []);
 
-  const onOverlayClick = () => {
+  const onOverlayClick = useCallback(() => {
     window.location.hash = '';
     setSidebarOpen(false);
-  };
+  }, []);
 
   return (
-    <Layout>
-      <Header ref={headerRef} />
-      {isSmall && (
-        <Suspense fallback={null}>
-          <Transition in={sidebarOpen} timeout={200} mountOnEnter unmountOnExit>
-            {state => <SlideSidebar transition={state} onOverlayClick={onOverlayClick} />}
-          </Transition>
-        </Suspense>
-      )}
-      <Box
-        alignSelf={isSmall ? 'stretch' : 'center'}
-        overflow="initial"
-        direction="row"
-        pad={contentPadding}
-        width={isLarge ? 'xlarge' : '100%'}
-        height={{min: 'initial'}}>
-        {!isSmall && (
-          <Suspense fallback={null}>
+    <Location>
+      {({location}) => {
+        if (isSmall && prevLocation !== location.href && sidebarOpen !== isSidebarOpen()) {
+          setSidebarOpen(!sidebarOpen);
+        }
+
+        return (
+          <Layout>
+            <Header ref={headerRef} />
+            {isSmall && (
+              <Suspense fallback={null}>
+                <Transition in={sidebarOpen} timeout={200} mountOnEnter unmountOnExit>
+                  {state => <SlideSidebar transition={state} onOverlayClick={onOverlayClick} />}
+                </Transition>
+              </Suspense>
+            )}
             <Box
-              direction="column"
-              height={{min: 'large'}}
-              width={{min: '264px', max: '264px'}}
-              pad="medium"
-              margin={{right: 'medium'}}>
-              <Sidebar />
+              alignSelf={isSmall ? 'stretch' : 'center'}
+              overflow="initial"
+              direction="row"
+              pad={contentPadding}
+              width={isLarge ? 'xlarge' : '100%'}
+              height={{min: 'initial'}}>
+              {!isSmall && (
+                <Suspense fallback={null}>
+                  <Box
+                    direction="column"
+                    height={{min: 'large'}}
+                    width={{min: '264px', max: '264px'}}
+                    pad="medium"
+                    margin={{right: 'medium'}}>
+                    <Sidebar />
+                  </Box>
+                </Suspense>
+              )}
+              <Suspense fallback={null}>
+                <Router component={RouterComponent}>
+                  <Categories path="/" category="all" />
+                  <Categories path="category/:category" />
+                  <Sources path="source/:source/:category" />
+
+                  <Article path="feed/:feedId/article" />
+
+                  <Settings path="settings" />
+                  <Providers path="settings/providers" />
+                  <About path="settings/about" />
+                  <Credits path="settings/credits" />
+
+                  {isAdmin && <Admin path="admin/*" />}
+                  {!isAdmin && <Redirect from="/admin/*" to="/login" noThrow />}
+
+                  <Login path="login" />
+
+                  <NotFound default />
+                </Router>
+              </Suspense>
             </Box>
-          </Suspense>
-        )}
-        <Suspense fallback={null}>
-          <Router component={RouterComponent}>
-            <Categories path="/" category="all" />
-            <Categories path="category/:category" />
-            <Sources path="source/:source/:category" />
-
-            <Article path="feed/:feedId/article" />
-
-            <Settings path="settings" />
-            <Providers path="settings/providers" />
-            <About path="settings/about" />
-            <Credits path="settings/credits" />
-
-            {isAdmin && <Admin path="admin/*" />}
-            {!isAdmin && <Redirect from="/admin/*" to="/login" noThrow />}
-
-            <Login path="login" />
-
-            <NotFound default />
-          </Router>
-        </Suspense>
-      </Box>
-      {isSmall && (
-        <Suspense fallback={null}>
-          <NavBar onReady={onNavBarReady} onMenuClick={onMenuClick} />
-        </Suspense>
-      )}
-    </Layout>
+            {isSmall && (
+              <Suspense fallback={null}>
+                <NavBar onReady={onNavBarReady} onMenuClick={onMenuClick} />
+              </Suspense>
+            )}
+          </Layout>
+        );
+      }}
+    </Location>
   );
 };
 
