@@ -11,11 +11,7 @@ const Container = styled(Box)`
   right: 0;
 `;
 
-const onSidebarClick = () => {
-  window.location.hash = 'sidebar';
-};
-
-const NavBar = ({onReady, props}) => {
+const NavBar = ({onReady, onMenuClick, ...props}) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const NavBar = ({onReady, props}) => {
   return (
     <Container ref={ref} {...props}>
       <Box as="nav" background="white" pad="small" direction="row" justify="around" border="top">
-        <Button onClick={onSidebarClick} icon={<TextAlignLeft size="32px" />} />
+        <Button onClick={onMenuClick} icon={<TextAlignLeft size="32px" />} />
         <Link to="/" icon={<Compass size="32px" />} />
         <Link to="/settings" icon={<Menu size="32px" />} />
       </Box>

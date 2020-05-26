@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useCallback, memo} from 'react';
-import {Box, Collapsible, Button} from 'grommet';
+import {Box, Button} from 'grommet';
 import {More} from 'grommet-icons';
 import ProviderLink from 'components/providers/link';
 import {CategoryLink} from 'components/categories';
@@ -20,13 +20,13 @@ const Providers = ({category, providers}) => {
         <ProviderLink key={provider.name} category={category} name={provider.name} />
       ))}
       {!expand && <Button plain onClick={onClick} icon={<More size="22px" />} alignSelf="start" />}
-      <Collapsible open={expand}>
+      {expand && (
         <Box gap="small" direction="row" wrap>
           {restProviders.map((provider, index) => (
             <ProviderLink key={provider.name} category={category} name={provider.name} margin={{top: 'xsmall'}} />
           ))}
         </Box>
-      </Collapsible>
+      )}
     </Box>
   );
 };

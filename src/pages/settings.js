@@ -36,6 +36,9 @@ const Settings = () => {
         <SettingsLink path="credits" Icon={Edit}>
           Δημιουργοί
         </SettingsLink>
+        <Text margin={{top: 'medium'}} size="small" color="dark-3" textAlign="end">
+          version {process.env.REACT_APP_GIT_SHA}
+        </Text>
       </Box>
     </Main>
   );

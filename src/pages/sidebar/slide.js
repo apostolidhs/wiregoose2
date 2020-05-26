@@ -17,7 +17,7 @@ const Container = styled(Box)`
   background-color: #fff;
   z-index: 2;
   transform-origin: left;
-  animation: ${props => containerTransitions[props.transition]} 300ms forwards;
+  animation: ${props => containerTransitions[props.transition]} 200ms forwards;
 `;
 
 const overlayTransitions = {
@@ -33,12 +33,10 @@ const Overlay = styled(Box)`
   bottom: 0;
   opacity: 0.6;
   z-index: 1;
-  animation: ${props => overlayTransitions[props.transition]} 300ms forwards;
+  animation: ${props => overlayTransitions[props.transition]} 200ms forwards;
 `;
 
-const onOverlayClick = () => (window.location.hash = '');
-
-const Sidebar = ({transition}) => {
+const Sidebar = ({transition, onOverlayClick}) => {
   return (
     <Fragment>
       <Overlay transition={transition} background="dark-6" onClick={onOverlayClick} />
