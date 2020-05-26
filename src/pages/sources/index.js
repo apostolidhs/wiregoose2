@@ -88,6 +88,8 @@ const Sources = ({source, category = 'all'}) => {
     }, 500);
   }, [isRegistrationsLoaded, activeIndex]);
 
+  const [hasScroll, setScroll] = useState(false);
+  const onScroll = useCallback(() => setScroll(true), []);
   const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), []);
   const feedProps = useMemo(() => ({onClick: id => sourceFeedClicked(source, category, id)}), [category]);
 
@@ -111,7 +113,8 @@ const Sources = ({source, category = 'all'}) => {
               hasMore={hasMore}
               loading={loading}
               feedProps={feedProps}
-              scrollToIndex={scrollToIndex === -1 ? 0 : scrollToIndex}
+              onScroll={onScroll}
+              scrollToIndex={hasScroll ? -1 : scrollToIndex}
             />
           </Tab>
         ))}

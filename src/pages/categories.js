@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, lazy, Suspense, useCallback} from 'react';
+import React, {useEffect, useState, useMemo, lazy, Suspense, useCallback, useRef} from 'react';
 import {navigate} from '@reach/router';
 import useIntl from 'providers/localization/useIntl';
 import {useNotification} from 'providers/notifications';
@@ -57,6 +57,8 @@ const Categories = ({category}) => {
     return () => promise.abort();
   }, [target, category]);
 
+  const [hasScroll, setScroll] = useState(false);
+  const onScroll = useCallback(() => setScroll(true), []);
   const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), []);
   const feedProps = useMemo(() => ({onClick: id => categoryFeedClicked(category, id)}), [category]);
 
@@ -84,7 +86,8 @@ const Categories = ({category}) => {
           hasMore={hasMore}
           loading={loading}
           feedProps={feedProps}
-          scrollToIndex={scrollToIndex}
+          onScroll={onScroll}
+          scrollToIndex={hasScroll ? -1 : scrollToIndex}
         />
       </Suspense>
     </Main>

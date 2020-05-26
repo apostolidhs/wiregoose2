@@ -30,13 +30,13 @@ const getListItem = (feeds, {onClick = noop, ...feedProps}) => ({index, key, sty
   );
 };
 
-const Timeline = ({feeds, loadMoreItems, hasMore, feedProps, ...rest}) => {
+const Timeline = ({feeds, loadMoreItems, hasMore, feedProps, onScroll, ...rest}) => {
   const ListItem = useMemo(() => getListItem(feeds, feedProps), [feeds]);
   const itemCount = hasMore ? feeds.length + 1 : feeds.length;
   const isRowLoaded = ({index}) => feeds && index < feeds.length;
 
   return (
-    <WindowScroller>
+    <WindowScroller onScroll={onScroll}>
       {({height, isScrolling, registerChild: windowRegisterChild, onChildScroll, scrollTop}) => (
         <div style={{flex: '1 1 auto'}}>
           <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={hasMore ? loadMoreItems : noop} rowCount={itemCount}>
