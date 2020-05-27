@@ -26,27 +26,33 @@ const app = makeApp({
 
 const cacheDir = 'tmp/images';
 const baseDir = path.resolve(cacheDir);
-const lockPath = path.join(baseDir, '.lockProxy');
 const lruCache = new LRUCache({
   max: 1024,
-  dispose: key => fs.unlinkSync(key)
+  dispose: key => {
+    try {
+      fs.unlinkSync(key);
+    } catch (e) {
+      logger.error('images does not exist', key, e.toString());
+    }
+  }
 });
-
-if (fs.existsSync(lockPath)) {
-  const lockFile = fs.readFileSync(lockPath);
-  lruCache.load(JSON.parse(lockFile));
-  console.log('loaded lock file', lockPath);
-}
 
 if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir, {recursive: true});
   console.log('created cache folder', baseDir);
 }
 
-setInterval(() => {
-  const data = lruCache.dump();
-  fs.writeFileSync(lockPath, JSON.stringify(data));
-}, 60 * 60 * 1000);
+fs.readdirSync(baseDir)
+  .map(file => {
+    const filepath = path.join(baseDir, file);
+    return {filepath, ctime: fs.statSync(filepath).ctime};
+  })
+  .sort((stat1, stat2) => stat1.ctime.getTime() - stat2.ctime.getTime())
+  .forEach(({filepath}) => lruCache.set(filepath, filepath));
+
+if (lruCache.length) {
+  console.log(`${lruCache.length} files add to cache`);
+}
 
 const hashImage = url => crypto.createHash('md5').update(url).digest('hex');
 
