@@ -30,11 +30,11 @@ const SubInfo = ({id, ...rest}) => {
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
       <Box direction="row">
         <Link name={provider} category={category} size="32px" />
-        <Text alignSelf="center" size={size} color="dark-2" margin={{left: 'small'}}>
+        <Text alignSelf="end" size={size} color="dark-2" margin={{left: 'small'}}>
           {date}
         </Text>
         {author && (
-          <Text alignSelf="center" size={size} color="dark-2">
+          <Text alignSelf="end" size={size} color="dark-2">
             ,{' '}
             <Truncate size={isSmall ? 11 : 40} trailing=".">
               {author}

@@ -5,6 +5,7 @@ import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
 import List from 'react-virtualized/dist/commonjs/List';
 import Feed from 'components/feed';
+import FB from 'components/fb';
 import Skeleton from 'components/feed/skeleton';
 import 'react-virtualized/styles.css';
 
@@ -19,13 +20,20 @@ const defaultFeedProps = {
   margin: {horizontal: 'auto'}
 };
 
+const byType = {
+  feed: Feed,
+  fb: FB,
+  default: Skeleton
+};
+
 const getListItem = (feeds, {onClick = noop, ...feedProps}) => ({index, key, style}) => {
   const feed = feeds[index];
   const click = () => onClick(feed.id);
 
+  const Component = feed ? byType[feed.type] : byType.default;
   return (
     <div key={key} style={style}>
-      {feed ? <Feed feed={feed} onClick={click} {...defaultFeedProps} {...feedProps} /> : <Skeleton {...feedProps} />}
+      <Component feed={feed} onClick={click} {...defaultFeedProps} {...feedProps} />
     </div>
   );
 };

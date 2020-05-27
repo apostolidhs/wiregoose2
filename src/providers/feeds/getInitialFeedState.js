@@ -2,6 +2,7 @@ export default (id = null) => ({
   id,
   loading: false,
   loaded: false,
+  type: 'feed',
 
   link: '',
   title: '',

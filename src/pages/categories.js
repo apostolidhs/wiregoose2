@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, lazy, Suspense, useCallback, useRef} from 'react';
+import React, {useEffect, useState, useMemo, lazy, Suspense, useCallback} from 'react';
 import {navigate} from '@reach/router';
 import useIntl from 'providers/localization/useIntl';
 import {useNotification} from 'providers/notifications';
@@ -6,6 +6,7 @@ import {CategoryIcon, useCategoryName} from 'components/categories';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
+import getInitialFeedState from 'providers/feeds/getInitialFeedState';
 import TextedIcon from 'components/textedIcon';
 import Helmet from 'components/helmet';
 import Back from 'components/back';
@@ -19,6 +20,8 @@ const getOlder = feeds => {
   const feed = feeds[feeds.length - 1];
   return feed && feed.id;
 };
+
+let fbDisplayedCategory = false;
 
 const Categories = ({category}) => {
   const isAll = category === 'all';
@@ -57,14 +60,30 @@ const Categories = ({category}) => {
     return () => promise.abort();
   }, [target, category]);
 
+  const feedsWithAdv = useMemo(() => {
+    if (!fbDisplayedCategory) {
+      fbDisplayedCategory = category;
+    }
+    if (!loaded || !feeds.length || fbDisplayedCategory !== category) return feeds;
+
+    const adv = {...getInitialFeedState(), type: 'fb'};
+    const updatedFeeds = [...feeds];
+    updatedFeeds.splice(3, 1, adv);
+
+    return updatedFeeds;
+  }, [loaded, feeds]);
+
   const [hasScroll, setScroll] = useState(false);
   const onScroll = useCallback(() => setScroll(true), []);
-  const scrollToIndex = useMemo(() => (lastClickedId ? feeds.findIndex(({id}) => id === lastClickedId) : -1), []);
+  const scrollToIndex = useMemo(
+    () => (lastClickedId ? feedsWithAdv.findIndex(({id}) => id === lastClickedId) : -1),
+    []
+  );
   const feedProps = useMemo(() => ({onClick: id => categoryFeedClicked(category, id)}), [category]);
 
   const loadMoreItems = () => {
     if (loading || !loaded) return;
-    setTarget(getOlder(feeds));
+    setTarget(getOlder(feedsWithAdv));
   };
 
   const Icon = useCallback(props => <CategoryIcon name={category} {...props} />, [category]);
@@ -81,7 +100,7 @@ const Categories = ({category}) => {
       {!isAll && <TextedIcon Icon={Icon}>{categoryName}</TextedIcon>}
       <Suspense fallback={null}>
         <Timeline
-          feeds={feeds}
+          feeds={feedsWithAdv}
           loadMoreItems={loadMoreItems}
           hasMore={hasMore}
           loading={loading}
