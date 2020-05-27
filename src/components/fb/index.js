@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Box, Anchor, Text, Heading} from 'grommet';
+import {Box, Anchor, Heading} from 'grommet';
 import {Facebook} from 'grommet-icons';
 import styled from 'styled-components';
 import {useFacebook} from 'providers/facebook';
