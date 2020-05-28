@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import {navigate} from '@reach/router';
 import {Main, Heading} from 'grommet';
 import {useNotification} from 'providers/notifications';
@@ -11,6 +11,7 @@ import FeedLinkSkeleton from 'components/feed/link/skeleton';
 import Related from 'components/article/related';
 import ArticleComponent, {Image} from 'components/article';
 import {useCategoryName} from 'components/categories';
+import {getImage} from 'components/image';
 import Header from 'components/article/header';
 import Skeleton from 'components/article/skeleton';
 import Helmet from 'components/helmet';
@@ -73,24 +74,30 @@ const Article = ({feedId}) => {
     return () => promise.abort();
   }, [feedId]);
 
+  const helmetProps = useMemo(() => {
+    if (errorCode) return null;
+
+    const clearedTitle = clearText(title);
+    const categoryName = articleLoaded && getCategoryName(category);
+
+    return {
+      title: `${clearedTitle} - Wiregoose από ${provider}`,
+      description: description,
+      image: getImage(image),
+      section: categoryName,
+      author: author,
+      published: published,
+      type: 'article',
+      keywords: [...getKeywords(clearedTitle), categoryName]
+    };
+  }, [articleLoaded]);
+
   if (errorCode === 404) return <Error404 />;
   if (errorCode && errorCode !== -1) return <Error500 />;
 
-  const clearedTitle = clearText(title);
-  const categoryName = loaded && getCategoryName(category);
-
   return (
     <Main pad="medium" height="initial" overflow="initial">
-      <Helmet
-        title={`${clearedTitle} - Wiregoose από ${provider}`}
-        description={description}
-        image={image}
-        section={categoryName}
-        author={author}
-        published={published}
-        type="article"
-        keywords={[...getKeywords(clearedTitle), categoryName]}
-      />
+      <Helmet {...helmetProps} />
       <Header feedId={feedId} />
       {relatedLoading && <FeedLinkSkeleton margin={{top: 'xsmall'}} />}
       {nextRelatedFeed && <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />}

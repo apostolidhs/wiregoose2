@@ -68,7 +68,7 @@ const Categories = ({category}) => {
 
     const adv = {...getInitialFeedState(), type: 'fb'};
     const updatedFeeds = [...feeds];
-    updatedFeeds.splice(3, 1, adv);
+    updatedFeeds.splice(6, 1, adv);
 
     return updatedFeeds;
   }, [loaded, feeds]);

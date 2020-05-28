@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import ReactGA from 'react-ga';
 import ThemeProvider from 'providers/theme';
 import NotificationsProvider from 'providers/notifications';
 import ConfigProvider from 'providers/config';
@@ -12,9 +13,8 @@ import Pages from './pages';
 
 const App = () => {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      import('react-ga').then(ReactGA => ReactGA.initialize('UA-90338056-2'));
-    }
+    if (process.env.NODE_ENV !== 'production') return;
+    ReactGA.initialize('UA-90338056-2');
   }, []);
 
   return (
