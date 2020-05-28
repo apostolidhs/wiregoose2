@@ -1,0 +1,27 @@
+import React, {useEffect} from 'react';
+import {Box} from 'grommet';
+import {useAdSenseDispatch} from 'providers/adsense';
+import {enabledAdSense} from 'helpers/environment';
+
+const AdSense = props => {
+  const {update} = useAdSenseDispatch();
+
+  useEffect(() => {
+    if (!enabledAdSense()) return;
+    update();
+  }, []);
+
+  return (
+    <Box {...props}>
+      <ins
+        className="adsbygoogle"
+        style={{display: 'block'}}
+        data-ad-format="fluid"
+        data-ad-layout-key="-5z+dj-u-74+r2"
+        data-ad-client="ca-pub-3571483150053473"
+        data-ad-slot="8493166831"></ins>
+    </Box>
+  );
+};
+
+export default AdSense;

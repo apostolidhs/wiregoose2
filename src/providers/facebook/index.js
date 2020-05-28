@@ -33,8 +33,8 @@ const getFB = once(
 
 const dispatch = {getFB};
 
-const FeedProvider = ({children}) => <Context.Provider value={dispatch}>{children}</Context.Provider>;
+const FacebookProvider = ({children}) => <Context.Provider value={dispatch}>{children}</Context.Provider>;
 
 export const useFacebook = () => useContext(Context);
 
-export default FeedProvider;
+export default FacebookProvider;

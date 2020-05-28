@@ -6,6 +6,7 @@ import {CategoryIcon, useCategoryName} from 'components/categories';
 import {useConfigSelector} from 'providers/config/selectors';
 import {useApiSelector} from 'providers/api/selectors';
 import {useFeedCategory, useFeedDispatch} from 'providers/feeds/selectors';
+import {useAdSense} from 'providers/adsense';
 import getInitialFeedState from 'providers/feeds/getInitialFeedState';
 import TextedIcon from 'components/textedIcon';
 import Helmet from 'components/helmet';
@@ -34,6 +35,7 @@ const Categories = ({category}) => {
   const {categoryFetchStarted, categoryFetchFinished, categoryFetchFailed, categoryFeedClicked} = useFeedDispatch();
   const [target, setTarget] = useState();
   const [hasMore, setHasMore] = useState(false);
+  const hasAdBlocked = useAdSense();
 
   useMemo(() => {
     if (!isAll && !categories.includes(category)) navigate('/');
@@ -66,12 +68,18 @@ const Categories = ({category}) => {
     }
     if (!loaded || !feeds.length || fbDisplayedCategory !== category) return feeds;
 
-    const adv = {...getInitialFeedState(), type: 'fb'};
     const updatedFeeds = [...feeds];
-    updatedFeeds.splice(6, 1, adv);
+
+    const fbFeed = {...getInitialFeedState(), type: 'fb'};
+    updatedFeeds.splice(8, 1, fbFeed);
+
+    if (!hasAdBlocked) {
+      const adSenceFeed = {...getInitialFeedState(), type: 'adSence'};
+      updatedFeeds.splice(5, 1, adSenceFeed);
+    }
 
     return updatedFeeds;
-  }, [loaded, feeds]);
+  }, [loaded, feeds, hasAdBlocked]);
 
   const [hasScroll, setScroll] = useState(false);
   const onScroll = useCallback(() => setScroll(true), []);

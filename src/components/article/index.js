@@ -1,6 +1,8 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import {Box, Paragraph as P, Heading as H} from 'grommet';
 import ImageComponent from 'components/image';
+import {useAdSenseDispatch} from 'providers/adsense';
+import {enabledAdSense} from 'helpers/environment';
 
 const Paragraph = ({text}) => (
   <P size="large" margin="none">
@@ -13,6 +15,27 @@ const Header = ({text}) => (
     {text}
   </H>
 );
+
+const AdSense = () => {
+  const {update} = useAdSenseDispatch();
+
+  useEffect(() => {
+    if (!enabledAdSense()) return;
+    update();
+  }, []);
+
+  return (
+    <Box width="100%">
+      <ins
+        className="adsbygoogle"
+        style={{display: 'block', textAlign: 'center'}}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-3571483150053473"
+        data-ad-slot="1796676796"></ins>
+    </Box>
+  );
+};
 
 export const Image = ({src, ...rest}) => (
   <Box height={{min: '200px', max: '400px'}} {...rest}>
@@ -31,7 +54,8 @@ const types = {
   p: Paragraph,
   h: Header,
   img: Image,
-  video: Video
+  video: Video,
+  adSence: AdSense
 };
 
 const filterContent = content => content.filter(section => types[section.type]);

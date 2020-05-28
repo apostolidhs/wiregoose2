@@ -5,6 +5,7 @@ import {useNotification} from 'providers/notifications';
 import {useFeedSelector, useRelatedFeedsSelector, useFeedDispatch} from 'providers/feeds/selectors';
 import getInitialFeedState from 'providers/feeds/getInitialFeedState';
 import {useApiSelector} from 'providers/api/selectors';
+import {useAdSense} from 'providers/adsense';
 import SubInfo from 'components/feed/subInfo';
 import FeedLink from 'components/feed/link';
 import FeedLinkSkeleton from 'components/feed/link/skeleton';
@@ -48,6 +49,7 @@ const Article = ({feedId}) => {
   const {feedFetchStarted, feedFetchFinished, feedFetchFailed} = useFeedDispatch();
   const getCategoryName = useCategoryName();
   const [errorCode, setErrorCode] = useState();
+  const hasAdBlocked = useAdSense();
 
   useEffect(() => {
     if (!feedId) {
@@ -73,6 +75,24 @@ const Article = ({feedId}) => {
 
     return () => promise.abort();
   }, [feedId]);
+
+  const articleContentWithAds = useMemo(() => {
+    if (articleContent.length < 3 || hasAdBlocked) return articleContent;
+
+    let totalP = 0;
+    const embedIndex = articleContent.findIndex(({type}, index) => {
+      if (type === 'p') {
+        totalP = totalP + 1;
+      }
+      return totalP === 2;
+    });
+
+    if (embedIndex === -1) return articleContent;
+
+    let articleCopy = [...articleContent];
+    articleCopy.splice(embedIndex, 0, {type: 'adSence'});
+    return articleCopy;
+  }, [articleContent, hasAdBlocked]);
 
   const helmetProps = useMemo(() => {
     if (errorCode) return null;
@@ -111,7 +131,9 @@ const Article = ({feedId}) => {
       {loaded && <SubInfo id={feedId} margin={{top: 'large'}} />}
       {(image || loading) && <Image src={image} margin={{top: 'large'}} />}
       {articleLoaded && articleError && <ErrorSlate id={feedId} margin={{vertical: 'large'}} />}
-      {articleLoaded && !articleError && <ArticleComponent content={articleContent} margin={{vertical: 'large'}} />}
+      {articleLoaded && !articleError && (
+        <ArticleComponent content={articleContentWithAds} margin={{vertical: 'large'}} />
+      )}
       {articleLoading && <Skeleton margin={{vertical: 'large'}} />}
       {relatedFeeds && <Related feeds={relatedFeeds} margin={{top: 'large'}} />}
     </Main>

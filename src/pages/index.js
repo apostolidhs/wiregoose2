@@ -1,11 +1,13 @@
 import React, {Suspense, lazy, useRef, useEffect, useCallback, useState, forwardRef} from 'react';
 import {Box} from 'grommet';
+import ReactGA from 'react-ga';
 import {Router, navigate, Location, Redirect} from '@reach/router';
 import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
 import {Transition} from 'react-transition-group';
 import {useScreenSize} from 'providers/theme/selectors';
 import {useIsAdmin} from 'providers/session';
+import {enabledAdSense} from 'helpers/environment';
 
 const NavBar = lazy(() => import(/* webpackChunkName: 'components.navbar' */ 'components/navbar'));
 const SlideSidebar = lazy(() => import(/* webpackChunkName: 'components.sidebar.slide' */ './sidebar/slide'));
@@ -41,6 +43,11 @@ const initialContentPadding = {
 
 const isSidebarOpen = () => window.location.hash === '#sidebar';
 
+const trackPage = () => {
+  if (!enabledAdSense()) return;
+  ReactGA.pageview(window.location.href);
+};
+
 const NotFound = () => {
   navigate('/');
   return null;
@@ -68,6 +75,12 @@ const Pages = () => {
     setContentPadding(s => ({...s, top: `${headerRef.current.clientHeight}px`}));
   }, [headerRef.current]);
 
+  useEffect(() => {
+    if (!enabledAdSense()) return;
+    ReactGA.initialize('UA-90338056-2');
+    trackPage();
+  }, []);
+
   useStickyHeader(headerRef);
 
   const onMenuClick = useCallback(() => {
@@ -85,6 +98,10 @@ const Pages = () => {
       {({location}) => {
         if (isSmall && prevLocation !== location.href && sidebarOpen !== isSidebarOpen()) {
           setSidebarOpen(!sidebarOpen);
+        }
+
+        if (prevLocation !== location.href) {
+          trackPage();
         }
 
         return (
