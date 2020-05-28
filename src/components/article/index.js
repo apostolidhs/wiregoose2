@@ -3,6 +3,7 @@ import {Box, Paragraph as P, Heading as H} from 'grommet';
 import ImageComponent from 'components/image';
 import {useAdSenseDispatch} from 'providers/adsense';
 import {enabledAdSense} from 'helpers/environment';
+import {useScreenSize} from 'providers/theme/selectors';
 
 const Paragraph = ({text}) => (
   <P size="large" margin="none">
@@ -17,6 +18,7 @@ const Header = ({text}) => (
 );
 
 const AdSense = () => {
+  const {isSmall} = useScreenSize();
   const {update} = useAdSenseDispatch();
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const AdSense = () => {
   }, []);
 
   return (
-    <Box width="100%">
+    <Box width={isSmall ? '100%' : '528px'}>
       <ins
         className="adsbygoogle"
         style={{display: 'block', textAlign: 'center'}}

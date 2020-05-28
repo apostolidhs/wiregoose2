@@ -90,7 +90,7 @@ const Article = ({feedId}) => {
     if (embedIndex === -1) return articleContent;
 
     let articleCopy = [...articleContent];
-    articleCopy.splice(embedIndex, 0, {type: 'adSence'});
+    articleCopy.splice(embedIndex + 1, 0, {type: 'adSence'});
     return articleCopy;
   }, [articleContent, hasAdBlocked]);
 
