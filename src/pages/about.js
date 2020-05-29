@@ -15,7 +15,9 @@ const Explore = () => {
         keywords={['σχετικά', 'πληροφορίες', 'rss']}
       />
       <Back absolute />
-      <TextedIcon Icon={Info}>Σχετικά</TextedIcon>
+      <TextedIcon Icon={Info} flex="grow">
+        Σχετικά
+      </TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>
         <Heading level="2" margin={{top: 'none', bottom: 'none'}}>
           Τι είναι το Wiregoose

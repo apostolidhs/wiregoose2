@@ -15,13 +15,13 @@ const Providers = ({category, providers}) => {
   const onClick = useCallback(() => setExpand(true), []);
 
   return (
-    <Box gap="small" direction="row" wrap margin={{left: '36px'}}>
+    <Box gap="small" direction="row" wrap margin={{left: '36px'}} height={{min: 'initial'}}>
       {initialProviders.map(provider => (
         <ProviderLink key={provider.name} category={category} name={provider.name} />
       ))}
       {!expand && <Button plain onClick={onClick} icon={<More size="22px" />} alignSelf="start" />}
       {expand && (
-        <Box gap="small" direction="row" wrap>
+        <Box gap="small" direction="row" height={{min: 'initial'}} wrap>
           {restProviders.map((provider, index) => (
             <ProviderLink key={provider.name} category={category} name={provider.name} margin={{top: 'xsmall'}} />
           ))}
@@ -32,7 +32,7 @@ const Providers = ({category, providers}) => {
 };
 
 const Category = ({category, providers}) => (
-  <Box gap="xsmall">
+  <Box gap="xsmall" height={{min: 'initial'}}>
     <CategoryLink size="large" icon category={category} />
     <Providers category={category} providers={providers} />
   </Box>

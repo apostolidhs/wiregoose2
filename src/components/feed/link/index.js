@@ -18,8 +18,8 @@ export const LinkContainer = props => (
 );
 
 const Link = ({feed: {id, image, title}, ...rest}) => (
-  <LinkContainer {...rest}>
-    <Box direction="row" gap="small">
+  <LinkContainer flex="grow" {...rest}>
+    <Box direction="row" gap="small" height={{min: 'initial'}}>
       {image && <Image height={50} width={50} feedId={id} src={image} />}
       {title && (
         <TextTitle alignSelf="center" feedId={id}>

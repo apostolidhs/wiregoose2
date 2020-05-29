@@ -6,8 +6,8 @@ import Content from './content';
 
 const Sidebar = forwardRef((props, ref) => {
   return (
-    <Box direction="column" height="100%" ref={ref} {...props}>
-      <Box pad={{bottom: 'small'}}>
+    <Box direction="column" height={{min: 'initial'}} flex="grow" ref={ref} {...props}>
+      <Box pad={{bottom: 'small'}} height={{min: 'initial'}}>
         <Link to={`/settings`} Icon={Menu} title="Μενού">
           Μενού
         </Link>

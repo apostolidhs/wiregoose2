@@ -14,7 +14,7 @@ const Paragraph = ({isSmall}) => (
 const Skeleton = props => {
   const {isSmall} = useScreenSize();
   return (
-    <Box gap="large" align="center" {...props}>
+    <Box gap="large" align="center" flex="grow" {...props}>
       <Paragraph isSmall={isSmall} />
       <Paragraph isSmall={isSmall} />
       <Paragraph isSmall={isSmall} />

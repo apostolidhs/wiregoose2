@@ -36,7 +36,9 @@ const Providers = () => {
         keywords={['πηγές', 'νέα', 'ειδήσεις', 'πάροχοι']}
       />
       <Back absolute />
-      <TextedIcon Icon={Rss}>Πηγές</TextedIcon>
+      <TextedIcon Icon={Rss} flex="grow">
+        Πηγές
+      </TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>
         <Paragraph size="xlarge" alignSelf="center" margin={{top: 'none', bottom: 'none'}}>
           Σεβόμαστε τις πηγές που αντλούμε τα νέα. Για αυτόν τον λόγο τονίζουμε με πολύ εμφανή τρόπο την πηγή που

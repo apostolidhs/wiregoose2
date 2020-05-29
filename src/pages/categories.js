@@ -82,7 +82,7 @@ const Categories = ({category}) => {
       updatedFeeds.splice(5, 1, adSenceFeed);
 
       if (feeds.length > 60) {
-        updatedFeeds.splice(54, 1, fbFeed);
+        updatedFeeds.splice(54, 1, adSenceFeed);
       }
     }
 
@@ -113,7 +113,11 @@ const Categories = ({category}) => {
         keywords={['νέα', 'ειδήσεις', categoryName]}
       />
       {!isAll && <Back absolute noLabel />}
-      {!isAll && <TextedIcon Icon={Icon}>{categoryName}</TextedIcon>}
+      {!isAll && (
+        <TextedIcon Icon={Icon} flex="grow">
+          {categoryName}
+        </TextedIcon>
+      )}
       <Suspense fallback={null}>
         <Timeline
           feeds={feedsWithAdv}

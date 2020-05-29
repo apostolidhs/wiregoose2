@@ -7,7 +7,7 @@ const Categories = props => {
   const {byCategory} = useRegistrationsSelector();
   return useMemo(
     () => (
-      <Box direction="column" gap="small" height={{min: 'auto'}} {...props}>
+      <Box direction="column" gap="small" height={{min: 'initial'}} {...props}>
         {Object.keys(byCategory).map(category => (
           <RegistrationCategory key={category} category={category} providers={byCategory[category]} />
         ))}

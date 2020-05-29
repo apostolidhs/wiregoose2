@@ -83,9 +83,9 @@ export const CategoryLink = ({category, color, size, iconSize, icon, ...rest}) =
   );
 
   return (
-    <Box align="end" gap="small" as={link} direction="row" {...rest}>
+    <Box align="end" gap="small" as={link} direction="row" height={{min: 'initial'}} {...rest}>
       {icon && (
-        <Box justify="center">
+        <Box justify="center" height={{min: 'initial'}}>
           <CategoryIcon size={iconSize} name={category} />
         </Box>
       )}

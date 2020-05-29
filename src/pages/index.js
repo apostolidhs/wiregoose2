@@ -125,7 +125,7 @@ const Pages = () => {
                 <Suspense fallback={null}>
                   <Box
                     direction="column"
-                    height={{min: 'large'}}
+                    height={{min: 'initial'}}
                     width={{min: '264px', max: '264px'}}
                     pad="medium"
                     margin={{right: 'medium'}}>

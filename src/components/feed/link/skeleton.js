@@ -3,7 +3,7 @@ import SkeletonComponent from 'components/skeleton';
 import {LinkContainer} from './index';
 
 const Skeleton = props => (
-  <LinkContainer {...props}>
+  <LinkContainer flex="grow" {...props}>
     <SkeletonComponent />
   </LinkContainer>
 );

@@ -21,6 +21,7 @@ const ErrorSlate = ({id, ...rest}) => {
       elevation="xsmall"
       gap="medium"
       border={{color: 'status-warning', size: '1px'}}
+      flex="grow"
       {...rest}>
       <Paragraph size="large" margin="none">
         <DocumentMissing color="status-warning" size="32px" />{' '}

@@ -28,7 +28,7 @@ const SubInfo = ({id, ...rest}) => {
 
   return (
     <Box direction="row" justify="between" height={{min: 'initial'}} {...rest}>
-      <Box direction="row">
+      <Box direction="row" height={{min: 'initial'}}>
         <Link name={provider} category={category} size="32px" />
         <Text alignSelf="end" size={size} color="dark-2" margin={{left: 'small'}}>
           {date}

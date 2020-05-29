@@ -15,7 +15,9 @@ const Credits = () => {
         keywords={['δημιουργοί σελίδας', 'κατασκευαστές', 'ποιοί είμαστε']}
       />
       <Back absolute />
-      <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon>
+      <TextedIcon Icon={Edit} flex="grow">
+        Δημιουργοί
+      </TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}} justify="center" align="center" gap="small">
         <Paragraph size="large" textAlign="center" margin={{top: 'none', bottom: 'none'}}>
           Εμπνεύστηκε, Σχεδιάστηκε, Αναπτύχθηκε από τον Γιάννη Αποστολίδη

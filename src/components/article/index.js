@@ -63,7 +63,7 @@ const types = {
 const filterContent = content => content.filter(section => types[section.type]);
 
 const Article = ({content, ...rest}) => (
-  <Box gap="large" align="center" height={{min: 'initial'}} {...rest}>
+  <Box gap="large" align="center" height={{min: 'initial'}} flex="grow" {...rest}>
     {filterContent(content).map(({type, ...rest}, index) => {
       const Component = types[type];
       return <Component key={index} {...rest} />;

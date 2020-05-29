@@ -7,7 +7,7 @@ const Sources = props => {
   const {providers} = useRegistrationsSelector();
 
   return (
-    <Box direction="column" gap="small" height={{min: 'auto'}} {...props}>
+    <Box direction="column" gap="small" height={{min: 'initial'}} {...props}>
       <Category category="all" providers={providers} />
     </Box>
   );

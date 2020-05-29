@@ -9,7 +9,7 @@ const Admin = lazy(() => import(/* webpackChunkName: 'sidebar.admin' */ './admin
 const Content = props => {
   const isAdmin = useIsAdmin();
   return (
-    <Box {...props}>
+    <Box height={{min: 'initial'}} flex="grow" {...props}>
       {isAdmin && <Admin margin={{bottom: 'medium'}} pad={{bottom: 'medium'}} />}
       <Sources />
       <Categories margin={{top: 'small'}} pad={{top: 'small'}} border={{side: 'top', color: 'light-3'}} />

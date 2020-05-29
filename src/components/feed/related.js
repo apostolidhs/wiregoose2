@@ -5,7 +5,7 @@ import TextTitle from './textTitle';
 import SubInfo from './subInfo';
 
 const Related = ({feed: {id, title, image}, ...rest}) => (
-  <Box as="article" pad="medium" gap="medium" elevation="xsmall" {...rest}>
+  <Box as="article" pad="medium" gap="medium" elevation="xsmall" flex="grow" {...rest}>
     <Box gap="small" direction="row">
       {image && <Image feedId={id} src={image} height={100} width={120} />}
       {title && <TextTitle feedId={id}>{title}</TextTitle>}

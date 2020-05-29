@@ -122,11 +122,13 @@ const Article = ({feedId}) => {
   if (errorCode === 404) return <Error404 />;
   if (errorCode && errorCode !== -1) return <Error500 />;
 
+  const flex = articleLoading ? false : 'grow';
+
   return (
     <Main pad="medium" height="initial" overflow="initial">
       <Helmet {...helmetProps} />
-      <Header feedId={feedId} />
-      {relatedLoading && <FeedLinkSkeleton margin={{top: 'xsmall'}} />}
+      <Header feedId={feedId} flex={flex} />
+      {relatedLoading && <FeedLinkSkeleton flex={flex} margin={{top: 'xsmall'}} />}
       {nextRelatedFeed && <FeedLink feed={nextRelatedFeed} margin={{top: 'xsmall'}} />}
       {loading && <HeadingSkeleton margin={{top: 'large', bottom: 'none'}} />}
       {loaded && (
@@ -135,7 +137,7 @@ const Article = ({feedId}) => {
         </Heading>
       )}
       {loaded && !articleError && <Disclaimer id={feedId} margin={{top: 'small'}} />}
-      {loaded && <SubInfo id={feedId} margin={{top: 'large'}} />}
+      {loaded && <SubInfo id={feedId} flex={flex} margin={{top: 'large'}} />}
       {(image || loading) && <Image src={image} margin={{top: 'large'}} />}
       {articleLoaded && articleError && <ErrorSlate id={feedId} margin={{vertical: 'large'}} />}
       {articleLoaded && !articleError && (
