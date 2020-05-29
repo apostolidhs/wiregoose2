@@ -3,6 +3,7 @@ import styled, {keyframes} from 'styled-components';
 import {Transition, SwitchTransition} from 'react-transition-group';
 import {Button} from 'grommet';
 import {Link as GLink, Checkmark} from 'grommet-icons';
+import {useNotification} from 'providers/notifications';
 import useIntl from 'providers/localization/useIntl';
 
 const overlayTransitions = {
@@ -16,6 +17,7 @@ const StyledButton = styled(Button)`
 
 const Link = ({link}) => {
   const t = useIntl();
+  const notification = useNotification();
   const [checked, setChecked] = useState(false);
   const timeoutRef = useRef();
 
@@ -26,6 +28,7 @@ const Link = ({link}) => {
         .then(() => {
           setChecked(true);
           timeoutRef.current = setTimeout(() => setChecked(false), 500);
+          notification.info('Ο σύνδεσμος αντιγράφηκε', {timeout: 3000});
         }),
     []
   );

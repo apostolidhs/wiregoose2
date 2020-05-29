@@ -25,6 +25,8 @@ import Error500 from './Error500';
 
 const initialFeedState = {...getInitialFeedState(), loading: true};
 
+let advsCount = 0;
+
 const Article = ({feedId}) => {
   const notification = useNotification();
   const {
@@ -70,7 +72,7 @@ const Article = ({feedId}) => {
       .catch(error => {
         setErrorCode(error.status);
         feedFetchFailed(feedId, fetchOptions);
-        if (error.status === -1) notification.server(error);
+        if (error.status === -1 && error.statusText !== 'AbortError') notification.server(error);
       });
 
     return () => promise.abort();
@@ -84,13 +86,18 @@ const Article = ({feedId}) => {
       if (type === 'p') {
         totalP = totalP + 1;
       }
-      return totalP === 2;
+      return totalP === 3;
     });
 
     if (embedIndex === -1) return articleContent;
 
-    let articleCopy = [...articleContent];
+    advsCount = advsCount + 1;
+
+    if (advsCount % 2 === 0) return articleContent;
+
+    const articleCopy = [...articleContent];
     articleCopy.splice(embedIndex + 1, 0, {type: 'adSence'});
+
     return articleCopy;
   }, [articleContent, hasAdBlocked]);
 

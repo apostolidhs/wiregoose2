@@ -1,15 +1,15 @@
 export default dispatch => {
-  let timeout = null;
+  let timeoutId = null;
 
   const clear = () => {
-    clearTimeout(timeout);
+    clearTimeout(timeoutId);
     dispatch(null);
   };
 
-  const make = type => message => {
+  const make = type => (message, {timeout = 5000} = {}) => {
     clear();
     dispatch({type, message});
-    timeout = setTimeout(clear, 5000);
+    timeoutId = setTimeout(clear, timeout);
   };
 
   const info = make('info');

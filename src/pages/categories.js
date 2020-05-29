@@ -66,16 +66,24 @@ const Categories = ({category}) => {
     if (!fbDisplayedCategory) {
       fbDisplayedCategory = category;
     }
-    if (!loaded || !feeds.length || fbDisplayedCategory !== category) return feeds;
+    if (!loaded || feeds.length < 10 || fbDisplayedCategory !== category) return feeds;
 
     const updatedFeeds = [...feeds];
 
     const fbFeed = {...getInitialFeedState(), type: 'fb'};
     updatedFeeds.splice(8, 1, fbFeed);
 
+    if (feeds.length > 40) {
+      updatedFeeds.splice(38, 1, fbFeed);
+    }
+
     if (!hasAdBlocked) {
       const adSenceFeed = {...getInitialFeedState(), type: 'adSence'};
       updatedFeeds.splice(5, 1, adSenceFeed);
+
+      if (feeds.length > 60) {
+        updatedFeeds.splice(54, 1, fbFeed);
+      }
     }
 
     return updatedFeeds;

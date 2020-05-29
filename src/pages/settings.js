@@ -12,22 +12,21 @@ const StyledAnchor = styled(Anchor)`
   font-weight: initial;
 `;
 
-const Title = ({Icon, children, ...rest}) => (
-  <Box direction="row" gap="small" align="center" {...rest}>
-    <Icon size="38px" color="dark-1" />
-    <Text size="large">{children}</Text>
-  </Box>
-);
-
 const InternalLink = ({path, Icon, children, ...rest}) => (
   <Link to={`/settings/${path}`} {...rest}>
-    <Title Icon={Icon}>{children}</Title>
+    <Box direction="row" gap="small" align="center" {...rest}>
+      <Icon size="38px" color="dark-1" />
+      <Text size="large">{children}</Text>
+    </Box>
   </Link>
 );
 
 const ExternalLink = ({href, path, Icon, children, ...rest}) => (
   <StyledAnchor href={href} target="_blank" {...rest}>
-    <Title Icon={Icon}>{children}</Title>
+    <Box direction="row" gap="small" align="center" {...rest}>
+      <Icon size="22px" color="dark-1" />
+      <Text>{children}</Text>
+    </Box>
   </StyledAnchor>
 );
 
@@ -51,12 +50,14 @@ const Settings = () => {
         <InternalLink path="credits" Icon={Edit}>
           Δημιουργοί
         </InternalLink>
-        <ExternalLink href="https://www.facebook.com/wiregoose" Icon={Facebook} margin={{top: 'medium'}}>
-          Facebook
-        </ExternalLink>
-        <ExternalLink href="https://twitter.com/wiregoose" Icon={Twitter}>
-          Twitter
-        </ExternalLink>
+        <Box direction="row" margin={{top: 'medium'}} gap="medium">
+          <ExternalLink href="https://www.facebook.com/wiregoose" Icon={Facebook}>
+            Η σελίδα μας στο Facebook
+          </ExternalLink>
+          <ExternalLink href="https://twitter.com/wiregoose" Icon={Twitter}>
+            Το προφλίλ μας στο Twitter
+          </ExternalLink>
+        </Box>
         <Text margin={{top: 'medium'}} size="small" color="dark-3" textAlign="end">
           version {process.env.REACT_APP_GIT_SHA}
         </Text>
