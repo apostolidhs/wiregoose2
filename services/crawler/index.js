@@ -27,9 +27,13 @@ connect().then(() => {
 //   },
 //   addError: () => {}
 // });
-
+// // 'https://www.sport24.gr/latest/?widget=rssfeed&view=feed&contentId=174866'
+// //'https://www.newsbeast.gr/feed'
 // connect().then(async () => {
-//   const registration = getRegistration('newsit', 'https://www.sport24.gr/?widget=rssfeed&view=feed');
+//   const registration = getRegistration(
+//     'newsit',
+//     'https://www.sport24.gr/latest/?widget=rssfeed&view=feed&contentId=174866'
+//   );
 //   const [result, error] = await fromUrl(registration);
 //   console.log(result, error);
 // });

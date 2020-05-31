@@ -16,7 +16,12 @@ const extractImage = (content, domain) => {
   return domainImageUrl || imageUrls[0];
 };
 
-const parseImage = ({image, content, enclosure, ...rest}, {provider: {link}}) => {
+const getFromLinks = links => {
+  const img = links.find(link => typeof link === 'object' && link && link.$ && link.$.type === 'image/jpeg');
+  return img && img.$.href;
+};
+
+const parseImage = ({image, content, enclosure, links, ...rest}, {provider: {link}}) => {
   if (image && image.$ && image.$.url) {
     return image.$.url;
   }
@@ -25,7 +30,10 @@ const parseImage = ({image, content, enclosure, ...rest}, {provider: {link}}) =>
     return enclosure.url;
   }
 
-  let src = content && extractImage(content, link);
+  let src = getFromLinks(links);
+  if (src) return src;
+
+  src = content && extractImage(content, link);
   if (src) return src;
 
   const contentEncoded = rest['content:encoded'];

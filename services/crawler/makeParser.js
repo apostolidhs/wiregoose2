@@ -7,7 +7,8 @@ module.exports = () =>
       item: [
         ['media:thumbnail', 'image'],
         ['a10:updated', 'updated'],
-        ['summary', 'description']
+        ['summary', 'description'],
+        ['link', 'links', {keepArray: true}]
       ]
     },
     timeout: 10000,
