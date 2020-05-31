@@ -8,6 +8,7 @@ const initialize = once(() => {
   return new Promise((resolve, reject) => {
     const scriptEl = document.createElement('script');
     scriptEl.setAttribute('async', '');
+    scriptEl.setAttribute('data-ad-client', 'ca-pub-3571483150053473');
     scriptEl.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     scriptEl.onerror = reject;
     scriptEl.onload = resolve;

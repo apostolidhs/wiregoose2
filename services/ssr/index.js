@@ -22,7 +22,7 @@ puppeteer
   .launch({headless: true, args: ['--no-sandbox']})
   .then(browser => browser.newPage().then(() => browser.close()));
 
-const webpage = process.env.NODE_ENV === 'production' ? 'https://www.wiregoose.com/' : 'http://localhost:3000/';
+const webpage = process.env.NODE_ENV === 'production' ? 'https://wiregoose.com/' : 'http://localhost:3000/';
 
 app.get('*', async (req, res) => {
   const url = decodeURIComponent(req.url.substring(1));
