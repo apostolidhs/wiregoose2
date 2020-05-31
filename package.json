@@ -44,6 +44,7 @@
     "readability": "https://github.com/mozilla/readability",
     "rss-parser": "^3.7.6",
     "sharp": "^0.25.2",
+    "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.0.1",
     "winston": "^3.2.1"
   },

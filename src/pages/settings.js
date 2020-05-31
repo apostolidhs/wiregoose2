@@ -32,7 +32,7 @@ const ExternalLink = ({href, path, Icon, children, ...rest}) => (
 
 const Settings = () => {
   return (
-    <Main>
+    <Main overflow={{vertical: 'auto'}}>
       <Helmet
         title="Μενού - Wiregoose"
         description="Το βασικό μενού του Wiregoose"
@@ -50,7 +50,7 @@ const Settings = () => {
         <InternalLink path="credits" Icon={Edit}>
           Δημιουργοί
         </InternalLink>
-        <Box direction="row" margin={{top: 'medium'}} gap="medium">
+        <Box direction="row" margin={{top: 'medium'}} flex="grow" gap="medium">
           <ExternalLink href="https://www.facebook.com/wiregoose" Icon={Facebook}>
             Η σελίδα μας στο Facebook
           </ExternalLink>

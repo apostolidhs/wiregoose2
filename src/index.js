@@ -1,6 +1,6 @@
 // import 'react-app-polyfill/ie11';
 // import 'abortcontroller-polyfill';
-
+import './polyfills';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';

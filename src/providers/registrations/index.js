@@ -17,13 +17,14 @@ const Registrations = ({children}) => {
 
     promise
       .then(({data: {registrations, providers}}) => {
+        const sortedProviders = providers.sort((p1, p2) => p1.name.localeCompare(p2.name));
         const byCategory = registrations.reduce((h, providerIndexes, categoryIndex) => {
           return {
             ...h,
-            [config.categories[categoryIndex]]: providerIndexes.map(providerIndex => providers[providerIndex])
+            [config.categories[categoryIndex]]: providerIndexes.map(providerIndex => sortedProviders[providerIndex])
           };
         }, {});
-        setState({byCategory, providers, loaded: true});
+        setState({byCategory, providers: sortedProviders, loaded: true});
       })
       .catch(error => notification.server(error));
 

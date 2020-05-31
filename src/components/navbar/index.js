@@ -11,6 +11,16 @@ const Container = styled(Box)`
   right: 0;
 `;
 
+const onLandingClicked = () => {
+  if (window.location.pathname === '/') {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+};
+
 const NavBar = ({onReady, onMenuClick, ...props}) => {
   const ref = useRef();
 
@@ -22,7 +32,7 @@ const NavBar = ({onReady, onMenuClick, ...props}) => {
     <Container ref={ref} {...props}>
       <Box as="nav" background="white" pad="small" direction="row" justify="around" border="top">
         <Button onClick={onMenuClick} icon={<TextAlignLeft size="32px" />} />
-        <Link to="/" icon={<Compass size="32px" />} />
+        <Link to="/" onClick={onLandingClicked} icon={<Compass size="32px" />} />
         <Link to="/settings" icon={<Menu size="32px" />} />
       </Box>
     </Container>
