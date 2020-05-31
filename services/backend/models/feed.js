@@ -9,7 +9,7 @@ const categoryByIndex = categories.reduce((h, category, index) => ({...h, [categ
 
 const validateTitle = {
   message: 'description or image is required',
-  validator: function() {
+  validator: function () {
     return !!(this.image || this.description);
   }
 };
@@ -21,13 +21,12 @@ const schema = new Schema(
       required: true,
       unique: true,
       maxlength: [64],
-      default: function() {
+      default: function () {
         const months = dateFns.differenceInMonths(this.published, new Date(0));
         return objectHash({
           title: this.title,
           description: this.description,
           image: this.image,
-          registration: this.registration.toString(),
           date: Math.round(months / 4)
         });
       }
@@ -59,14 +58,14 @@ const schema = new Schema(
   {timestamps: true}
 );
 
-schema.statics.saveFeeds = function(feeds) {
+schema.statics.saveFeeds = function (feeds) {
   return this.insertMany(
     feeds.map(f => f.toObject()).sort((a, b) => a.published.getTime() - b.published.getTime()),
     {ordered: false}
   );
 };
 
-schema.statics.selectFeed = function() {
+schema.statics.selectFeed = function () {
   return {
     lang: 1,
     title: 1,
@@ -80,11 +79,11 @@ schema.statics.selectFeed = function() {
   };
 };
 
-schema.statics.selectArticle = function() {
+schema.statics.selectArticle = function () {
   return {articleCreatedAt: 1, articleError: 1, articleContent: 1};
 };
 
-schema.methods.toJsonSafe = function() {
+schema.methods.toJsonSafe = function () {
   return {...this.toJSON(), _id: undefined, id: this.id, category: categoryByIndex[this.category]};
 };
 

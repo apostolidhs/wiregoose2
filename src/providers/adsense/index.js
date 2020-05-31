@@ -8,7 +8,6 @@ const initialize = once(() => {
   return new Promise((resolve, reject) => {
     const scriptEl = document.createElement('script');
     scriptEl.setAttribute('async', '');
-    scriptEl.setAttribute('data-ad-client', 'ca-pub-3571483150053473');
     scriptEl.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     scriptEl.onerror = reject;
     scriptEl.onload = resolve;
@@ -22,17 +21,20 @@ const AdSenseProvider = ({children}) => {
   const [initialized, setInitialized] = useState();
   const [hasError, setHasError] = useState();
 
-  const dispatch = useMemo(() => ({
-    update: () => {
-      if (!initialized) {
-        initialize().catch(() => setHasError(true));
-        setInitialized(true);
-      }
+  const dispatch = useMemo(
+    () => ({
+      update: () => {
+        if (!initialized) {
+          initialize().catch(() => setHasError(true));
+          setInitialized(true);
+        }
 
-      window.adsbygoogle = window.adsbygoogle || [];
-      window.adsbygoogle.push({});
-    }
-  }));
+        window.adsbygoogle = window.adsbygoogle || [];
+        window.adsbygoogle.push({});
+      }
+    }),
+    [initialized]
+  );
 
   return (
     <DispatchContext.Provider value={dispatch}>

@@ -6,6 +6,8 @@ import Context from './context';
 
 const getInitialState = () => ({providers: [], byCategory: {}, loaded: false});
 
+const comperator = (p1, p2) => p1.name.localeCompare(p2.name);
+
 const Registrations = ({children}) => {
   const notification = useNotification();
   const [state, setState] = useState(getInitialState);
@@ -17,13 +19,18 @@ const Registrations = ({children}) => {
 
     promise
       .then(({data: {registrations, providers}}) => {
-        const sortedProviders = providers.sort((p1, p2) => p1.name.localeCompare(p2.name));
-        const byCategory = registrations.reduce((h, providerIndexes, categoryIndex) => {
-          return {
+        const byCategory = registrations.reduce(
+          (h, providerIndexes, categoryIndex) => ({
             ...h,
-            [config.categories[categoryIndex]]: providerIndexes.map(providerIndex => sortedProviders[providerIndex])
-          };
-        }, {});
+            [config.categories[categoryIndex]]: providerIndexes
+              .map(providerIndex => providers[providerIndex])
+              .sort(comperator)
+          }),
+          {}
+        );
+
+        const sortedProviders = providers.sort(comperator);
+
         setState({byCategory, providers: sortedProviders, loaded: true});
       })
       .catch(error => notification.server(error));

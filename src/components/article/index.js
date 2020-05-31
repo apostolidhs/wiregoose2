@@ -4,6 +4,7 @@ import ImageComponent from 'components/image';
 import {useAdSenseDispatch} from 'providers/adsense';
 import {enabledAdSense} from 'helpers/environment';
 import {useScreenSize} from 'providers/theme/selectors';
+import AdSencePlaceholder from 'components/adSense/placeholder';
 
 const Paragraph = ({text}) => (
   <P size="large" margin="none">
@@ -27,14 +28,16 @@ const AdSense = () => {
   }, []);
 
   return (
-    <Box width={isSmall ? '100%' : '528px'}>
+    <Box width={isSmall ? '100%' : '528px'} height={{min: '200px'}}>
       <ins
         className="adsbygoogle"
         style={{display: 'block', textAlign: 'center'}}
         data-ad-layout="in-article"
         data-ad-format="fluid"
         data-ad-client="ca-pub-3571483150053473"
-        data-ad-slot="1796676796"></ins>
+        data-ad-slot="1796676796">
+        <AdSencePlaceholder />
+      </ins>
     </Box>
   );
 };

@@ -83,7 +83,8 @@ const Sources = ({source, category = 'all'}) => {
     if (!isRegistrationsLoaded) return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
-      const parentNode = tabRef.current.parentNode;
+      const parentNode = tabRef.current && tabRef.current.parentNode;
+      if (!parentNode) return;
       parentNode.scrollTo(tabRef.current.offsetLeft - parentNode.offsetWidth / 2, 0);
     }, 500);
   }, [isRegistrationsLoaded, activeIndex]);
