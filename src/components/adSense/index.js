@@ -14,15 +14,14 @@ const AdSense = props => {
 
   return (
     <Box {...props}>
+      <Placeholder />
       <ins
         className="adsbygoogle"
         style={{display: 'block'}}
         data-ad-format="fluid"
         data-ad-layout-key="-4t+dk-v-5u+on"
         data-ad-client="ca-pub-3571483150053473"
-        data-ad-slot="8493166831">
-        <Placeholder />
-      </ins>
+        data-ad-slot="8493166831"></ins>
     </Box>
   );
 };

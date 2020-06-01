@@ -29,15 +29,14 @@ const AdSense = () => {
 
   return (
     <Box width={isSmall ? '100%' : '528px'} height={{min: '200px'}}>
+      <AdSencePlaceholder />
       <ins
         className="adsbygoogle"
         style={{display: 'block', textAlign: 'center'}}
         data-ad-layout="in-article"
         data-ad-format="fluid"
         data-ad-client="ca-pub-3571483150053473"
-        data-ad-slot="1796676796">
-        <AdSencePlaceholder />
-      </ins>
+        data-ad-slot="1796676796"></ins>
     </Box>
   );
 };

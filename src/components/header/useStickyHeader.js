@@ -9,6 +9,8 @@ export default headerRef => {
     let prevScrollpos = window.pageYOffset;
 
     const onScroll = throttle(() => {
+      if (!headerRef.current) return;
+
       const currentScrollPos = window.pageYOffset;
 
       if (currentScrollPos < height || prevScrollpos - currentScrollPos > 5) {
