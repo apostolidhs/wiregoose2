@@ -43,7 +43,7 @@ const Categories = ({category}) => {
   }, [category]);
 
   useEffect(() => {
-    setHasMore(feeds.length > 0 && Number.isInteger(feeds.length % limit));
+    setHasMore(!loaded || (feeds.length > 0 && Number.isInteger(feeds.length % limit)));
   }, [feeds]);
 
   useEffect(() => {
@@ -73,18 +73,18 @@ const Categories = ({category}) => {
     const fbFeed = {...getInitialFeedState(), type: 'fb'};
     updatedFeeds.splice(8, 1, fbFeed);
 
-    if (feeds.length > 40) {
-      updatedFeeds.splice(38, 1, fbFeed);
+    if (feeds.length > 58) {
+      updatedFeeds.splice(58, 1, fbFeed);
     }
 
-    if (!hasAdBlocked) {
-      const adSenceFeed = {...getInitialFeedState(), type: 'adSence'};
-      updatedFeeds.splice(5, 1, adSenceFeed);
+    // if (!hasAdBlocked) {
+    //   const adSenceFeed = {...getInitialFeedState(), type: 'adSence'};
+    //   updatedFeeds.splice(5, 1, adSenceFeed);
 
-      if (feeds.length > 60) {
-        updatedFeeds.splice(54, 1, adSenceFeed);
-      }
-    }
+    //   if (feeds.length > 60) {
+    //     updatedFeeds.splice(54, 1, adSenceFeed);
+    //   }
+    // }
 
     return updatedFeeds;
   }, [loaded, feeds, hasAdBlocked]);

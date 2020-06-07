@@ -49,7 +49,11 @@ const Timeline = ({feeds, loadMoreItems, hasMore, feedProps, onScroll, ...rest})
     <WindowScroller onScroll={onScroll}>
       {({height, isScrolling, registerChild: windowRegisterChild, onChildScroll, scrollTop}) => (
         <div style={{flex: '1 1 auto'}}>
-          <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={hasMore ? loadMoreItems : noop} rowCount={itemCount}>
+          <InfiniteLoader
+            isRowLoaded={isRowLoaded}
+            loadMoreRows={hasMore ? loadMoreItems : noop}
+            rowCount={itemCount}
+            threshold={10}>
             {({onRowsRendered, registerChild}) => (
               <AutoSizer disableHeight>
                 {({width}) => (

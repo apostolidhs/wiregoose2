@@ -78,28 +78,30 @@ const Article = ({feedId}) => {
     return () => promise.abort();
   }, [feedId]);
 
-  const articleContentWithAds = useMemo(() => {
-    if (articleContent.length < 3 || hasAdBlocked) return articleContent;
+  // const articleContentWithAds = useMemo(() => {
+  //   if (articleContent.length < 3 || hasAdBlocked) return articleContent;
 
-    let totalP = 0;
-    const embedIndex = articleContent.findIndex(({type}, index) => {
-      if (type === 'p') {
-        totalP = totalP + 1;
-      }
-      return totalP === 3;
-    });
+  //   let totalP = 0;
+  //   const embedIndex = articleContent.findIndex(({type}, index) => {
+  //     if (type === 'p') {
+  //       totalP = totalP + 1;
+  //     }
+  //     return totalP === 3;
+  //   });
 
-    if (embedIndex === -1) return articleContent;
+  //   if (embedIndex === -1) return articleContent;
 
-    advsCount = advsCount + 1;
+  //   advsCount = advsCount + 1;
 
-    if (advsCount % 2 === 0) return articleContent;
+  //   if (advsCount % 2 === 0) return articleContent;
 
-    const articleCopy = [...articleContent];
-    articleCopy.splice(embedIndex + 1, 0, {type: 'adSence'});
+  //   const articleCopy = [...articleContent];
+  //   articleCopy.splice(embedIndex + 1, 0, {type: 'adSence'});
 
-    return articleCopy;
-  }, [articleContent, hasAdBlocked]);
+  //   return articleCopy;
+  // }, [articleContent, hasAdBlocked]);
+
+  const articleContentWithAds = articleContent;
 
   const helmetProps = useMemo(() => {
     if (errorCode) return null;

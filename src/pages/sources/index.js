@@ -50,7 +50,7 @@ const Sources = ({source, category = 'all'}) => {
   }, [providerCategories]);
 
   useEffect(() => {
-    setHasMore(feeds.length > 0 && Number.isInteger(feeds.length % limit));
+    setHasMore(!loaded || (feeds.length > 0 && Number.isInteger(feeds.length % limit)));
   }, [feeds]);
 
   useEffect(() => {
