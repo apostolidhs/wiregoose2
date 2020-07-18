@@ -22,7 +22,7 @@
     "grommet-icons": "^4.4.0",
     "helmet": "^3.22.0",
     "jsdom": "^16.2.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lru-cache": "^5.1.1",
     "mongoose": "^5.9.6",
     "mongoose-id-validator": "^0.5.4",
