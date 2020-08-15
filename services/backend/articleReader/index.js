@@ -1,5 +1,5 @@
 const {JSDOM} = require('jsdom');
-const Readability = require('readability');
+const {Readability} = require('@mozilla/readability');
 const flat = require('../../helpers/flatPromise');
 const wwwUrl = require('../../helpers/wwwUrl');
 const errorTypes = require('../models/articleErrorTypes');

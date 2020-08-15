@@ -25,10 +25,10 @@ export const AnimatedRoute = forwardRef(({tabIndex, animatedStyle, style, childr
 });
 
 const animation = {
-  initial: {left: '0', opacity: 1},
-  from: {left: '100%', opacity: 0},
-  enter: {left: '0', opacity: 1},
-  leave: {left: '-100%', opacity: 0}
+  initial: {transform: 'translate3d(0, 0,0)', opacity: 1},
+  from: {transform: 'translate3d(90%, 0,0)', opacity: 0},
+  enter: {transform: 'translate3d(0, 0,0)', opacity: 1},
+  leave: {transform: 'translate3d(-50%, 0,0)', opacity: 0}
 };
 
 const reverseAnimation = {

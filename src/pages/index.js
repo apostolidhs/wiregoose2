@@ -120,7 +120,6 @@ const Pages = () => {
                 </Suspense>
               )}
               <Box
-                style={isSmall ? {} : {position: 'relative'}}
                 height={{min: 'initial'}}
                 width="calc(100% - 300px)"
                 overflow="hidden"
