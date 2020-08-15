@@ -15,20 +15,19 @@ const Credits = () => {
         keywords={['δημιουργοί σελίδας', 'κατασκευαστές', 'ποιοί είμαστε']}
       />
       <Back absolute />
-      <TextedIcon Icon={Edit} flex="grow">
-        Δημιουργοί
-      </TextedIcon>
+      <TextedIcon Icon={Edit}>Δημιουργοί</TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}} justify="center" align="center" gap="small">
         <Paragraph size="large" textAlign="center" margin={{top: 'none', bottom: 'none'}}>
-          Εμπνεύστηκε, Σχεδιάστηκε, Αναπτύχθηκε από τον Γιάννη Αποστολίδη
+          Δημιουργήθηκε από τον Γιάννη Αποστολίδη
         </Paragraph>
         <Box direction="row" justify="center" gap="medium">
           <Anchor
-            icon={<Mail size="large" color="neutral-3" />}
+            icon={<Mail size="68px" color="neutral-3" />}
             href="mailto:john.apostolidi@gmail.com"
             target="_blank"
           />
           <Anchor
+            margin={{top: '10px'}}
             icon={<Linkedin size="large" color="neutral-3" />}
             href="https://www.linkedin.com/in/giannisapostolidis"
             target="_blank"

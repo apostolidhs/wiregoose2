@@ -1,13 +1,16 @@
-import React, {Suspense, lazy, useRef, useEffect, useCallback, useState, forwardRef} from 'react';
+import React, {Suspense, lazy, useRef, useEffect, useCallback, useState} from 'react';
 import {Box} from 'grommet';
 import ReactGA from 'react-ga';
-import {Router, navigate, Location, Redirect} from '@reach/router';
-import Header from 'components/header';
-import useStickyHeader from 'components/header/useStickyHeader';
+import {Router, Location, Redirect} from '@reach/router';
 import {Transition} from 'react-transition-group';
 import {useScreenSize} from 'providers/theme/selectors';
 import {useIsAdmin} from 'providers/session';
 import {enabledAdSense} from 'helpers/environment';
+import Header from 'components/header';
+import useStickyHeader from 'components/header/useStickyHeader';
+import AnimatedRouter, {AnimatedRoute} from './components/animatedRouter';
+import Layout from './components/layout';
+import NotFound from './components/notFound';
 
 const NavBar = lazy(() => import(/* webpackChunkName: 'components.navbar' */ 'components/navbar'));
 const SlideSidebar = lazy(() => import(/* webpackChunkName: 'components.sidebar.slide' */ './sidebar/slide'));
@@ -23,18 +26,6 @@ const Providers = lazy(() => import(/* webpackChunkName: 'page.providers' */ './
 const About = lazy(() => import(/* webpackChunkName: 'page.about' */ './about'));
 const Credits = lazy(() => import(/* webpackChunkName: 'page.credits' */ './credits'));
 
-const Layout = ({children}) => (
-  <Box fill direction="column">
-    {children}
-  </Box>
-);
-
-const RouterComponent = forwardRef(({tabIndex, children, ...rest}, ref) => (
-  <Box ref={ref} height={{min: 'initial'}} width="calc(100% - 300px)" direction="column" flex="grow" {...rest}>
-    {children}
-  </Box>
-));
-
 const initialContentPadding = {
   horizontal: 'none',
   top: 'none',
@@ -46,11 +37,6 @@ const isSidebarOpen = () => window.location.hash === '#sidebar';
 const trackPage = () => {
   if (!enabledAdSense()) return;
   ReactGA.pageview(window.location.href);
-};
-
-const NotFound = () => {
-  navigate('/');
-  return null;
 };
 
 const Pages = () => {
@@ -133,27 +119,41 @@ const Pages = () => {
                   </Box>
                 </Suspense>
               )}
-              <Suspense fallback={null}>
-                <Router component={RouterComponent}>
-                  <Categories path="/" category="all" />
-                  <Categories path="category/:category" />
-                  <Sources path="source/:source/:category" />
+              <Box
+                style={isSmall ? {} : {position: 'relative'}}
+                height={{min: 'initial'}}
+                width="calc(100% - 300px)"
+                overflow="hidden"
+                direction="column"
+                flex="grow">
+                <AnimatedRouter location={location}>
+                  {({currentLocation, animatedStyle, key}) => {
+                    return (
+                      <Suspense fallback={null} key={key}>
+                        <Router location={currentLocation} component={AnimatedRoute} animatedStyle={animatedStyle}>
+                          <Categories path="/" category="all" />
+                          <Categories path="category/:category" />
+                          <Sources path="source/:source/:category" />
 
-                  <Article path="feed/:feedId/article" />
+                          <Article path="feed/:feedId/article" />
 
-                  <Settings path="settings" />
-                  <Providers path="settings/providers" />
-                  <About path="settings/about" />
-                  <Credits path="settings/credits" />
+                          <Settings path="settings" />
+                          <Providers path="settings/providers" />
+                          <About path="settings/about" />
+                          <Credits path="settings/credits" />
 
-                  {isAdmin && <Admin path="admin/*" />}
-                  {!isAdmin && <Redirect from="/admin/*" to="/login" noThrow />}
+                          {isAdmin && <Admin path="admin/*" />}
+                          {!isAdmin && <Redirect from="/admin/*" to="/login" noThrow />}
 
-                  <Login path="login" />
+                          <Login path="login" />
 
-                  <NotFound default />
-                </Router>
-              </Suspense>
+                          <NotFound default />
+                        </Router>
+                      </Suspense>
+                    );
+                  }}
+                </AnimatedRouter>
+              </Box>
             </Box>
             {isSmall && (
               <Suspense fallback={null}>

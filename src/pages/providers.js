@@ -40,7 +40,7 @@ const Providers = () => {
         Πηγές
       </TextedIcon>
       <Box pad={{horizontal: 'small', vertical: 'medium'}}>
-        <Paragraph size="xlarge" alignSelf="center" margin={{top: 'none', bottom: 'none'}}>
+        <Paragraph size="xlarge" margin={{top: 'none', bottom: 'none'}}>
           Σεβόμαστε τις πηγές που αντλούμε τα νέα. Για αυτόν τον λόγο τονίζουμε με πολύ εμφανή τρόπο την πηγή που
           προέρχεται το νέο. Επίσης δίνουμε την δυνατότητα στον χρήστη της εφαρμογής μας να διαβάσει το νέο απευθείας
           από την πηγή του.
