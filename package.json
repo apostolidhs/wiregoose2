@@ -65,7 +65,7 @@
     "production:backend-start": "NODE_ENV=production pm2-runtime start ./services/backend",
     "frontend-start": "EXTEND_ESLINT=true REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
     "frontend-build": "NODE_ENV=production EXTEND_ESLINT=true PUBLIC_URL=https://wiregoose.com REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts build",
-    "deploy-frontend": "rsync -av --exclude '*.map' ./build $DEPLOYER:/usr/src/wiregoose/",
+    "deploy-frontend": "yarn frontend-build && rsync -av --exclude '*.map' ./build $DEPLOYER:/usr/src/wiregoose/",
     "image-proxy": "node ./services/proxy",
     "production:image-proxy": "NODE_ENV=production pm2-runtime start ./services/proxy",
     "crawl-feeds": "node ./services/crawler",

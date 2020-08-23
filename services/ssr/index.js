@@ -29,8 +29,6 @@ app.get('*', async (req, res) => {
 
   if (lruCache.has(url)) return res.send(lruCache.get(url));
 
-  let html;
-
   try {
     const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
 
@@ -38,17 +36,19 @@ app.get('*', async (req, res) => {
 
     await page.goto(url, {waitUntil: 'networkidle0'});
 
-    html = await page.content();
+    let html = await page.content();
 
     html = html.replace(/href=\"\//g, `href="${webpage}`).replace(/src=\"\//g, `src="${webpage}`);
 
     await browser.close();
+
+    lruCache.set(url, html);
+    logger.verbose(`url ${url}, content size ${html.length}`);
+    return res.send(html);
   } catch (error) {
+    logger.error(error.toString());
     return res.status(400).send(error);
   }
-
-  lruCache.set(url, html);
-  return res.send(html);
 });
 
 app.listen(process.env.SSR_PORT, () => {
