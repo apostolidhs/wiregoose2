@@ -121,7 +121,7 @@ const Pages = () => {
               )}
               <Box
                 height={{min: 'initial'}}
-                width="calc(100% - 300px)"
+                width={!isSmall && 'calc(100% - 300px)'}
                 overflow="hidden"
                 direction="column"
                 flex="grow">

@@ -14,9 +14,7 @@ export const AnimatedRoute = forwardRef(({tabIndex, animatedStyle, style, childr
       style={{
         ...style,
         ...animatedStyle,
-        position: 'absolute',
-        height: '100%',
-        width: isSmall ? '100%' : `${window.innerWidth - 300}px`
+        ...(isSmall && {position: 'absolute', width: '100%'})
       }}
       {...rest}>
       {children}
@@ -25,10 +23,10 @@ export const AnimatedRoute = forwardRef(({tabIndex, animatedStyle, style, childr
 });
 
 const animation = {
-  initial: {transform: 'translate3d(0, 0,0)', opacity: 1},
-  from: {transform: 'translate3d(90%, 0,0)', opacity: 0},
-  enter: {transform: 'translate3d(0, 0,0)', opacity: 1},
-  leave: {transform: 'translate3d(-50%, 0,0)', opacity: 0}
+  initial: {transform: 'translate3d(0, 0, 0)', opacity: 1},
+  from: {transform: 'translate3d(100%, 0, 0)', opacity: 0},
+  enter: {transform: 'translate3d(0, 0, 0)', opacity: 1},
+  leave: {transform: 'translate3d(-100%, 0, 0)', opacity: 0}
 };
 
 const reverseAnimation = {
@@ -38,6 +36,7 @@ const reverseAnimation = {
 };
 
 const AnimatedRouter = ({location, children}) => {
+  const {isSmall} = useScreenSize();
   const prevPathname = usePrevious(location.pathname);
   const reverse = prevPathname && prevPathname.startsWith(location.pathname);
 
@@ -47,7 +46,10 @@ const AnimatedRouter = ({location, children}) => {
     ...(reverse ? reverseAnimation : animation)
   });
 
-  return transitions.map(({item, props: animatedStyle, key}) => children({currentLocation: item, animatedStyle, key}));
+  return transitions.map(
+    ({item, props: animatedStyle, key}) =>
+      (isSmall || item.pathname === location.pathname) && children({currentLocation: item, animatedStyle, key})
+  );
 };
 
 export default AnimatedRouter;
