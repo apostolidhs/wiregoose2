@@ -14,6 +14,13 @@ const getArticle = async feed => {
   feed.articleError = error;
   feed.articleContent = content;
 
+  if (!error && !feed.image) {
+    const image = content.find(({type}) => type === 'img');
+    if (image) {
+      feed.image = image.src;
+    }
+  }
+
   await feed.save();
 
   return feed;
