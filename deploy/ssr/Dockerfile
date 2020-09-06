@@ -5,7 +5,8 @@ WORKDIR /home/node/app
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
   && mkdir -p /home/pptruser/Downloads \
   && chown -R pptruser:pptruser /home/pptruser \
-  && chown -R pptruser:pptruser /home/node/app
+  && chown -R pptruser:pptruser /home/node/app \
+  && chown -R pptruser:pptruser /home/node/app/logs
 
 RUN apt-get update && apt-get install -y wget --no-install-recommends \
   && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
