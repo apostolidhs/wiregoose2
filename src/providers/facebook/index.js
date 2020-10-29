@@ -1,40 +1,63 @@
-import React, {useContext} from 'react';
-import once from 'lodash/once';
-import Context from './context';
+import React, {useEffect} from 'react';
+import {makeMemberHoax} from 'react-hoax';
+import {getFacebookId} from 'helpers/environment';
 
-const appId = '821271344594009';
+const getInitialState = () => ({fb: null});
 
-const getFB = once(
-  () =>
-    new Promise(resolve => {
-      window.fbAsyncInit = () => {
-        window.FB.init({
-          appId,
-          autoLogAppEvents: true,
-          version: 'v7.0'
-        });
-        resolve(window.FB);
-      };
+export const hoax = makeMemberHoax('session', {getInitialState});
 
-      const fbEl = document.createElement('div');
-      fbEl.id = 'fb-root';
-      document.body.insertBefore(fbEl, document.body.firstChild);
+export const useFacebookMember = hoax.useMember;
+export const useFacebookSelector = hoax.useSelector;
+export const useFacebookAction = hoax.useAction;
 
-      const scriptEl = document.createElement('script');
-      scriptEl.setAttribute('defer', '');
-      scriptEl.setAttribute('async', '');
-      scriptEl.setAttribute('crossorigin', 'anonymous');
-      scriptEl.src = 'https://connect.facebook.net/el_GR/sdk.js';
+const getFB = () =>
+  new Promise((resolve, reject) => {
+    window.fbAsyncInit = () => {
+      window.FB.init({
+        appId: getFacebookId(),
+        autoLogAppEvents: true,
+        version: 'v7.0'
+      });
+      resolve(window.FB);
+    };
 
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(scriptEl, firstScriptTag);
-    })
-);
+    const fbEl = document.createElement('div');
+    fbEl.id = 'fb-root';
+    document.body.insertBefore(fbEl, document.body.firstChild);
 
-const dispatch = {getFB};
+    const scriptEl = document.createElement('script');
+    scriptEl.setAttribute('defer', '');
+    scriptEl.setAttribute('async', '');
+    scriptEl.setAttribute('crossorigin', 'anonymous');
+    scriptEl.src = 'https://connect.facebook.net/el_GR/sdk.js';
+    scriptEl.onerror = reject;
 
-const FacebookProvider = ({children}) => <Context.Provider value={dispatch}>{children}</Context.Provider>;
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(scriptEl, firstScriptTag);
+  });
 
-export const useFacebook = () => useContext(Context);
+const Container = ({children}) => {
+  const {loaded} = useFacebookSelector();
+  const {startFetch, doneFetch, failFetch} = useFacebookAction();
+
+  useEffect(() => {
+    if (loaded) return;
+
+    startFetch();
+    getFB()
+      .then(fb => doneFetch({fb}))
+      .catch(failFetch);
+  }, []);
+
+  return children;
+};
+
+const FacebookProvider = ({children}) => {
+  return (
+    <hoax.Provider>
+      <Container>{children}</Container>
+    </hoax.Provider>
+  );
+};
 
 export default FacebookProvider;

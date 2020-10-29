@@ -1,5 +1,6 @@
-import React, {useEffect, useMemo} from 'react';
-import storage from 'helpers/storage';
+import React, {useEffect} from 'react';
+import {getFacebookAdminUserId} from 'helpers/environment';
+import {useFacebookSelector} from 'providers/facebook';
 import Hoax from './hoax';
 
 export const useSessionMember = Hoax.useMember;
@@ -7,34 +8,32 @@ export const useSessionSelector = Hoax.useSelector;
 export const useSessionAction = Hoax.useAction;
 export const SessionField = Hoax.Field;
 
-export const useIsAdmin = () => useSessionSelector(({token}) => !!token);
+const facebookMember = {fieldKey: 'facebook'};
 
-const tokenSelector = ({token}) => token;
-export const useSessionToken = () => useSessionSelector(tokenSelector);
+export const useSession = () => {
+  const [facebook, setFacebook] = useSessionMember(facebookMember);
+  const isLoggedIn = facebook !== null;
 
-const SessionContainer = ({children}) => {
-  const token = useSessionSelector(tokenSelector);
-
-  useEffect(() => {
-    storage.set('token', token);
-  }, [token]);
-
-  return children;
+  return {
+    isLoggedIn,
+    isFacebookLoggedIn: isLoggedIn,
+    isAdmin: isLoggedIn && facebook.userID === getFacebookAdminUserId(),
+    setFacebook,
+    type: isLoggedIn ? 'facebook' : '',
+    accessToken: isLoggedIn ? facebook.accessToken : ''
+  };
 };
 
-const storageOptions = {age: 1000 * 60 * 60 * 24 * 3};
-
 const SessionProvider = ({children}) => {
-  const initialState = useMemo(() => {
-    const token = storage.get('token', storageOptions);
-    return token && {token};
-  }, []);
+  const {fb} = useFacebookSelector();
+  useEffect(() => {
+    if (!fb) return;
+    fb.getLoginStatus(response => {
+      console.log('getLoginStatus', response);
+    });
+  }, [fb]);
 
-  return (
-    <Hoax.Provider initialState={initialState}>
-      <SessionContainer>{children}</SessionContainer>
-    </Hoax.Provider>
-  );
+  return <Hoax.Provider>{children}</Hoax.Provider>;
 };
 
 export default SessionProvider;

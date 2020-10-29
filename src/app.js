@@ -15,10 +15,10 @@ const App = () => (
   <ThemeProvider>
     <NotificationsProvider>
       <ConfigProvider>
-        <SessionProvider>
-          <LocalizationProvider>
-            <AdsenseProvider>
-              <FacebookProvider>
+        <FacebookProvider>
+          <SessionProvider>
+            <LocalizationProvider>
+              <AdsenseProvider>
                 <ApiProvider>
                   <RegistrationsProvider>
                     <FeedsProvider>
@@ -26,10 +26,10 @@ const App = () => (
                     </FeedsProvider>
                   </RegistrationsProvider>
                 </ApiProvider>
-              </FacebookProvider>
-            </AdsenseProvider>
-          </LocalizationProvider>
-        </SessionProvider>
+              </AdsenseProvider>
+            </LocalizationProvider>
+          </SessionProvider>
+        </FacebookProvider>
       </ConfigProvider>
     </NotificationsProvider>
   </ThemeProvider>

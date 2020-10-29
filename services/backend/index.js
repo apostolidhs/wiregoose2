@@ -7,6 +7,7 @@ const {connect} = require('../helpers/mongoose');
 const timelineRoutes = require('./routes/timeline');
 const registrationRoutes = require('./routes/registration');
 const providerRoutes = require('./routes/provider');
+const authRoutes = require('./routes/auth');
 const feedRoutes = require('./routes/feed');
 const makeApp = require('../helpers/makeApp');
 const logger = require('./logger');
@@ -20,6 +21,7 @@ timelineRoutes(app);
 registrationRoutes(app);
 feedRoutes(app);
 providerRoutes(app);
+authRoutes(app);
 
 app.listen(process.env.BACKEND_PORT, () => {
   console.log(`✓ Web server is running at ${host}:${process.env.BACKEND_PORT} in ${process.env.NODE_ENV} mode`);

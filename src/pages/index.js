@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import {Router, Location, Redirect} from '@reach/router';
 import {Transition} from 'react-transition-group';
 import {useScreenSize} from 'providers/theme/selectors';
-import {useIsAdmin} from 'providers/session';
+import {useSession} from 'providers/session';
 import {enabledAdSense} from 'helpers/environment';
 import Header from 'components/header';
 import useStickyHeader from 'components/header/useStickyHeader';
@@ -42,7 +42,7 @@ const trackPage = () => {
 const Pages = () => {
   let prevLocation = window.location.href;
   const {isSmall, isLarge} = useScreenSize();
-  const isAdmin = useIsAdmin();
+  const {isAdmin} = useSession();
 
   const headerRef = useRef();
   const [sidebarOpen, setSidebarOpen] = useState(isSidebarOpen);

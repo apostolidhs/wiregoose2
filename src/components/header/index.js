@@ -1,8 +1,9 @@
 import React, {forwardRef} from 'react';
 import styled from 'styled-components';
-import {Box, Heading, Header as GHeader} from 'grommet';
+import {Box, Heading, Header as GHeader, Button} from 'grommet';
 import Link from 'components/link';
 import {useScreenSize} from 'providers/theme/selectors';
+import {useSession} from 'providers/session';
 
 const Container = styled(Box)`
   position: fixed;
@@ -15,6 +16,7 @@ const Container = styled(Box)`
 
 const Header = forwardRef((props, ref) => {
   const {isLarge} = useScreenSize();
+  const {isLoggedIn} = useSession;
   return (
     <Container height={{min: 'initial'}} border="bottom" align="center" ref={ref} {...props}>
       <GHeader
@@ -27,7 +29,7 @@ const Header = forwardRef((props, ref) => {
             Wiregoose
           </Heading>
         </Link>
-        {/* <Button label="Είσοδος" href="/" /> */}
+        {!isLoggedIn && <Button label="Είσοδος" href="/" />}
       </GHeader>
     </Container>
   );

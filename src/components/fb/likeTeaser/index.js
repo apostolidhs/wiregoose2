@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import {Box, Anchor, Heading} from 'grommet';
 import {Facebook} from 'grommet-icons';
 import styled from 'styled-components';
-import {useFacebook} from 'providers/facebook';
+import {useFacebookSelector} from 'providers/facebook';
 import {enabledFBAdv} from 'helpers/environment';
 
 const FBContianer = styled(Box)`
@@ -24,12 +24,9 @@ const StyledAnchor = styled(Anchor)`
 
 const FB = props => {
   const ref = useRef();
-  const {getFB} = useFacebook();
+  const {fb} = useFacebookSelector();
 
-  useEffect(() => {
-    if (!enabledFBAdv()) return;
-    getFB().then(fb => fb.XFBML.parse(ref.current));
-  }, []);
+  useEffect(() => void enabledFBAdv() && fb && fb.XFBML.parse(ref.current), [fb]);
 
   return (
     <FBContianer gap="medium" ref={ref} {...props}>

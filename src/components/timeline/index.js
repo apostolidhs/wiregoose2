@@ -5,7 +5,7 @@ import WindowScroller from 'react-virtualized/dist/commonjs/WindowScroller';
 import InfiniteLoader from 'react-virtualized/dist/commonjs/InfiniteLoader';
 import List from 'react-virtualized/dist/commonjs/List';
 import Feed from 'components/feed';
-import FB from 'components/fb';
+import LikeTeaser from 'components/fb/likeTeaser';
 import AdSense from 'components/adSense';
 import Skeleton from 'components/feed/skeleton';
 import 'react-virtualized/styles.css';
@@ -23,7 +23,7 @@ const defaultFeedProps = {
 
 const byType = {
   feed: Feed,
-  fb: FB,
+  fb: LikeTeaser,
   adSence: AdSense,
   default: Skeleton
 };
