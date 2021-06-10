@@ -28,7 +28,7 @@
     "mongoose": "^5.10.0",
     "mongoose-id-validator": "^0.6.0",
     "morgan": "^1.10.0",
-    "normalize-url": "^5.1.0",
+    "normalize-url": "^5.3.1",
     "object-hash": "^2.0.3",
     "puppeteer": "^5.2.1",
     "react": "^16.13.1",
